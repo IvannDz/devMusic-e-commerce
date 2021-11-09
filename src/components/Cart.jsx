@@ -17,7 +17,7 @@ import { BsBoxArrowUpRight, BsFillTrashFill } from 'react-icons/bs';
 export default function Cart() {
   const header = ['name', 'created', 'actions'];
   const data = [
-    { name: 'Daggyss', created: '7 days agos' },
+    { name: 'Daggy', created: '7 days ago' },
     { name: 'Anubra', created: '23 hours ago' },
     { name: 'Josef', created: 'A few seconds ago' },
     { name: 'Sage', created: 'A few hours ago' },

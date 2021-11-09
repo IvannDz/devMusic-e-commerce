@@ -51,7 +51,7 @@ export default function Navbar() {
               color="brand.500"
               display={{ base: "none", md: "inline-flex" }}
             >
-              <Button variant="ghost">Categorias</Button>
+              <Button variant="ghost">Category</Button>
              
             <InputGroup>
               <InputLeftElement
