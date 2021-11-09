@@ -1,5 +1,5 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
-const sequelize = require('../config/db')
+const { DataTypes, Model } = require('sequelize');
+const db = require('../config/db')
 
 class Product extends Model {}
 
@@ -22,15 +22,15 @@ Product.init({
         allowNull: false
     },
     stock: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     price: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
 }, {
-    sequelize, 
+    sequelize: db, 
     modelName: 'Product' 
   })
 

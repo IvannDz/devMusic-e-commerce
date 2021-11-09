@@ -1,19 +1,22 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
-const sequelize = require('../config/db')
+const { DataTypes, Model } = require("sequelize");
+const sequelize = require("../config/db");
 
 class Cart extends Model {}
-Cart.init({
+Cart.init(
+  {
     total: {
-        type: DataTypes.NUMBER,
-        allowNull: false
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     done: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
-}, {
-    sequelize, 
-    modelName: 'Cart' 
-  })
+  },
+  {
+    sequelize: sequelize,
+    modelName: "Cart",
+  }
+);
 
-module.exports = Cart
+module.exports = Cart;

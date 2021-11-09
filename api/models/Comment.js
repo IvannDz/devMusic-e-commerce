@@ -8,11 +8,11 @@ Comment.init({
         allowNull: false
     },
     puntuacion: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
 }, {
-    sequelize, 
+    sequelize: sequelize, 
     modelName: 'Comment' 
   })
 

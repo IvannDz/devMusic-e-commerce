@@ -11,7 +11,7 @@ Category.init({
     },
 
 }, {
-    sequelize, 
+    sequelize: sequelize, 
     modelName: 'Category' 
   })
 

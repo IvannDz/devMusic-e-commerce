@@ -6,4 +6,8 @@ const Comment = require('./Comment')
 
 
 
+
+Category.hasMany(Product, {as: "category"})
+
+
 module.exports = { User, Product, Category, Cart, Comment }
