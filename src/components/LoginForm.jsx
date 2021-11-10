@@ -45,7 +45,7 @@ export default function LoginForm() {
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value)
-                  console.log(e.target.value)
+                  
                 }}
               />
             </FormControl>
