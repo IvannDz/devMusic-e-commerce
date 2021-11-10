@@ -1,3 +1,7 @@
+import {React, useState, useEffect} from "react";
+import axios from "axios"
+import {useHistory} from "react-router-dom"
+
 import {
   Flex,
   Box,
@@ -14,6 +18,29 @@ import {
 } from "@chakra-ui/react";
 
 export default function RegisterForm() {
+  const history = useHistory()
+
+  const [user, setUser] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [tel, setTel] = useState("")
+
+  const handleSubmit = (e) =>{
+    e.preventDefault()
+    axios.post("http://localhost:8080/api/auth/register", {
+      user,
+      email,
+      password,
+      isAdmin,
+      tel
+  })
+  .then(res => res.data)
+  history.push("/login")
+  
+  }
+
+
   return (
     <Flex
       minH={"100vh"}
@@ -32,14 +59,27 @@ export default function RegisterForm() {
           p={8}
         >
           <Stack spacing={4}>
+          <FormControl id="userName">
+              <FormLabel>User</FormLabel>
+              <Input type="text" onChange ={(e)=> setUser(e.target.value)} value={user}/>
+            </FormControl>
+
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input type="email" onChange ={(e)=> setEmail(e.target.value)} value={email}/>
             </FormControl>
+
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
-              <Input type="password" />
+              <Input type="password" onChange ={(e)=> setPassword(e.target.value)} value={password}/>
             </FormControl>
+
+            <FormControl id="tel">
+              <FormLabel>Telephone</FormLabel>
+              <Input type="number" onChange ={(e)=> {setTel(e.target.value)
+              console.log(e.value.target)}} value={tel}/>
+            </FormControl>
+
             <Stack spacing={10}>
               <Stack
                 direction={{ base: "column", sm: "row" }}
@@ -47,7 +87,7 @@ export default function RegisterForm() {
                 justify={"space-between"}
               >
                 <Checkbox>Remember me</Checkbox>
-                <Link color={"blue.400"}>Forgot password?</Link>
+                <Link color={"blue.400"}>Forgot-password?</Link>
               </Stack>
               <Button
                 bg={"blue.400"}
