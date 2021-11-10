@@ -68,7 +68,7 @@ passport.deserializeUser(function (id, done) {
 app.use('/api', routes)
 
 
- db.sync({force: true})
-.then(() => app.listen(3000, () => {
-    console.log('listen on port 3000')
+ db.sync({force: false})
+.then(() => app.listen(8080, () => {
+    console.log('listen on port 8080')
 })) 
