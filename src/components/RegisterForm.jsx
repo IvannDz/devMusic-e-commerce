@@ -1,6 +1,6 @@
-import {React, useState, useEffect} from "react";
-import axios from "axios"
-import {useHistory} from "react-router-dom"
+import { React, useState} from "react";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 import {
   Flex,
@@ -14,70 +14,83 @@ import {
   Button,
   Heading,
   Text,
- 
 } from "@chakra-ui/react";
 
 export default function RegisterForm() {
-  const history = useHistory()
+  const history = useHistory();
 
-  const [user, setUser] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [isAdmin, setIsAdmin] = useState(false)
-  const [tel, setTel] = useState("")
+  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [tel, setTel] = useState("");
 
-  const handleSubmit = (e) =>{
-    e.preventDefault()
-    axios.post("http://localhost:8080/api/auth/register", {
-      user,
-      email,
-      password,
-      isAdmin,
-      tel
-  })
-  .then(res => res.data)
-  history.push("/login")
-  
-  }
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:8080/api/auth/register", {
+        user,
+        email,
+        password,
+        tel,
+      })
+      .then((res) => res.data);
+    alert("El usuario se ha registrado");
+    history.push("/login");
+  };
 
   return (
-    <Flex
-      minH={"100vh"}
-      align={"center"}
-      justify={"center"}
-      bg={"gray.50"}
-    >
+    <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"gray.50"}>
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"}>Register</Heading>
         </Stack>
-        <Box
-          rounded={"lg"}
-          bg={"white"}
-          boxShadow={"lg"}
-          p={8}
-        >
+        <Box rounded={"lg"} bg={"white"} boxShadow={"lg"} p={8}>
           <Stack spacing={4}>
-          <FormControl id="userName">
+            <FormControl id="userName">
               <FormLabel>User</FormLabel>
-              <Input type="text" onChange ={(e)=> setUser(e.target.value)} value={user}/>
+              <Input
+                type="text"
+                value={user}
+                onChange={(e) => {
+                  setUser(e.target.value);
+                  console.log(e.target.value);
+                }}
+              />
             </FormControl>
 
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
-              <Input type="email" onChange ={(e)=> setEmail(e.target.value)} value={email}/>
+              <Input
+                type="email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                value={email}
+              />
             </FormControl>
 
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
-              <Input type="password" onChange ={(e)=> setPassword(e.target.value)} value={password}/>
+              <Input
+                type="password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                value={password}
+              />
             </FormControl>
 
             <FormControl id="tel">
               <FormLabel>Telephone</FormLabel>
-              <Input type="number" onChange ={(e)=> {setTel(e.target.value)
-              console.log(e.value.target)}} value={tel}/>
+              <Input
+                type="number"
+                value={tel}
+                onChange={(e) => {
+                  setTel(e.target.value);
+                  console.log(e.target.value);
+                }}
+              />
             </FormControl>
 
             <Stack spacing={10}>
@@ -95,6 +108,7 @@ export default function RegisterForm() {
                 _hover={{
                   bg: "blue.500",
                 }}
+                onSubmit={handleSubmit}
               >
                 Sign in
               </Button>
