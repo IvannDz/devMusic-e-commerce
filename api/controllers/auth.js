@@ -49,7 +49,7 @@ class AuthController {
     //"/logout"
     static async logout(req, res) {
         req.logout()
-        res.senStatus(204)
+        res.sendStatus(204)
     }
 
 
