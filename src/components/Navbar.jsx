@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { logoutRequest } from "../state/user";
+import { logoutRequest } from "../state/userReducer";
 
 import {
   chakra,

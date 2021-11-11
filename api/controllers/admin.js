@@ -11,7 +11,7 @@ class AdminController {
       await categoria.addCategory(newProduct);
       res.sendStatus(201);
     } catch (err) {
-      res.sendStatus(500);
+      res.send(err);
     }
   }
   static async putProduct(req, res) {

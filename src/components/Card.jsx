@@ -8,11 +8,14 @@ import {
   Stack,
   Image,
 } from "@chakra-ui/react";
+import {Link} from "react-router-dom"
 
-function Card({ name, price, image }) {
+function Card({ name, price, photo, id }) {
+  //aca hacer el history push con el on click para mandar el id al producto unitario
   console.log(name);
   return (
     <Center py={12}>
+    <Link to={`/products/${id}`}>
       <Box
         role={"group"}
         p={6}
@@ -37,7 +40,7 @@ function Card({ name, price, image }) {
             pos: "absolute",
             top: 5,
             left: 0,
-            backgroundImage: `url(${image})`,
+            backgroundImage: `url(${photo})`,
             filter: "blur(15px)",
             zIndex: -1,
           }}
@@ -52,7 +55,7 @@ function Card({ name, price, image }) {
             height={230}
             width={282}
             objectFit={"cover"}
-            src={image}
+            src={photo}
           />
         </Box>
         <Stack pt={10} align={"center"}>
@@ -66,6 +69,7 @@ function Card({ name, price, image }) {
           </Stack>
         </Stack>
       </Box>
+      </Link>
     </Center>
   );
 }
