@@ -4,6 +4,7 @@ class AuthController {
     //"/me"
     static async getUser(req, res) {
         res.send(req.user)
+        // !req.user ? res.sendStatus(401) : res.send(req.user);
     }
 
     //"/login"
@@ -49,7 +50,7 @@ class AuthController {
     //"/logout"
     static async logout(req, res) {
         req.logout()
-        res.senStatus(204)
+        res.sendStatus(204)
     }
 
 
