@@ -30,6 +30,7 @@ class ProductsController {
     const products = await Product.findAll({ where: { name: name } });
     res.send(products);
   }
+
 }
 
 module.exports = ProductsController;

@@ -4,6 +4,7 @@ class AuthController {
     //"/me"
     static async getUser(req, res) {
         res.send(req.user)
+        // !req.user ? res.sendStatus(401) : res.send(req.user);
     }
 
     //"/login"
