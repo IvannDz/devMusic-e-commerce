@@ -11,3 +11,4 @@ Category.hasMany(Product, {as: "category"})
 
 
 module.exports = { User, Product, Category, Cart, Comment }
+
