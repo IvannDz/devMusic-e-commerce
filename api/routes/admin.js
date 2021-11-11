@@ -14,6 +14,6 @@ router.get("/users/:id", isLogendInAdmin, adminController.getOnlyUser);
 router.put("/users/:id", isLogendInAdmin, adminController.upAdmin);
 router.delete("/users/:id", isLogendInAdmin, adminController.deleteUser);
 router.get("/", isLogendInAdmin, adminController.getAllAdmins);
-router.delete("/only/:id", isLogendInAdmin, adminController.deleteAdmin);
+router.delete("/only/:id", isLogendInAdmin, adminController.deleteAdmin)
 
 module.exports = router;
