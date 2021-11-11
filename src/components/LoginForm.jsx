@@ -51,7 +51,6 @@ export default function LoginForm() {
         <Stack align={"center"}>
           <Heading fontSize={"4xl"}>Login to your account</Heading>
         </Stack>
-
         <Box
           rounded={"lg"}
           bg={useColorModeValue("white", "gray.700")}

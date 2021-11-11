@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { React, useState } from "react";
+=======
+import { React, useState} from "react";
+>>>>>>> 131a919d26b07a5419889b67a432c7aef1814dd3
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
@@ -19,21 +23,37 @@ import {
 export default function RegisterForm() {
   const history = useHistory();
 
+<<<<<<< HEAD
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+=======
+  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+>>>>>>> 131a919d26b07a5419889b67a432c7aef1814dd3
   const [tel, setTel] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
+<<<<<<< HEAD
       .post("/api/auth/register", {
         userName,
+=======
+      .post("http://localhost:8080/api/auth/register", {
+        user,
+>>>>>>> 131a919d26b07a5419889b67a432c7aef1814dd3
         email,
         password,
         tel,
       })
       .then((res) => res.data);
+<<<<<<< HEAD
+=======
+    alert("El usuario se ha registrado");
+>>>>>>> 131a919d26b07a5419889b67a432c7aef1814dd3
     history.push("/login");
   };
 
@@ -45,6 +65,7 @@ export default function RegisterForm() {
         </Stack>
         <Box rounded={"lg"} bg={"white"} boxShadow={"lg"} p={8}>
           <Stack spacing={4}>
+<<<<<<< HEAD
             <form onSubmit={handleSubmit}>
               <FormControl id="userName">
                 <FormLabel>User</FormLabel>
@@ -111,6 +132,74 @@ export default function RegisterForm() {
                 </Button>
               </Stack>
             </form>
+=======
+            <FormControl id="userName">
+              <FormLabel>User</FormLabel>
+              <Input
+                type="text"
+                value={user}
+                onChange={(e) => {
+                  setUser(e.target.value);
+                  console.log(e.target.value);
+                }}
+              />
+            </FormControl>
+
+            <FormControl id="email">
+              <FormLabel>Email address</FormLabel>
+              <Input
+                type="email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                value={email}
+              />
+            </FormControl>
+
+            <FormControl id="password">
+              <FormLabel>Password</FormLabel>
+              <Input
+                type="password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                value={password}
+              />
+            </FormControl>
+
+            <FormControl id="tel">
+              <FormLabel>Telephone</FormLabel>
+              <Input
+                type="number"
+                value={tel}
+                onChange={(e) => {
+                  setTel(e.target.value);
+                  console.log(e.target.value);
+                }}
+              />
+            </FormControl>
+
+            <Stack spacing={10}>
+              <Stack
+                direction={{ base: "column", sm: "row" }}
+                align={"start"}
+                justify={"space-between"}
+              >
+                <Checkbox>Remember me</Checkbox>
+                <Link color={"blue.400"}>Forgot-password?</Link>
+              </Stack>
+              <Button
+                bg={"blue.400"}
+                color={"white"}
+                _hover={{
+                  bg: "blue.500",
+                }}
+                onSubmit={handleSubmit}
+              >
+                Sign in
+              </Button>
+            </Stack>
+>>>>>>> 131a919d26b07a5419889b67a432c7aef1814dd3
           </Stack>
         </Box>
       </Stack>
