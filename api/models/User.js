@@ -9,6 +9,9 @@ User.init(
     userName: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate:{
+        is: /^[a-z]+$/i,
+      }
     },
     email: {
       type: DataTypes.STRING,

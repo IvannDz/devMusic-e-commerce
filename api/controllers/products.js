@@ -20,7 +20,7 @@ class ProductsController {
       where: { name: category },
     });
     const products = await Product.findAll({
-      where: { categoryId: categoria.id },
+      where: { CategoryId: categoria.id },
     });
     res.send(products);
   }
@@ -29,6 +29,16 @@ class ProductsController {
     const { name } = req.params;
     const products = await Product.findAll({ where: { name: name } });
     res.send(products);
+  }
+
+  static async getAllCategory(req, res) {
+    try {
+      const category = await Category.findAll()
+      res.send(category);
+    }
+    catch {
+      res.sendStatus(500);
+    }
   }
 
 }

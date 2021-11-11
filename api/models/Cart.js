@@ -12,6 +12,10 @@ Cart.init(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    products:{
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      
+    },
   },
   {
     sequelize: sequelize,
