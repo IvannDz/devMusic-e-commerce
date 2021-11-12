@@ -1,0 +1,7 @@
+{
+    "database": "ECOMMERCE",
+    "dialect": "postgres",
+    "logging": false,
+    "username" : null,
+    "password" : null
+  }
