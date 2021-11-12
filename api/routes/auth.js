@@ -9,6 +9,7 @@ router.post("/login", passport.authenticate("local"), AuthController.login);
 router.post("/register", AuthController.register);
 router.put("/me",isLoggedIn, AuthController.updateMe);
 router.delete("/me",isLoggedIn, AuthController.deleteMe);
+router.get("/me/buyOrder",isLoggedIn, AuthController.getBuyOrder);
 router.post("/logout",AuthController.logout);
 
 

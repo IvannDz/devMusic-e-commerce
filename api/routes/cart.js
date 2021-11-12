@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const insLogendInAdmin = require("../utils/insLogendInAdmin")
+const isLogendIn = require("../utils/isLogendIn")
 const CartController = require("../controllers/cart");
 
-router.get("/", insLogendInAdmin, CartController.getCart);
-router.post("/", insLogendInAdmin, CartController.postProduct);
-/* router.put("/", isLoggedIn, CartController.putProduct);
-router.delete("/", isLoggedIn, CartController.deleteProduct); */
+router.get("/", isLogendIn, CartController.getCart);
+router.post("/", isLogendIn, CartController.postProduct);
+router.put("/buy", isLogendIn, CartController.comprar);
+router.delete("/", isLogendIn, CartController.deleteProduct); 
 
 module.exports = router
