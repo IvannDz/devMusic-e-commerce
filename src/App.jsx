@@ -9,7 +9,7 @@ import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import Cart from "./components/Cart";
 import CardProduct from "./components/CardProduct";
-import { setUser } from "./state/user";
+import { setUser } from "./state/userReducer";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
