@@ -59,9 +59,15 @@ export default function RegisterForm() {
         </Stack>
         <Box rounded={"lg"} bg={"white"} boxShadow={"lg"} p={8}>
           <Stack spacing={4}>
+<<<<<<< HEAD
 
               <FormControl id="userName" isInvalid={noValUser.test(userName) && errors.userName} isRequired >
                 <FormLabel htmlFor="name">User</FormLabel>
+=======
+            <form onSubmit={handleSubmit}>
+              <FormControl id="userName">
+                <FormLabel>User</FormLabel>
+>>>>>>> 8a04363758bc26ce665afa3a5c2ada9b9deff4cb
                 <Input
                   id="userName"
                   type="text"
@@ -160,6 +166,10 @@ export default function RegisterForm() {
                   Sign in
                 </Button>
               </Stack>
+<<<<<<< HEAD
+=======
+            </form>
+>>>>>>> 8a04363758bc26ce665afa3a5c2ada9b9deff4cb
           </Stack>
         </Box>
       </Stack>
