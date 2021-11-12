@@ -14,7 +14,7 @@ Cart.init(
     },
     products:{
       type: DataTypes.ARRAY(DataTypes.INTEGER),
-      
+      defaultValue:[] 
     },
   },
   {
