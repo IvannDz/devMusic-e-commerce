@@ -4,11 +4,15 @@ import "./index.css";
 import App from "./App";
 import { ChakraProvider } from "@chakra-ui/react"
 import { BrowserRouter } from "react-router-dom";
+import store from "./state/store";
+import { Provider } from "react-redux";
 
 const app=(
     <BrowserRouter>
     <ChakraProvider>
-        <App/>
+    <Provider store={store}>
+      <App />
+    </Provider>
     </ChakraProvider>
     </BrowserRouter>
 )

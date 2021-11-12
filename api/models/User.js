@@ -9,6 +9,9 @@ User.init(
     userName: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate:{
+        is: /^[a-z]+$/i,
+      }
     },
     email: {
       type: DataTypes.STRING,
@@ -26,6 +29,10 @@ User.init(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    isSuperAdmin:{
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
     tel: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -33,7 +40,7 @@ User.init(
   },
   {
     sequelize: sequelize,
-    modelName: "Users",
+    modelName: "user",
   }
 );
 

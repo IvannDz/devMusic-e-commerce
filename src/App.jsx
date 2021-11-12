@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch} from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Banner from "./components/Banner";
@@ -9,8 +9,26 @@ import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import Cart from "./components/Cart";
 import CardProduct from "./components/CardProduct";
+import { setUser } from "./state/userReducer";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 
 function App() {
+
+
+  const dispatch = useDispatch();
+  //Aca hago la persistencia.
+  useEffect(() => {
+    axios
+      .get("/api/auth/me")
+      .then((res) => {
+        dispatch(setUser(res.data));
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+
   return (
     <div>
       <Navbar />
