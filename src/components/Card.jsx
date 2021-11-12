@@ -11,7 +11,6 @@ import {
 import {Link} from "react-router-dom"
 
 function Card({ name, price, photo, id }) {
-  //aca hacer el history push con el on click para mandar el id al producto unitario
   console.log(name);
   return (
     <Center py={12}>
