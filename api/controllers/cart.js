@@ -51,19 +51,19 @@ class CartController {
   }
 
   static async deleteProduct(req, res) {
-    const productId = req.body.id;
+    const { idProduct, price } = req.body;
 
     let cart = await Cart.findOne({
       where: { userId: req.user.id, done: false },
     });
 
     const productsCopy = cart.products;
-    const index = cart.products.indexOf(productId);
+    const index = cart.products.indexOf(idProduct);
 
     productsCopy.splice(index, 1);
 
     const upCart = await Cart.update(
-      { products: productsCopy },
+      { products: productsCopy, total: cart.total - price },
       {
         where: { userId: req.user.id, done: false },
         returning: true,
