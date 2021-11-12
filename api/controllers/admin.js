@@ -13,7 +13,7 @@ class AdminController {
       res.send(await Product.findOne({ where: { id: newProduct.id } }));
     } catch (err) {
       res.statusCode = 500;
-      res.send(err);
+      return  res.send(err);
     }
   }
   static async putProduct(req, res) {
