@@ -2,13 +2,17 @@ import { React, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginRequest } from "../state/user";
+import { loginRequest } from "../state/userReducer";
+import { useForm } from "react-hook-form";
+
 
 import {
   Flex,
   Box,
   FormControl,
   FormLabel,
+  FormErrorMessage,
+  FormHelperText,
   Input,
   Checkbox,
   Stack,
@@ -25,19 +29,18 @@ export default function LoginForm() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleSubmit = (e, email, password) => {
-    e.preventDefault();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+} = useForm();
+
+
+  const onSubmit = ({email, password}) => {
     dispatch(loginRequest({ email, password })).then((res) => {
       history.push("/");
       return res;
     });
-  };
-
-  const handleEmail = (eventE) => {
-    setEmail(eventE.target.value);
-  };
-  const handlePassword = (eventP) => {
-    setPassword(eventP.target.value);
   };
 
   return (
@@ -58,18 +61,42 @@ export default function LoginForm() {
           p={8}
         >
           <Stack spacing={4}>
-            <form onSubmit={(e) => handleSubmit(e, email, password)}>
-              <FormControl id="email">
-                <FormLabel>Email address</FormLabel>
-                <Input type="email" value={email} onChange={handleEmail} />
+            <form onSubmit={handleSubmit(onSubmit)}>
+
+              <FormControl id="email" isInvalid={errors.email} isRequired>
+                <FormLabel htmlFor="email">Email address</FormLabel>
+                <Input
+                  type="email"
+                  
+                  {...register('email', {
+                    required: 'Email is Required',
+                    pattern: {
+                      value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      message: 'Invalid email address',
+                    },
+                  })}
+                  value={email}
+                  onChange={(e) => {setEmail(e.target.value)}}
+                />
+                <FormErrorMessage>{errors.email && errors.email.message}</FormErrorMessage>
               </FormControl>
-              <FormControl id="password">
-                <FormLabel>Password</FormLabel>
+
+              <FormControl id="password" isInvalid={password.length < 5 && errors.password} isRequired>
+                <FormLabel htmlFor="password">Password</FormLabel>
                 <Input
                   type="password"
+                  {...register('password', {
+
+                    required: 'Password is Required',
+                    pattern:{
+                      minLength: { value: 5},
+                      message: 'Password minimun length should be 5'
+                    }
+                  })}
                   value={password}
-                  onChange={handlePassword}
+                  onChange={(e) => {setPassword(e.target.value)}}
                 />
+                <FormErrorMessage>{errors.password && errors.password.message}</FormErrorMessage>
               </FormControl>
               <Stack spacing={10}>
                 <Stack

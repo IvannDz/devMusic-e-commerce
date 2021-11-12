@@ -15,9 +15,9 @@ import { AiFillEdit } from 'react-icons/ai';
 import { BsBoxArrowUpRight, BsFillTrashFill } from 'react-icons/bs';
 
 export default function Cart() {
-  const header = ['name', 'created', 'actions', 'price'];
+  const header = ['name', 'created','price', 'actions', ];
   const data = [
-    { name: 'Daggy', created: '7 days ago' },
+    { name: 'Daggy', created: '7 days ago', done:"hola" },
     { name: 'Anubra', created: '23 hours ago' },
     { name: 'Josef', created: 'A few seconds ago' },
     { name: 'Sage', created: 'A few hours ago' },
