@@ -15,7 +15,6 @@ class CartController {
     //id y precio del producto
     const { id, price } = req.body;
 
-    //busco si ya existe un carrito activo
     let cart = await Cart.findOne({
       where: { userId: req.user.id, done: false },
     });
