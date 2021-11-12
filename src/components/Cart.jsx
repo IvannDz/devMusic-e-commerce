@@ -12,15 +12,17 @@ import {
   Tbody,
 } from '@chakra-ui/react';
 import { AiFillEdit } from 'react-icons/ai';
-import { BsBoxArrowUpRight, BsFillTrashFill } from 'react-icons/bs';
+import { BsBoxArrowUpRight, BsFillTrashFill, } from 'react-icons/bs';
+import {GrFormSubtract, GrFormAdd} from 'react-icons/gr'
 
 export default function Cart() {
-  const header = ['name', 'created','price', 'actions', ];
+  const header = ['Product', 'Quantity','Price', 'Total','Actions' ];
   const data = [
-    { name: 'Daggy', created: '7 days ago', done:"hola" },
-    { name: 'Anubra', created: '23 hours ago' },
-    { name: 'Josef', created: 'A few seconds ago' },
-    { name: 'Sage', created: 'A few hours ago' },
+    { name: 'Guitarra', created: '1', done:"$70.000", total:"$70.000" },
+    { name: 'Piano', created: '1', done:"$100.000", total:"$100.000"},
+    { name: 'Bateria', created: '2', done:"$150.000", total:"$300.000"},
+    { name: 'Bajo', created: '3', done:"$200.000", total:"$600.000"},
+    
   ];
   return (
     <Flex
@@ -32,7 +34,7 @@ export default function Cart() {
     >
       <Table
         w="full"
-        bg={ '#f2e9e4'}
+        bg="gray.300"
         display={{
           base: 'block',
           md: 'table',
@@ -142,9 +144,9 @@ export default function Cart() {
                   <ButtonGroup variant="solid" size="sm" spacing={3}>
                     <IconButton
                       colorScheme="blue"
-                      icon={<BsBoxArrowUpRight />}
+                      icon={<GrFormSubtract />}
                     />
-                    <IconButton colorScheme="green" icon={<AiFillEdit />} />
+                    <IconButton colorScheme="green" icon={<GrFormAdd />} />
                     <IconButton
                       colorScheme="red"
                       variant="outline"

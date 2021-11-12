@@ -60,7 +60,7 @@ export default function Navbar() {
                 color="brand.500"
                 display={{ base: "none", md: "inline-flex" }}
               >
-                <Button variant="ghost">Category</Button>
+                <Button variant="ghost">Categories</Button>
 
                 <InputGroup>
                   <InputLeftElement pointerEvents="none" />
@@ -68,7 +68,7 @@ export default function Navbar() {
                 </InputGroup>
 
                 <Link to="/login">
-                  <Button variant="solid" colorScheme="pink">
+                  <Button variant="solid" colorScheme="gray">
                     {user.userName}
                   </Button>
                 </Link>
@@ -76,7 +76,7 @@ export default function Navbar() {
               <Link to="/">
                 <Button
                   variant="solid"
-                  colorScheme="pink"
+                  colorScheme="gray"
                   onClick={handleLogout}
                 >
                   Logout
@@ -84,7 +84,7 @@ export default function Navbar() {
               </Link>
               <Link to="/cart">
                 <IconButton
-                  colorScheme="pink"
+                  colorScheme="gray"
                   variant="outline"
                   icon={<AiOutlineShoppingCart />}
                 />
@@ -157,7 +157,7 @@ export default function Navbar() {
                 color="brand.500"
                 display={{ base: "none", md: "inline-flex" }}
               >
-                <Button variant="ghost">Category</Button>
+                <Button variant="ghost">Categories</Button>
 
                 <InputGroup>
                   <InputLeftElement pointerEvents="none" />
@@ -165,19 +165,19 @@ export default function Navbar() {
                 </InputGroup>
 
                 <Link to="/login">
-                  <Button variant="solid" colorScheme="pink">
+                  <Button variant="solid" colorScheme="gray">
                     Login
                   </Button>
                 </Link>
               </HStack>
               <Link to="/register">
-                <Button variant="solid" colorScheme="pink">
+                <Button variant="solid" colorScheme="gray">
                   Sign Up
                 </Button>
               </Link>
               <Link to="/cart">
                 <IconButton
-                  colorScheme="pink"
+                  colorScheme="gray"
                   variant="outline"
                   icon={<AiOutlineShoppingCart />}
                 />

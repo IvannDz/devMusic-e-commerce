@@ -19,7 +19,7 @@ const Ma = () => {
     dispatch(getProducts())
   },[])
   
-const {name,description,price,image,stock}=fakeProd
+
 
   return (
     <Flex
@@ -101,7 +101,7 @@ const {name,description,price,image,stock}=fakeProd
             height="full"
             width="full"
             objectFit={"cover"}
-            src={image}
+            src="photo.jpg"
           />
         </Box>
 
