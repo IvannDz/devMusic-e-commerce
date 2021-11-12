@@ -1,16 +1,19 @@
 const express = require("express");
 const router = express.Router();
- //colocar como middlewars a todas las rutas
 const isLogendInAdmin = require("../utils/insLogendInAdmin");
 const adminController = require("../controllers/admin");
-//const passport = require("passport");
 
-router.post("/", adminController.postProduct);
-router.put("/product/:id", adminController.putProduct);
-router.delete("/product/:id", adminController.deleteProduct);
-/*router.get("/users", adminController.getAllUsers);
-router.get("/users/:id", adminController.getOnlyUser);
-router.put("/users/:id", adminController.putUser);
-router.delete("/users/:id", adminController.deleteUser); */
+router.post("/", isLogendInAdmin, adminController.postProduct);
+router.post("/category", isLogendInAdmin, adminController.postCategory);
+router.put("/category/:id", isLogendInAdmin, adminController.putCategory);
+router.delete("/category/:id", isLogendInAdmin, adminController.deleteCategory);
+router.put("/product/:id", isLogendInAdmin, adminController.putProduct);
+router.delete("/product/:id", isLogendInAdmin, adminController.deleteProduct);
+router.get("/users", isLogendInAdmin, adminController.getAllUsers);
+router.get("/users/:id", isLogendInAdmin, adminController.getOnlyUser);
+router.put("/users/:id", isLogendInAdmin, adminController.upAdmin);
+router.delete("/users/:id", isLogendInAdmin, adminController.deleteUser);
+router.get("/", isLogendInAdmin, adminController.getAllAdmins);
+router.delete("/only/:id", isLogendInAdmin, adminController.deleteAdmin)
 
 module.exports = router;
