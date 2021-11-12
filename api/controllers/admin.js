@@ -1,4 +1,5 @@
-const { Product, Category } = require("../models");
+const { Product, Category, User } = require("../models");
+const sequelize = require("sequelize");
 
 class AdminController {
   // '/admin'
@@ -9,9 +10,10 @@ class AdminController {
         where: { name: req.body.category },
       });
       await categoria.addCategory(newProduct);
-      res.sendStatus(201);
+      res.send(await Product.findOne({ where: { id: newProduct.id } }));
     } catch (err) {
-      res.sendStatus(500);
+      res.statusCode = 500;
+      res.send(err);
     }
   }
   static async putProduct(req, res) {
@@ -39,10 +41,106 @@ class AdminController {
     Product.destroy({ where: { id: req.params.id } });
     res.sendStatus(200);
   }
-  /*static async getAllUsers(req, res) {}
-  static async getOnlyUser(req, res) {}
-  static async putUser(req, res) {}
-  static async deleteUser(req, res) {} */
+
+  static async getAllUsers(req, res) {
+    const users = await User.findAll({
+      where: {
+        isSuperAdmin: {
+          [sequelize.Op.ne]: true,
+        },
+      },
+    });
+    res.send(users);
+  }
+  static async getOnlyUser(req, res) {
+    const user = await User.findOne({
+      where: {
+        id: req.params.id,
+        isSuperAdmin: {
+          [sequelize.Op.ne]: true,
+        },
+      },
+    });
+    res.send(user);
+  }
+  static async upAdmin(req, res) {
+    if (req.user.isSuperAdmin) {
+      const user = await User.update(
+        { isAdmin: true },
+        {
+          where: {
+            id: req.params.id,
+          },
+          returning: true,
+        }
+      );
+      res.send(user);
+    } else {
+      res.sendStatus(500);
+    }
+  }
+
+  static async deleteUser(req, res) {
+    if (req.user.isAdmin) {
+      await User.destroy({
+        where: {
+          id: req.params.id,
+          isSuperAdmin: {
+            [sequelize.Op.ne]: true,
+          },
+        },
+      });
+      res.send("DELETED");
+    } else {
+      res.sendStatus(500);
+    }
+  }
+
+  static async postCategory(req, res) {
+    const newCat = await Category.create(req.body);
+    res.send(newCat);
+  }
+  static async putCategory(req, res) {
+    const upCat = await Category.update(req.body, {
+      where: { id: req.params.id },
+      returning: true,
+    });
+    res.send(upCat);
+  }
+  static async deleteCategory(req, res) {
+    await Category.destroy({ where: { id: req.params.id } });
+    res.send(200);
+  }
+
+  static async getAllAdmins(req, res) {
+    if (req.user.isSuperAdmin) {
+      const admins = await User.findAll({
+        where: {
+          isAdmin: true,
+          isSuperAdmin: {
+            [sequelize.Op.ne]: true,
+          },
+        },
+      });
+
+      res.send(admins);
+    } else {
+      res.sendStatus(401);
+    }
+  }
+
+  static async deleteAdmin(req, res) {
+    try {
+      if (req.user.isSuperAdmin) {
+        User.destroy({ where: { id: req.params.id } });
+        res.send(204);
+      } else {
+        res.sendStatus(401);
+      }
+    } catch {
+      res.sendStatus(500);
+    }
+  }
 }
 
 module.exports = AdminController;

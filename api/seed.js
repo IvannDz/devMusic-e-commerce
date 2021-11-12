@@ -2,7 +2,6 @@ const { User, Product, Category } = require("./models");
 const db = require("./config/db");
 const { arrayProducts, arrayCategory } = require("./utils/fakedata");
 
-// CREATING SUPERUSER
 
 db.sync()
   .then(() => {
