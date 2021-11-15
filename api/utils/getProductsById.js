@@ -5,6 +5,8 @@ async function getProductsById(ids) {
   for (let i = 0; i < ids.length; i++) {
     products.push(await Product.findOne({ where: { id: ids[i] } }));
   }
+
+  return products;
 }
 
 module.exports = getProductsById;

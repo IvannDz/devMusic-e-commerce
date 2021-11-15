@@ -50,8 +50,16 @@ class AuthController {
     req.logout();
     res.sendStatus(204);
   }
+  static async getBuyOrder(req, res) {
+    const byOrder = await Cart.findAll({
+      where: {
+        userId: req.user.id,
+        done: true,
+      },
+    });
 
-
+    res.send(byOrder);
+  }
 }
 
 module.exports = AuthController;
