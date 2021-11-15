@@ -7,6 +7,10 @@ class CartController {
       const cart = await Cart.findOne({
         where: { userId: req.user.id, done: false },
       });
+
+  
+      
+
       const products = await getProductsById(cart.products);
       res.send(products);
     } catch {
