@@ -1,6 +1,9 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const db = require("./config/db");
+
+
 const routes = require("./routes/index.js");
 const volleyball = require("volleyball");
 const { User } = require("./models");
