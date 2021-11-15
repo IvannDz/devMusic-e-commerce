@@ -1,6 +1,7 @@
 import React,{ useEffect} from "react";
 import { chakra, Box, Flex, useColorModeValue, Link, Image } from "@chakra-ui/react";
 import fakeProd from "../utils/fakeProd"
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import {getProducts,setProducts} from "../state/productsReducer";
 import { useParams } from "react-router-dom";
@@ -13,13 +14,25 @@ const Ma = () => {
   const product = producto[0]
   console.log("PRODUCTO",product)
   const dispatch= useDispatch();
+ 
+ 
   
   
   useEffect(() =>{
     dispatch(getProducts())
   },[])
+
+  const addToCart = () =>{
+   return axios
+      .post(`/api/cart`, {id:product.id ,price:product.price})
+      .then((resp)=> {console.log(resp)
+        return resp.data})
+
+
+  }
+
   
-const {name,description,price,image,stock}=fakeProd
+
 
   return (
     <Flex
@@ -69,7 +82,7 @@ const {name,description,price,image,stock}=fakeProd
 
           <Box mt={8}>
             <Link
-              
+              onClick={addToCart}
               bg="gray.900"
               color="gray.100"
               px={5}
@@ -101,7 +114,7 @@ const {name,description,price,image,stock}=fakeProd
             height="full"
             width="full"
             objectFit={"cover"}
-            src={image}
+        
           />
         </Box>
 
@@ -124,20 +137,6 @@ const {name,description,price,image,stock}=fakeProd
             Stock: not
           </chakra.h1>
 
-          <Box mt={8}>
-            <Link
-              
-              bg="gray.900"
-              color="gray.100"
-              px={5}
-              py={3}
-              fontWeight="semibold"
-              rounded="lg"
-              _hover={{ bg: "gray.800" }}
-            >
-              Add to Cart
-            </Link>
-          </Box>
             
         </Box>
         
