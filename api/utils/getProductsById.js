@@ -1,9 +1,12 @@
 const { Product } = require("../models");
 
-async function getProductsById(ids) {
+async function getProductsById(count) {
   let products = [];
-  for (let i = 0; i < ids.length; i++) {
-    products.push(await Product.findOne({ where: { id: ids[i] } }));
+  let ids = Object.keys(count)
+  for (let id of ids){
+    let product = await Product.findOne({ where: { id: id } })
+    product.dataValues.cantidad = count[id]
+    products.push(product)
   }
 
   return products;
