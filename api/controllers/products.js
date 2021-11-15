@@ -1,4 +1,5 @@
 const { Product, Category } = require("../models");
+const { Op } = require('sequelize');
 
 class ProductsController {
   static async getAll(req, res) {
@@ -27,7 +28,16 @@ class ProductsController {
 
   static async getByName(req, res) {
     const { name } = req.params;
-    const products = await Product.findAll({ where: { name: name } });
+    const products = await Product.findAll({
+      where: {
+        name: {
+          [Op.iLike]: `${name}%`
+        }
+      }
+    });
+
+
+
     res.send(products);
   }
 

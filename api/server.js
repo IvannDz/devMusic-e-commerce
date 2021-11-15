@@ -1,12 +1,15 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const db = require("./config/db");
+
 const routes = require("./routes/index.js");
 const volleyball = require("volleyball");
 const { User } = require("./models");
 const sessions = require("express-session");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
+const FacebookStrategy = require('passport-facebook').Strategy;
 const localStrategy = require("passport-local").Strategy;
 const cors = require("cors");
 
@@ -47,6 +50,20 @@ passport.use(
     }
   )
 );
+/* 
+passport.use(new FacebookStrategy({
+  clientID: 3857035394399350,
+  clientSecret: "e29b86e16c105b5ca6b185750e6c047e",
+  callbackURL: "http://localhost:8080/api/auth/facebook",
+  profileFields: ['id', 'displayName', 'email']
+},
+function(accessToken, refreshToken, profile, done) {
+  User.findOne({where: {id: profile.id}}, function(err, user) {
+    if (err) { return done(err); }
+    done(null, user);
+  });
+}
+)); */
 
 passport.serializeUser(function (user, done) {
   done(null, user.id);

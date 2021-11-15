@@ -13,7 +13,8 @@ class CartController {
       ); //{1: 2, 3: 5}
 
       const products = await getProductsById(count);
-      res.send(products);
+      const resp = {products: products, total: cart.total}
+      res.send(resp);
     } catch {
       res.send(null);
     }
