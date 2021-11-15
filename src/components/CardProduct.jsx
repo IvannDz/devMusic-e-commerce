@@ -4,17 +4,18 @@ import fakeProd from "../utils/fakeProd"
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import {getProducts,setProducts} from "../state/productsReducer";
-import { useParams } from "react-router-dom";
+import { useParams,useHistory } from "react-router-dom";
 
 const Ma = () => {
   const { id } = useParams();
   
+  const history = useHistory();
   const products= useSelector((state)=>state.products);
   const producto = products.filter(productos=>productos.id.toString()===id)
   const product = producto[0]
   console.log("PRODUCTO",product)
   const dispatch= useDispatch();
- 
+  const user = useSelector((state) => state.user);
  
   
   
@@ -42,7 +43,7 @@ const Ma = () => {
       alignItems="center"
       justifyContent="center"
     >
-      {product?.id? (
+      {user?.id? (
         <Box
         bg="white"
         mx={{ lg: 8 }}
@@ -114,7 +115,7 @@ const Ma = () => {
             height="full"
             width="full"
             objectFit={"cover"}
-        
+            src={product.photo}
           />
         </Box>
 
@@ -124,19 +125,33 @@ const Ma = () => {
             color="gray.800"
             fontWeight="bold"
           >
-           not
+            {product.name}
             
           </chakra.h2>
           <chakra.p mt={4} color="gray.600">
-          not
+            {product.description}
           </chakra.p>
           <chakra.h1 color="black" fontWeight="bold" fontSize="lg">
-            not
+            {product.price}
           </chakra.h1>
           <chakra.h1 color="black" fontWeight="bold" fontSize="lg">
-            Stock: not
+            Stock: {product.stock}
           </chakra.h1>
-
+          
+          <Box mt={8}>
+            <Link 
+             href="/login"
+              bg="gray.900"
+              color="gray.100"
+              px={5}
+              py={3}
+              fontWeight="semibold"
+              rounded="lg"
+              _hover={{ bg: "gray.800" }}
+            >
+              Login
+            </Link>
+          </Box>
             
         </Box>
         
