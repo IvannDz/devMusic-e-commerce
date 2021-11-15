@@ -7,11 +7,12 @@ class CartController {
       const cart = await Cart.findOne({
         where: { userId: req.user.id, done: false },
       });
+      let count = {};
+      await cart.products.forEach(
+        (prod) => (count[prod] = (count[prod] || 0) + 1)
+      ); //{1: 2, 3: 5}
 
-  
-      
-
-      const products = await getProductsById(cart.products);
+      const products = await getProductsById(count);
       res.send(products);
     } catch {
       res.send(null);
