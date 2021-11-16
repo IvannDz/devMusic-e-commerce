@@ -1,5 +1,6 @@
 const { Cart, User } = require("../models");
 const getProductsById = require("../utils/getProductsById");
+const nodemailer = require("nodemailer");
 
 class CartController {
   static async getCart(req, res) {
@@ -7,8 +8,14 @@ class CartController {
       const cart = await Cart.findOne({
         where: { userId: req.user.id, done: false },
       });
-      const products = await getProductsById(cart.products);
-      res.send(products);
+      let count = {};
+      await cart.products.forEach(
+        (prod) => (count[prod] = (count[prod] || 0) + 1)
+      ); //{1: 2, 3: 5}
+
+      const products = await getProductsById(count);
+      const resp = { products: products, total: cart.total };
+      res.send(resp);
     } catch {
       res.send(null);
     }
@@ -47,7 +54,35 @@ class CartController {
       },
       { where: { userId: req.user.id, done: false }, returning: true }
     );
-    res.send(upCart[1][0]);
+
+    //creo nuevo carrito
+    const user = await User.findOne({ where: { id: req.user.id } });
+    const newCart = await Cart.create();
+    user.addUsuario(newCart);
+
+    //envio confirmacion
+    console.log("gmail", process.env.SUPER_ADMIN_GMAIL);
+    const transporter = await nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true, // true for 465, false for other ports
+      auth: {
+        user: process.env.SUPER_ADMIN_GMAIL, // generated ethereal user
+        pass: process.env.SUPER_ADMIN_APP_KEY, // generated ethereal password
+      },
+    });
+
+    const message = {
+      from: "DevMusic.com",
+      to: user.email,
+      subject: "FELICIDADES POR ALTA COMPRA",
+      text: "Terrible compra lagarto que te mandaste",
+      html: "<p>Bien ahi vieja, gracias muñeco</p>",
+    };
+
+    const confirm = await transporter.sendMail(message);
+
+    res.send(confirm);
   }
 
   static async deleteProduct(req, res) {

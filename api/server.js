@@ -1,12 +1,15 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const db = require("./config/db");
+
 const routes = require("./routes/index.js");
 const volleyball = require("volleyball");
 const { User } = require("./models");
 const sessions = require("express-session");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
+const FacebookStrategy = require("passport-facebook").Strategy;
 const localStrategy = require("passport-local").Strategy;
 const cors = require("cors");
 
@@ -44,6 +47,36 @@ passport.use(
           });
         })
         .catch(done); // done(err)
+    }
+  )
+);
+
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: process.env.ID_FB_CLIENT,
+      clientSecret: process.env.SECRET_FB_CLIENT,
+      callbackURL: "/api/auth/facebook",
+      profileFields: ["id", "email", "name"],
+    },
+    async function (accessToken, refreshToken, profile, done) {
+      const user = await User.findOne({ facebookId: profile.id });
+
+      if (user) {
+        done(null, user);
+      } else {
+        console.log(profile._json);
+        const { first_name, email, id } = profile._json;
+
+        const newUser = User.create({
+          facebookId: id,
+          userName: first_name,
+          email: email,
+          password: id,
+        });
+
+        return done(null, newUser);
+      }
     }
   )
 );

@@ -36,7 +36,7 @@ export default function LoginForm() {
 } = useForm();
 
 
-  const onSubmit = ({email, password}) => {
+  const onSubmit = () => {
     dispatch(loginRequest({ email, password })).then((res) => {
       history.push("/");
       return res;

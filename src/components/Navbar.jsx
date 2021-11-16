@@ -1,10 +1,20 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutRequest } from "../state/userReducer";
+import axios from "axios";
 
 import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuIcon,
+  MenuCommand,
+  MenuDivider,
   chakra,
   Box,
   Flex,
@@ -20,13 +30,24 @@ import {
   InputLeftElement,
   Input,
 } from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import { AiOutlineMenu, AiOutlineShoppingCart } from "react-icons/ai";
+import { FaUserCog } from "react-icons/fa";
+import { callExpression } from "@babel/types";
 
 export default function Navbar() {
   const mobileNav = useDisclosure();
+  const [categorias, setCategorias] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("/api/products/category")
+      .then((resp) => resp.data)
+      .then((categorias) => setCategorias(categorias));
+  }, []);
 
   const user = useSelector((state) => state.user);
-  console.log("USERRRRRRR", user.id);
+  console.log("USERRRR", user);
 
   const dispatch = useDispatch();
 
@@ -60,18 +81,40 @@ export default function Navbar() {
                 color="brand.500"
                 display={{ base: "none", md: "inline-flex" }}
               >
-                <Button variant="ghost">Categories</Button>
+                <Box zIndex="9999">
+                  <Menu>
+                    <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                      Categories
+                    </MenuButton>
+                    <MenuList>
+                      {categorias.map((categoria) => (
+                        <Link to={`/category/${categoria.name}`}>
+                          <MenuItem>{categoria.name}</MenuItem>
+                        </Link>
+                      ))}
+
+                  
+                    </MenuList>
+                  </Menu>
+                </Box>
 
                 <InputGroup>
                   <InputLeftElement pointerEvents="none" />
                   <Input type="tel" placeholder="Search..." />
                 </InputGroup>
-
-                <Link to="/login">
-                  <Button variant="solid" colorScheme="gray">
-                    {user.userName}
-                  </Button>
-                </Link>
+                {user.isSuperAdmin || user.isAdmin ? (
+                  <Link to="/admin">
+                    <Button variant="solid" colorScheme="pink">
+                      {user.userName}
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link to="/orders">
+                    <Button variant="solid" colorScheme="pink">
+                      {user.userName}
+                    </Button>
+                  </Link>
+                )}
               </HStack>
               <Link to="/">
                 <Button
@@ -82,13 +125,25 @@ export default function Navbar() {
                   Logout
                 </Button>
               </Link>
-              <Link to="/cart">
-                <IconButton
-                  colorScheme="gray"
-                  variant="outline"
-                  icon={<AiOutlineShoppingCart />}
-                />
-              </Link>
+              {user.isAdmin || user.isSuperAdmin ? (
+                
+                  <Link to="/admin">
+                    <IconButton
+                      colorScheme="pink"
+                      variant="outline"
+                      icon={<FaUserCog />}
+                    />
+                  </Link>
+                
+              ) : (
+                <Link to="/cart">
+                  <IconButton
+                    colorScheme="pink"
+                    variant="outline"
+                    icon={<AiOutlineShoppingCart />}
+                  />
+                </Link>
+              )}
 
               <Box display={{ base: "inline-flex", md: "none" }}>
                 <IconButton
@@ -157,7 +212,27 @@ export default function Navbar() {
                 color="brand.500"
                 display={{ base: "none", md: "inline-flex" }}
               >
-                <Button variant="ghost">Categories</Button>
+                <Box zIndex="9999">
+                  <Menu>
+                    <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                      Categories
+                    </MenuButton>
+                    <MenuList>
+                      {categorias.map((categoria) => (
+                        <Link to={`/category/${categoria.name}`}>
+                          <MenuItem>{categoria.name}</MenuItem>
+                        </Link>
+                      ))}
+
+                      <MenuItem>Cuerda</MenuItem>
+                      <MenuItem>Percusion</MenuItem>
+                      <MenuItem>Amplificadores</MenuItem>
+                      <MenuItem>Viento</MenuItem>
+                      <MenuItem>Microfono</MenuItem>
+                      <MenuItem>Bajo</MenuItem>
+                    </MenuList>
+                  </Menu>
+                </Box>
 
                 <InputGroup>
                   <InputLeftElement pointerEvents="none" />
@@ -175,7 +250,7 @@ export default function Navbar() {
                   Sign Up
                 </Button>
               </Link>
-              <Link to="/cart">
+              <Link to="/login">
                 <IconButton
                   colorScheme="gray"
                   variant="outline"
