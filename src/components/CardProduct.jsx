@@ -81,7 +81,6 @@ const Ma = () => {
 
           <Box mt={8}>
             <Link
-              onClick={addToCart}
               bg="gray.900"
               color="gray.100"
               px={5}
@@ -89,6 +88,7 @@ const Ma = () => {
               fontWeight="semibold"
               rounded="lg"
               _hover={{ bg: "gray.800" }}
+              onClick={addToCart}
             >
               Add to Cart
             </Link>

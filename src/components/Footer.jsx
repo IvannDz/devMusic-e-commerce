@@ -38,7 +38,7 @@ export default function Gslr() {
       spacing={4}
       justify={{ md: 'space-between' }}
       align={{ md: 'center' }}>
-      <Text>© 2020 Chakra Templates. All rights reserved</Text>
+      <Text>© 2021 devMusic. All rights reserved</Text>
       <Stack direction={'row'} spacing={6}>
         <Button label={'Twitter'} href={'#'}>
           <FaTwitter />

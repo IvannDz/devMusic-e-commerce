@@ -28,7 +28,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
-
+  const valEmail= /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   const {
     handleSubmit,
     register,
@@ -63,35 +63,32 @@ export default function LoginForm() {
           <Stack spacing={4}>
             <form onSubmit={handleSubmit(onSubmit)}>
 
-              <FormControl id="email" isInvalid={errors.email} isRequired>
+            <FormControl id="email" isInvalid={valEmail.test(email) || errors.email  } isRequired>
                 <FormLabel htmlFor="email">Email address</FormLabel>
                 <Input
-                  type="email"
+                  type="text"
                   
                   {...register('email', {
                     required: 'Email is Required',
                     pattern: {
-                      value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                      message: 'Invalid email address',
+                        value: valEmail ,
+                        message: 'Invalid email address',
                     },
-                  })}
+                })}
                   value={email}
                   onChange={(e) => {setEmail(e.target.value)}}
                 />
                 <FormErrorMessage>{errors.email && errors.email.message}</FormErrorMessage>
               </FormControl>
 
-              <FormControl id="password" isInvalid={password.length < 5 && errors.password} isRequired>
+              <FormControl id="password" isInvalid={ errors.password} isRequired>
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <Input
                   type="password"
                   {...register('password', {
 
                     required: 'Password is Required',
-                    pattern:{
-                      minLength: { value: 5},
-                      message: 'Password minimun length should be 5'
-                    }
+                    minLength: { value: 5, message: 'Minimum length should be 5' },
                   })}
                   value={password}
                   onChange={(e) => {setPassword(e.target.value)}}
@@ -117,9 +114,11 @@ export default function LoginForm() {
                 >
                   Sign in
                 </Button>
+                <a href="/api/auth/facebook">Login with Facebook</a>
               </Stack>
             </form>
           </Stack>
+
         </Box>
       </Stack>
     </Flex>

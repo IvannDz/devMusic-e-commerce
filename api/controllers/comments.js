@@ -42,15 +42,6 @@ class CommentController {
     } else res.sendStatus(401);
   }
 
-  static async getAllComments(req, res) {
-    const comments = await Comment.findAll({
-      where: {
-        ProductId: req.params.idProduct,
-      },
-    });
-
-    res.send(comments);
-  }
 }
 
 module.exports = CommentController;

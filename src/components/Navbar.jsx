@@ -119,7 +119,7 @@ export default function Navbar() {
               <Link to="/">
                 <Button
                   variant="solid"
-                  colorScheme="pink"
+                  colorScheme="gray"
                   onClick={handleLogout}
                 >
                   Logout
@@ -240,19 +240,19 @@ export default function Navbar() {
                 </InputGroup>
 
                 <Link to="/login">
-                  <Button variant="solid" colorScheme="pink">
+                  <Button variant="solid" colorScheme="gray">
                     Login
                   </Button>
                 </Link>
               </HStack>
               <Link to="/register">
-                <Button variant="solid" colorScheme="pink">
+                <Button variant="solid" colorScheme="gray">
                   Sign Up
                 </Button>
               </Link>
               <Link to="/login">
                 <IconButton
-                  colorScheme="pink"
+                  colorScheme="gray"
                   variant="outline"
                   icon={<AiOutlineShoppingCart />}
                 />
