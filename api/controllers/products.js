@@ -1,4 +1,4 @@
-const { Product, Category } = require("../models");
+const { Product, Category, Comment } = require("../models");
 const { Op } = require('sequelize');
 
 class ProductsController {
@@ -11,7 +11,20 @@ class ProductsController {
   static async getById(req, res) {
     const { id } = req.params;
     const product = await Product.findByPk(id);
-    res.send(product);
+
+    const comments = await Comment.findAll({
+      where: {
+        ProductId: req.params.id,
+      },
+    });
+
+    const puntuation = [];
+    comments.forEach((com) => puntuation.push(com.dataValues.puntuacion));
+    const valoration = (
+      puntuation.reduce((a, b) => (b += a)) / puntuation.length
+    ).toFixed(1);
+
+    res.send({ product: product , comments: comments, valoration: valoration });
   }
 
   //a testear

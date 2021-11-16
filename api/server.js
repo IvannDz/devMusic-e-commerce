@@ -56,10 +56,12 @@ passport.use(
     {
       clientID: process.env.ID_FB_CLIENT,
       clientSecret: process.env.SECRET_FB_CLIENT,
-      callbackURL: "/api/auth/facebook",
-      profileFields: ["id", "email", "name"],
+      callbackURL: "http://localhost:8080/api/auth/facebook",
+      //profileFields: ["id", "email", "name"],
     },
     async function (accessToken, refreshToken, profile, done) {
+      console.log(profile);
+
       const user = await User.findOne({ facebookId: profile.id });
 
       if (user) {
