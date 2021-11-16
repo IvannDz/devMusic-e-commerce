@@ -36,9 +36,10 @@ export default function RegisterForm() {
 
     const valUser = /^[a-zA-Z0-9_.-]*$/;
     const noValUser = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~*]/;
-    const valNum= /[0-9]/g 
-
-  const onSubmit = () => {
+    const valNum= /^[0-9]+$/
+    const valEmail= /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    
+  const onSubmit = ({userName,email,password,tel}) => {
     axios
       .post("/api/auth/register", {
         userName,
@@ -60,7 +61,7 @@ export default function RegisterForm() {
         <Box rounded={"lg"} bg={"white"} boxShadow={"lg"} p={8}>
           <Stack spacing={4}>
 
-              <FormControl id="userName" isInvalid={noValUser.test(userName) && errors.userName} isRequired >
+              <FormControl id="userName" isInvalid={noValUser.test(userName)|| errors.userName} isRequired >
                 <FormLabel htmlFor="name">User</FormLabel>
                 <Input
                   id="userName"
@@ -68,10 +69,10 @@ export default function RegisterForm() {
                   {...register('userName', {
                     required: 'Allow only numbers and characters',
                     pattern: {
-                        value: valUser,
-                        message: 'Allow Only numbers and characters',
+                      value: valUser,
+                      message: 'Allow Only numbers and characters',
                     },
-                    minLength: { value: 3, message: 'Minimum length should be 3' },
+                    minLength: { value: 4, message: 'Minimum length should be 4' },
                 })}
                   value={userName}
                   onChange={(e) => {
@@ -83,34 +84,32 @@ export default function RegisterForm() {
               </FormControl>
 
 
-              <FormControl id="email" isInvalid={errors.email} isRequired>
+              <FormControl id="email" isInvalid={valEmail.test(email) || errors.email  } isRequired>
                 <FormLabel htmlFor="email">Email address</FormLabel>
                 <Input
-                  type="email"
+                  type="text"
                   
                   {...register('email', {
                     required: 'Email is Required',
                     pattern: {
-                        value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                        message: 'Invalid email addresss',
+                        value: valEmail ,
+                        message: 'Invalid email address',
                     },
                 })}
                   value={email}
                   onChange={(e) => {setEmail(e.target.value)}}
                 />
+                <FormErrorMessage>{errors.email && errors.email.message}</FormErrorMessage>
               </FormControl>
 
-              <FormControl id="password" isInvalid={password.length < 5 && errors.password} isRequired>
+              <FormControl id="password" isInvalid={ errors.password} isRequired>
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <Input
                   type="password"
                   {...register('password', {
 
                     required: 'Password is Required',
-                    pattern:{
-                      minLength: { value: 5},
-                      message: 'Password minimun length should be 5'
-                    }
+                    minLength: { value: 5, message: 'Minimum length should be 5' },
                   })}
                   value={password}
                   onChange={(e) => {setPassword(e.target.value)}}
@@ -118,18 +117,18 @@ export default function RegisterForm() {
                 <FormErrorMessage>{errors.password && errors.password.message}</FormErrorMessage>
               </FormControl>
 
-              <FormControl id="tel" isInvalid={noValUser.test(tel) && errors.tel} isRequired >
+              <FormControl id="tel" isInvalid={valNum.test(tel) || errors.tel} isRequired >
                 <FormLabel htmlFor="name">Telephone</FormLabel>
                 <Input
                   id="tel"
-                  type="text"
+                  type="number"
                   {...register('tel', {
                     required: 'Allow only numbers',
-                    pattern: {
-                        value: valNum,
-                        message: 'Allow Only numbers',
-                    },
                     minLength: { value: 8, message: 'Minimum length should be 8' },
+                    pattern: {
+                      value: valNum,
+                      message: 'Allow Only numbers',
+                    },
                 })}
                   value={tel}
                   onChange={(e) => {
