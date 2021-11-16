@@ -25,11 +25,9 @@ const Ma = () => {
 
   const addToCart = () =>{
    return axios
-      .post(`/api/cart`, {id:product.id ,price:product.price})
+      .post(`http://localhost:4747/api/cart`, {id:product.id ,price:product.price})
       .then((resp)=> {console.log(resp)
         return resp.data})
-
-
   }
 
   
