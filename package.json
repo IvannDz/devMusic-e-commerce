@@ -20,6 +20,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "framer-motion": "^4.1.17",
+    "nodemailer": "^6.7.1",
     "passport": "^0.5.0",
     "passport-facebook": "^3.0.0",
     "passport-local": "^1.0.0",

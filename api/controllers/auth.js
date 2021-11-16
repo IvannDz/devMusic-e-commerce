@@ -1,4 +1,5 @@
 const { User, Cart } = require("../models");
+const getProductsById = require("../utils/getProductsById");
 
 class AuthController {
   //"/me"
@@ -58,7 +59,26 @@ class AuthController {
       },
     });
 
-    res.send(byOrder);
+    let orders = [];
+    for (let i = 0; i < byOrder.length; i++) {
+      let count = {};
+      byOrder[i].products.forEach(
+        (prod) => (count[prod] = (count[prod] || 0) + 1)
+      );
+      const products = await getProductsById(count);
+      const resp = {
+        buyOrderId: byOrder[i].id,
+        order: { products: products, total: byOrder[i].total },
+      };
+      orders.push(resp);
+    }
+
+    res.send(orders);
+    //res.send(orders);
+  }
+
+  static async loginFacebook(req, res) {
+    res.send("bien");
   }
 }
 
