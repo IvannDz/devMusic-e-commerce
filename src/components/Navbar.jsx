@@ -41,7 +41,7 @@ export default function Navbar() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4747/api/products/category")
+      .get("/api/products/category")
       .then((resp) => resp.data)
       .then((categorias) => setCategorias(categorias));
   }, []);

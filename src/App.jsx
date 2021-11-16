@@ -26,7 +26,7 @@ function App() {
   //Aca hago la persistencia.
   useEffect(() => {
     axios
-      .get("http://localhost:4747/api/auth/me")
+      .get("/api/auth/me")
       .then((res) => {
         dispatch(setUser(res.data));
       })
