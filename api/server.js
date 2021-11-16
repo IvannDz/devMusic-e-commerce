@@ -51,7 +51,7 @@ passport.use(
   )
 );
 
-passport.use(
+/* passport.use(
   new FacebookStrategy(
     {
       clientID: process.env.ID_FB_CLIENT,
@@ -82,7 +82,7 @@ passport.use(
     }
   )
 );
-
+ */
 passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
