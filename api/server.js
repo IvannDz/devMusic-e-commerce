@@ -96,7 +96,7 @@ passport.deserializeUser(function (id, done) {
 app.use("/api", routes);
 
 db.sync({ force: false }).then(() =>
-  app.listen(8080, () => {
-    console.log("listen on port 8080");
+  app.listen(4747, () => {
+    console.log("listen on port 4747");
   })
 );
