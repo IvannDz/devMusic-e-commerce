@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { loginRequest } from "../state/userReducer";
 import { useForm } from "react-hook-form";
 
+
 import {
   Flex,
   Box,
@@ -32,9 +33,10 @@ export default function LoginForm() {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm();
+} = useForm();
 
-  const onSubmit = ({ email, password }) => {
+
+  const onSubmit = () => {
     dispatch(loginRequest({ email, password })).then((res) => {
       history.push("/");
       return res;
@@ -60,51 +62,41 @@ export default function LoginForm() {
         >
           <Stack spacing={4}>
             <form onSubmit={handleSubmit(onSubmit)}>
+
               <FormControl id="email" isInvalid={errors.email} isRequired>
                 <FormLabel htmlFor="email">Email address</FormLabel>
                 <Input
                   type="email"
-                  {...register("email", {
-                    required: "Email is Required",
+                  
+                  {...register('email', {
+                    required: 'Email is Required',
                     pattern: {
-                      value:
-                        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                      message: "Invalid email address",
+                      value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      message: 'Invalid email address',
                     },
                   })}
                   value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
+                  onChange={(e) => {setEmail(e.target.value)}}
                 />
-                <FormErrorMessage>
-                  {errors.email && errors.email.message}
-                </FormErrorMessage>
+                <FormErrorMessage>{errors.email && errors.email.message}</FormErrorMessage>
               </FormControl>
 
-              <FormControl
-                id="password"
-                isInvalid={password.length < 5 && errors.password}
-                isRequired
-              >
+              <FormControl id="password" isInvalid={password.length < 5 && errors.password} isRequired>
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <Input
                   type="password"
-                  {...register("password", {
-                    required: "Password is Required",
-                    pattern: {
-                      minLength: { value: 5 },
-                      message: "Password minimun length should be 5",
-                    },
+                  {...register('password', {
+
+                    required: 'Password is Required',
+                    pattern:{
+                      minLength: { value: 5},
+                      message: 'Password minimun length should be 5'
+                    }
                   })}
                   value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
+                  onChange={(e) => {setPassword(e.target.value)}}
                 />
-                <FormErrorMessage>
-                  {errors.password && errors.password.message}
-                </FormErrorMessage>
+                <FormErrorMessage>{errors.password && errors.password.message}</FormErrorMessage>
               </FormControl>
               <Stack spacing={10}>
                 <Stack
@@ -127,7 +119,6 @@ export default function LoginForm() {
                 </Button>
               </Stack>
             </form>
-            <a href="http://localhost:8080/api/auth/facebook">facebook</a>
           </Stack>
         </Box>
       </Stack>
