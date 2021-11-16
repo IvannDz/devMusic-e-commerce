@@ -57,7 +57,7 @@ passport.use(
       clientID: process.env.ID_FB_CLIENT,
       clientSecret: process.env.SECRET_FB_CLIENT,
       callbackURL: "http://localhost:8080/api/auth/facebook",
-      profileFields: ["id", "email", "name"],
+      //profileFields: ["id", "email", "name"],
     },
     async function (accessToken, refreshToken, profile, done) {
       console.log(profile);
