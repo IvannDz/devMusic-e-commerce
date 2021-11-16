@@ -38,7 +38,7 @@ export default function RegisterForm() {
     const noValUser = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~*]/;
     const valNum= /[0-9]/g 
 
-  const onSubmit = ({userName,email,password,tel}) => {
+  const onSubmit = () => {
     axios
       .post("/api/auth/register", {
         userName,

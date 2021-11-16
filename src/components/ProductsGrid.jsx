@@ -8,7 +8,7 @@ import {getProducts,setProducts} from "../state/productsReducer"
 
 const ProductsGrid = () => {
   const products= useSelector((state)=>state.products);
-  console.log('PRODUCTOS',products)
+ 
   const dispatch= useDispatch();
   
   useEffect(() =>{
