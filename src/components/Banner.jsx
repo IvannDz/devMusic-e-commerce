@@ -10,11 +10,11 @@ const Component = () => {
     },
     {
       img:
-        "https://images.pexels.com/photos/290660/pexels-photo-290660.jpeg?cs=srgb&dl=pexels-pixabay-290660.jpg&fm=jpg",
+      "https://images.unsplash.com/photo-1544140119-e0ad950faf9e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1632&q=80",
     },
     {
       img:
-        "https://images.pexels.com/photos/290660/pexels-photo-290660.jpeg?cs=srgb&dl=pexels-pixabay-290660.jpg&fm=jpg",
+        "https://images.unsplash.com/photo-1525898181636-29b30c26f6e1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1162&q=80",
     }
   ];
   const [currentSlide, setCurrentSlide] = useState(0);

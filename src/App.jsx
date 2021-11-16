@@ -11,6 +11,7 @@ import CategoryGrid from "./components/CategoryGrid";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import AddProductForm from "./components/AddProductForm";
+import AddAdminUser from "./components/AddAdminUser"
 import Cart from "./components/Cart";
 import CardProduct from "./components/CardProduct";
 import { setUser } from "./state/userReducer";
@@ -25,7 +26,7 @@ function App() {
   //Aca hago la persistencia.
   useEffect(() => {
     axios
-      .get("/api/auth/me")
+      .get("http://localhost:4747/api/auth/me")
       .then((res) => {
         dispatch(setUser(res.data));
       })
@@ -59,11 +60,14 @@ function App() {
         <Route path="/orders">
           <Orders/>
         </Route>
-        <Route path="/admin">
+        <Route exact path="/admin">
           <AddProductForm />
         </Route>
         <Route path="/checkout">
           <Checkout/>
+        </Route>
+        <Route path="/admin/user">
+          <AddAdminUser/>
         </Route>
       </Switch>
       <div>
