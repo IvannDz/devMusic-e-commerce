@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes, Model } = require("sequelize");
+const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../config/db");
 const bcrypt = require("bcrypt");
 
@@ -6,12 +6,15 @@ class User extends Model {}
 
 User.init(
   {
+    facebookId: {
+      type: DataTypes.STRING,
+    },
     userName: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate:{
+      validate: {
         is: /^[a-z]+$/i,
-      }
+      },
     },
     email: {
       type: DataTypes.STRING,
@@ -29,13 +32,13 @@ User.init(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-    isSuperAdmin:{
+    isSuperAdmin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
     tel: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
   },
   {
