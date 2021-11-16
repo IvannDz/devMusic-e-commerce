@@ -6,7 +6,7 @@ const passport = require("passport");
 
 router.get("/me", isLoggedIn, AuthController.getUser);
 router.post("/login", passport.authenticate("local"), AuthController.login);
-//router.get("/login/facebook", passport.authenticate('facebook'));
+router.get("/facebook", passport.authenticate('facebook'), AuthController.loginFacebook);
 router.post("/register", AuthController.register);
 router.put("/me",isLoggedIn, AuthController.updateMe);
 router.delete("/me",isLoggedIn, AuthController.deleteMe);

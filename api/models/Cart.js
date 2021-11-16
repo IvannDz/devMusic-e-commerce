@@ -6,15 +6,15 @@ Cart.init(
   {
     total: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      defaultValue: 0,
     },
     done: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-    products:{
+    products: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),
-      defaultValue:[] 
+      defaultValue: [],
     },
   },
   {
