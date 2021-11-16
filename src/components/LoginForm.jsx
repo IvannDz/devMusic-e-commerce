@@ -117,9 +117,11 @@ export default function LoginForm() {
                 >
                   Sign in
                 </Button>
+                <a href="/api/auth/facebook">Login with Facebook</a>
               </Stack>
             </form>
           </Stack>
+
         </Box>
       </Stack>
     </Flex>

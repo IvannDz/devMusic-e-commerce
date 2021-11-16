@@ -5,7 +5,6 @@ const isLogendIn = require("../utils/isLogendIn")
 const CommentController = require("../controllers/comments");
 
 router.post("/:idProduct", isLogendIn, CommentController.postComments);
-router.get("/:idProduct", CommentController.getAllComments);
 
 
 module.exports = router
