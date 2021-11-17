@@ -3,10 +3,14 @@ import { Box } from "@chakra-ui/layout";
 import { Textarea } from "@chakra-ui/textarea";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Ma from "./CardProduct";
+import SingleComment from "./SingleComment";
+import { get } from "react-hook-form";
 
 const CommentSection = () => {
-  const [comments, setComments] = useState([]);
+  // const [comments, setComments] = useState([])
   const [getcomments, setGetComments] = useState([]);
+  const [newcCom, setNewCom] = useState([]);
 
   const [users, setUsers] = useState([]);
   const id = useParams();
@@ -19,13 +23,13 @@ const CommentSection = () => {
       .catch((err) => console.log(err));
   }, [id]);
   /*  .catch(err => console.log(err)) */
+
   return (
     <>
-      {console.log("GETCOMMENTS", getcomments)}
       <Box
         d="flex"
-        alignItems="center"
-        justifyContent="center"
+        alignItems="flex-start"
+        justifyContent=""
         bg="#f5f3f4"
         w="50%"
         p={4}
@@ -33,22 +37,16 @@ const CommentSection = () => {
         ml={3}
         borderRadius="lg"
         mr={3}
+        borderStartWidth={2}
+        border="black solid 2px"
       >
-        This is the Box
         <Box>Comment section:</Box>
         <Box>
-          <Textarea
-            size="md"
-            variant="outline"
-            placeholder="Here is a sample placeholder"
-            onChange={(e) => setComments(e.target.value)}
-          ></Textarea>
           <Box>
             {getcomments.map((comment) => (
-              <li>
-                <ul>{comment.content}</ul>
-                <ul>{comment.puntuacion}</ul>
-              </li>
+              <Box>
+                <SingleComment getcomments={getcomments} />
+              </Box>
             ))}
           </Box>
         </Box>
