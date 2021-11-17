@@ -10,6 +10,7 @@ const sessions = require("express-session");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const FacebookStrategy = require("passport-facebook").Strategy;
+const GoogleStrategy = require('passport-google-oauth').OAuthStrategy;
 const localStrategy = require("passport-local").Strategy;
 const cors = require("cors");
 
@@ -51,6 +52,18 @@ passport.use(
   )
 );
 
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done) {
+  User.findByPk(id)
+  .then((user) => {
+    done(null, user);
+  })
+  .catch(done);
+});
+
 passport.use(
   new FacebookStrategy(
     {
@@ -80,20 +93,20 @@ passport.use(
         return done(null, newUser);
       }
     }
-  )
+  ) 
 );
-
-passport.serializeUser(function (user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function (id, done) {
-  User.findByPk(id)
-    .then((user) => {
-      done(null, user);
-    })
-    .catch(done);
-});
+//npm install passport-google-oauth
+passport.use(new GoogleStrategy({
+  consumerKey: process.env.GOOGLE_CONSUMER_KEY,
+  consumerSecret: process.env.GOOGLE_CONSUMER_SECRET,
+  callbackURL: "http://localhost:4747/api/auth/google/secret"
+},
+function(token, tokenSecret, profile, done) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
+}
+));
 
 app.use("/api", routes);
 

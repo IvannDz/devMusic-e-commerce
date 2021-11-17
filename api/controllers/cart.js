@@ -17,7 +17,12 @@ class CartController {
       const resp = { products: products, total: cart.total };
       res.send(resp);
     } catch {
-      res.send(null);
+      const cart = await Cart.create();
+      const user = await User.findOne({ where: { id: req.user.id } });
+
+      user.addUsuario(cart);
+
+      res.send(cart);
     }
   }
 

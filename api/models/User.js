@@ -9,6 +9,12 @@ User.init(
     facebookId: {
       type: DataTypes.STRING,
     },
+    googleId: {
+      type: DataTypes.STRING,
+    },
+    githubId: {
+      type: DataTypes.STRING,
+    },
     userName: {
       type: DataTypes.STRING,
       allowNull: false,
