@@ -6,6 +6,7 @@ const adminController = require("../controllers/admin");
 router.post("/", isLogendInAdmin, adminController.postProduct);
 router.post("/category", isLogendInAdmin, adminController.postCategory);
 router.put("/category/:id", isLogendInAdmin, adminController.putCategory);
+router.get("/category/:id", isLogendInAdmin, adminController.getCategory);
 router.delete("/category/:id", isLogendInAdmin, adminController.deleteCategory);
 router.put("/product/:id", isLogendInAdmin, adminController.putProduct);
 router.delete("/product/:id", isLogendInAdmin, adminController.deleteProduct);
