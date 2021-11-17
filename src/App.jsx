@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { Route, Switch} from "react-router-dom";
 import "./App.css";
+import AddAdminUsers from "./components/AddAdminUsers"
 import Navbar from "./components/Navbar";
 import Banner from "./components/Banner";
 import Footer from "./components/Footer";
@@ -17,6 +19,7 @@ import CardProduct from "./components/CardProduct";
 import { setUser } from "./state/userReducer";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import Search from "./components/Search"
 import axios from "axios";
 
 function App() {
@@ -37,6 +40,7 @@ function App() {
   return (
     <div>
       <Navbar />
+      
       <Switch>
         <Route exact path="/">
           <Banner />
@@ -68,6 +72,12 @@ function App() {
         </Route>
         <Route path="/admin/user">
           <AddAdminUser/>
+        </Route>
+        <Route path="/search/:name">
+          <Search/>
+        </Route>
+        <Route path="/admin/users">
+          <AddAdminUsers/>
         </Route>
       </Switch>
       <div>
