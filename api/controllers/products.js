@@ -18,7 +18,7 @@ class ProductsController {
       },
     });
 
-    const puntuation = [];
+    const puntuation = [0];
     comments.forEach((com) => puntuation.push(com.dataValues.puntuacion));
     const valoration = (
       puntuation.reduce((a, b) => (b += a)) / puntuation.length

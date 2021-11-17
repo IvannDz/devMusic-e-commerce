@@ -13,7 +13,7 @@ class AdminController {
       res.send(await Product.findOne({ where: { id: newProduct.id } }));
     } catch (err) {
       res.statusCode = 500;
-      return  res.send(err);
+      return res.send(err);
     }
   }
   static async putProduct(req, res) {
@@ -66,7 +66,7 @@ class AdminController {
   static async upAdmin(req, res) {
     if (req.user.isSuperAdmin) {
       const user = await User.update(
-        { isAdmin: true },
+        { isAdmin: req.body.isAdmin },
         {
           where: {
             id: req.params.id,
