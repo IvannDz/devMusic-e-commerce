@@ -6,11 +6,11 @@ import {
   import axios from "axios";
 
   export const loginRequest = createAsyncThunk("LOGIN", (data) => {
-    return axios.post("http://localhost:4747/api/auth/login", data).then((res) => res.data);
+    return axios.post("/api/auth/login", data).then((res) => res.data);
   });
   
   export const logoutRequest = createAsyncThunk("LOGOUT", () => {
-    return axios.post("http://localhost:4747/api/auth/logout");
+    return axios.post("/api/auth/logout");
   });
 
   export const setUser = createAction("SET_USER");

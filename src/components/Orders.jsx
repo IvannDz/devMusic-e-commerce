@@ -7,10 +7,24 @@ import {
   useBreakpointValue,
   Stack,
   SimpleGrid,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Text,
+  List,
+   ListItem
 } from "@chakra-ui/react";
+
 import axios from "axios";
+import { DragHandleIcon } from "@chakra-ui/icons";
 
 export default function Orders() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -21,6 +35,15 @@ export default function Orders() {
   }, []);
 
   const data = orders;
+  console.log("data", data);
+
+  const productos= data.map((ordenes) =>{
+    return ordenes.order.products.map((product) =>  product.name)
+  })
+
+  console.log(productos)
+
+  
   return (
     <Flex
       w="full"
@@ -50,7 +73,7 @@ export default function Orders() {
           </SimpleGrid>
         </Flex>
 
-        {data.map((order, pid) => {
+        {data.map((orden, pid) => {
           return (
             <Flex
               direction={{ base: "row", md: "column" }}
@@ -65,15 +88,47 @@ export default function Orders() {
                 px={10}
                 fontWeight="hairline"
               >
-                <span>{order.id}</span>
+                <span>{orden.buyOrderId}</span>
                 <chakra.span
                   textOverflow="ellipsis"
                   overflow="hidden"
                   whiteSpace="nowrap"
                 >
-                  {order.total}
+                  {orden.order.total}
                 </chakra.span>
-               
+
+                <>
+                  <Button onClick={onOpen}>View Order</Button>
+
+                  <Modal isOpen={isOpen} onClose={onClose}>
+                    <ModalOverlay />
+                    <ModalContent>
+                      <ModalHeader>Modal Title</ModalHeader>
+                      <ModalCloseButton />
+                      <ModalBody>
+                        
+
+                        <Text>Hola</Text>
+                        <Text>Hola</Text>
+
+                       
+                        
+                        {orden.order.products.map((element) =>{
+                          // console.log(element)
+                          return (<Text>{element.name}</Text>)
+                        }
+                        )}
+                      
+                        
+                      </ModalBody>
+                      <ModalFooter>
+                        <Button colorScheme="blue" mr={3} onClick={onClose}>
+                          Close
+                        </Button>
+                      </ModalFooter>
+                    </ModalContent>
+                  </Modal>
+                </>
               </SimpleGrid>
             </Flex>
           );
@@ -82,3 +137,8 @@ export default function Orders() {
     </Flex>
   );
 }
+
+//  {/* {orden.buyOrderId? (orden.order.products.forEach((element) =>(
+//                       <Text>{element}</Text>
+//                     )))
+//                     :(console.log("hola"))} */}

@@ -59,7 +59,7 @@ export default function AddProductForm() {
   const onSubmit = () => {
     console.log("que onda")
     axios
-      .post("http://localhost:4747/api/admin", {
+      .post("/api/admin", {
         name,
         model,
         photo,

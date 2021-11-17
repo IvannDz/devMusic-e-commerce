@@ -9,8 +9,6 @@ const { User } = require("./models");
 const sessions = require("express-session");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
-const FacebookStrategy = require("passport-facebook").Strategy;
-const GoogleStrategy = require('passport-google-oauth').OAuthStrategy;
 const localStrategy = require("passport-local").Strategy;
 const cors = require("cors");
 
@@ -52,25 +50,13 @@ passport.use(
   )
 );
 
-passport.serializeUser(function (user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function (id, done) {
-  User.findByPk(id)
-  .then((user) => {
-    done(null, user);
-  })
-  .catch(done);
-});
-
-passport.use(
+/* passport.use(
   new FacebookStrategy(
     {
       clientID: process.env.ID_FB_CLIENT,
       clientSecret: process.env.SECRET_FB_CLIENT,
       callbackURL: "http://localhost:8080/api/auth/facebook",
-      profileFields: ["id", "email", "name"],
+      //profileFields: ["id", "email", "name"],
     },
     async function (accessToken, refreshToken, profile, done) {
       console.log(profile);
@@ -95,18 +81,18 @@ passport.use(
     }
   ) 
 );
-//npm install passport-google-oauth
-passport.use(new GoogleStrategy({
-  consumerKey: process.env.GOOGLE_CONSUMER_KEY,
-  consumerSecret: process.env.GOOGLE_CONSUMER_SECRET,
-  callbackURL: "http://localhost:4747/api/auth/google/secret"
-},
-function(token, tokenSecret, profile, done) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      return done(err, user);
-    });
-}
-));
+ */
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done) {
+  User.findByPk(id)
+    .then((user) => {
+      done(null, user);
+    })
+    .catch(done);
+});
 
 app.use("/api", routes);
 
