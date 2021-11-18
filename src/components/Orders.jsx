@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   chakra,
   Flex,
-  useColorModeValue,
   Button,
-  useBreakpointValue,
   Stack,
   SimpleGrid,
   Modal,
@@ -16,12 +14,9 @@ import {
   ModalCloseButton,
   useDisclosure,
   Text,
-  List,
-   ListItem
 } from "@chakra-ui/react";
 
 import axios from "axios";
-import { DragHandleIcon } from "@chakra-ui/icons";
 
 export default function Orders() {
   const { isOpen, onOpen, onClose } = useDisclosure();

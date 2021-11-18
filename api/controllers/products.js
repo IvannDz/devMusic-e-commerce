@@ -24,7 +24,9 @@ class ProductsController {
       puntuation.reduce((a, b) => (b += a)) / puntuation.length
     ).toFixed(1);
 
-    res.send({ product: product , comments: comments, valoration: valoration });
+    const category = await Category.findOne({where: {id:product.CategoryId}})
+
+    res.send({ product: product , comments: comments, valoration: valoration, categoryName: category });
   }
 
   //a testear

@@ -3,6 +3,10 @@ import React from "react";
 import { Route, Switch} from "react-router-dom";
 import "./App.css";
 import AddAdminUsers from "./components/AddAdminUsers"
+import ListCategories from "./components/ListCategories"
+import EditCategory from "./components/EditCategory.jsx"
+import ProductsList from "./components/ProductsList.jsx"
+import EditProductForm from "./components/EditProductForm";
 import Navbar from "./components/Navbar";
 import Banner from "./components/Banner";
 import Footer from "./components/Footer";
@@ -78,6 +82,18 @@ function App() {
         </Route>
         <Route path="/admin/users">
           <AddAdminUsers/>
+        </Route>
+        <Route path="/admin/categories">
+          <ListCategories/>
+        </Route>
+        <Route path="/admin/category/:id">
+          <EditCategory/>
+        </Route>
+        <Route path="/admin/productslist">
+          <ProductsList/>
+        </Route>
+        <Route path="/admin/edit/:id">
+          <EditProductForm/>
         </Route>
       </Switch>
       <div>

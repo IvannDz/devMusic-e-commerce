@@ -1,29 +1,17 @@
 import React from "react";
 
 import {
-  chakra,
   Box,
-  Flex,
   useColorModeValue,
-  VisuallyHidden,
-  HStack,
   Button,
-  useDisclosure,
-  VStack,
-  IconButton,
-  CloseButton,
   Container,
   Stack,
-  SimpleGrid,
   Text,
-  Link,
 } from "@chakra-ui/react";
 import { FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa';
 
 
 export default function Gslr() {
-  const bg = useColorModeValue("white", "gray.800");
-  const mobileNav = useDisclosure();
 
   return (
     <Box

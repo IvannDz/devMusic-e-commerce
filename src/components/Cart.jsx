@@ -4,9 +4,7 @@ import axios from "axios";
 import {
   chakra,
   Flex,
-  useColorModeValue,
   Button,
-  useBreakpointValue,
   Stack,
   SimpleGrid,
 } from "@chakra-ui/react";

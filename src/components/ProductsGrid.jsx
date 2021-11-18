@@ -1,12 +1,8 @@
 import React, { useEffect } from "react";
-import fakeProducts from "../utils/fakeData";
 import axios from "axios";
 import Card from "./Card";
-import { Grid, GridItem, Box } from "@chakra-ui/react";
-import { useSelector, useDispatch } from "react-redux";
-import { getProducts, setProducts } from "../state/productsReducer";
 import Carousel from "react-elastic-carousel";
-import { Flex, Wrap, WrapItem, Button, Heading } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 
 const ProductsGrid = () => {
   const [cuerda, setCuerda] = React.useState([]);

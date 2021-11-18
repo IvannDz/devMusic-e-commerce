@@ -24,17 +24,13 @@ export default function Component() {
       })
       .then((data) => {
         setUsers(data);
-        console.log("DATA", data);
       });
   }, []);
-
-  const data = users;
-  console.log("USERS2", data);
 
   return (
     <Flex
       w="full"
-      bg="gray.600"
+      bg="white"
       p={50}
       alignItems="center"
       justifyContent="center"
@@ -69,7 +65,7 @@ export default function Component() {
         </Flex>
 
         {/* Filas a mapear */}
-        {data.map((user, uid) => {
+        {users.map((user, uid) => {
           return (
             <Flex
               direction={{ base: "row", md: "column" }}
@@ -103,10 +99,59 @@ export default function Component() {
                 </chakra.span>
 
                 <Flex justify={{ md: "end" }}>
-                  <Button variant="solid" colorScheme="red" size="sm"
-                  
-                    onClick = {(e)=>{
+                  <Button
+                    variant="solid"
+                    colorScheme="green"
+                    size="sm"
+                    /* {  
+                      return axios
+                      .post(`/api/cart`, {id:product.id ,price:product.price})
+                      .then((resp)=> {console.log(resp)
+                        return resp.data})
+                        .then(()=>{ 
+                          axios
+                          .get(`/api/cart`)
+                          .then((resp) => resp.data)
+                          .then((data) => setProducts(data.products));
+                        })
                         
+                      
+                    } */
+
+                    onClick={() => {
+                      if (user.isAdmin) {
+                        return axios
+                          .put(`/api/admin/users/${user.id}`, {
+                            isAdmin: false,
+                          })
+                          .then((resp) => resp.data)
+                          .then(() => {
+                            axios
+                              .get(`/api/admin/users`)
+                              .then((resp) => {
+                                return resp.data;
+                              })
+                              .then((data) => {
+                                setUsers(data);
+                              });
+                          });
+                      } else {
+                        return axios
+                          .put(`/api/admin/users/${user.id}`, {
+                            isAdmin: true,
+                          })
+                          .then((resp) => resp.data)
+                          .then(() => {
+                            axios
+                              .get(`/api/admin/users`)
+                              .then((resp) => {
+                                return resp.data;
+                              })
+                              .then((data) => {
+                                setUsers(data);
+                              });
+                          });
+                      }
                     }}
                   >
                     Set Admin

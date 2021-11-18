@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Box } from "@chakra-ui/layout";
 import { StarIcon, AddIcon } from "@chakra-ui/icons";
 import {
   Wrap,
+  chakra,
   WrapItem,
   Heading,
   Textarea,
@@ -11,14 +13,16 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import axios from "axios";
+import {Link} from "react-router-dom"
 import SingleComment from "./SingleComment";
 
 const CommentSection = ({ id }) => {
   const [getcomments, setGetComments] = useState([]);
   const [puntuacion, setPuntuacion] = useState(0);
   const [content, setContent] = useState("");
-  const [buyOrders, setBuyOrders] = useState([]);
   const [userId, setUserId] = useState("");
+  const [buyConditions, setBuyConditions] = useState(false);
+
   //setea array con los comentarios.
   useEffect(() => {
     axios
@@ -28,15 +32,16 @@ const CommentSection = ({ id }) => {
         setGetComments(data.comments);
       })
       .catch((err) => console.log(err));
-  }, [id]);
+  }, []);
 
-  let compro = false;
   let comento = false;
   //Busca id de usuario no sabia como hacerlo jelp.
   useEffect(() => {
-    axios.get("/api/auth/me").then((resp) => setUserId(resp.data.id));
+    axios.get("/api/auth/me").then((resp) => {
+      if (!resp.data) return;
+      else return setUserId(resp.data.id);
+    });
   }, []);
-  //getcomments.forEach(comment => {if(comment.userId === data.id) {compro = true } })
   //postea el comentario
   const handleClick = (e) => setPuntuacion(e);
   const handleReview = (e) => setContent(e.target.value);
@@ -50,27 +55,23 @@ const CommentSection = ({ id }) => {
 
   //busca los usuarios  order.products
   useEffect(() => {
-    axios.get("/api/auth/me/buyOrder").then((res) => {
-      setBuyOrders(res.data);
-      console.log("BUY ORDERR", res.data);
+    axios.get(`/api/auth/me/buyOrder/${id}`).then((res) => {
+      setBuyConditions(res.data);
     });
   }, [userId]);
-  buyOrders.forEach((order) => {
-    if (order.id === id) {
-      compro = true;
-    }
-  });
+
   getcomments.forEach((comment) => {
     if (comment.userId === userId) {
       comento = true;
     }
   });
 
+  console.log(getcomments);
   return (
     <>
       <Heading>Comment section:</Heading>
 
-      {compro === false ? (
+      {buyConditions === true && (
         <Box
           w="md"
           mx="auto"
@@ -116,10 +117,12 @@ const CommentSection = ({ id }) => {
             m={3}
             onClick={handleSubmit}
           >
-            <AddIcon color="gray.200" />
+            <Link to={`/products/${id}`}>
+              <AddIcon color="gray.200" />
+            </Link>
           </Flex>
         </Box>
-      ) : null}
+      )}
 
       <Box
         d="flex"
@@ -130,13 +133,39 @@ const CommentSection = ({ id }) => {
         ml={3}
         mr={3}
       >
-        <Wrap>
-          {getcomments.map((comment, i) => (
-            <WrapItem key={i}>
-              <SingleComment comment={comment} />
-            </WrapItem>
-          ))}
-        </Wrap>
+        {getcomments.length > 0 ? (
+          <Wrap>
+            {getcomments.map((comment, i) => {
+              return (
+                <WrapItem key={i}>
+                  <SingleComment comment={comment} />
+                </WrapItem>
+              );
+            })}
+          </Wrap>
+        ) : (
+          <Wrap>
+            <Flex
+              bg={("#F9FAFB", "gray.600")}
+              p={1}
+              alignItems="center" //chequear
+              justifyContent="center"
+              rounded="lg"
+            >
+              <Box
+                w="md"
+                mx="auto"
+                py={2}
+                px={6}
+                bg="gray.800"
+                shadow="lg"
+                rounded="lg"
+              >
+                <chakra.p color="gray.200">Sin comentarios</chakra.p>
+              </Box>
+            </Flex>
+          </Wrap>
+        )}
       </Box>
     </>
   );

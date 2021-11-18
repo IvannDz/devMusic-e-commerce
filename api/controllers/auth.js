@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-loop-func */
 const { User, Cart } = require("../models");
 const getProductsById = require("../utils/getProductsById");
 
@@ -52,33 +54,61 @@ class AuthController {
     res.sendStatus(204);
   }
   static async getBuyOrder(req, res) {
-    const byOrder = await Cart.findAll({
-      where: {
-        userId: req.user.id,
-        done: true,
-      },
-    });
+    try {
+      const byOrder = await Cart.findAll({
+        where: {
+          userId: req.user.id,
+          done: true,
+        },
+      });
 
-    let orders = [];
-    for (let i = 0; i < byOrder.length; i++) {
-      let count = {};
-      byOrder[i].products.forEach(
-        (prod) => (count[prod] = (count[prod] || 0) + 1)
-      );
-      const products = await getProductsById(count);
-      const resp = {
-        buyOrderId: byOrder[i].id,
-        order: { products: products, total: byOrder[i].total },
-      };
-      orders.push(resp);
+      let orders = [];
+      for (let i = 0; i < byOrder.length; i++) {
+        let count = {};
+        byOrder[i].products.forEach(
+          (prod) => (count[prod] = (count[prod] || 0) + 1)
+        );
+        const products = await getProductsById(count);
+        const resp = {
+          buyOrderId: byOrder[i].id,
+          order: { products: products, total: byOrder[i].total },
+        };
+        orders.push(resp);
+      }
+      res.send(orders);
+    } catch {
+      res.sendStatus(401);
     }
-
-    res.send(orders);
-    //res.send(orders);
   }
 
   static async loginFacebook(req, res) {
     res.send("bien");
+  }
+
+  static async getProduct(req, res) {
+    try {
+      const { idProduct } = req.params;
+
+      const buyOrders = await Cart.findAll({
+        where: {
+          userId: req.user.id,
+          done: true,
+        },
+      });
+
+      console.log(buyOrders[0].products);
+      let buy = false;
+      for (let i = 0; i < buyOrders.length; i++) {
+        buyOrders[i].products.forEach((id) => {
+          if (id == idProduct) {
+            return (buy = true);
+          }
+        });
+      }
+      res.send(buy);
+    } catch {
+      res.sendStatus(401);
+    }
   }
 }
 

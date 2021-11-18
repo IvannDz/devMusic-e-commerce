@@ -54,7 +54,7 @@ User.prototype.hash = (password, salt) => {
 
 User.beforeCreate((user) => {
   return bcrypt
-    .genSalt(16)
+    .genSalt(10)
     .then((salt) => {
       user.salt = salt;
       return user.hash(user.password, salt);
