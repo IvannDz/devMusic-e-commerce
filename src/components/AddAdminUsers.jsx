@@ -155,4 +155,4 @@ export default function Component() {
         })}
       </Stack>
     </Flex>
-  );
+  )}
