@@ -9,7 +9,6 @@ const { User } = require("./models");
 const sessions = require("express-session");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
-const FacebookStrategy = require("passport-facebook").Strategy;
 const localStrategy = require("passport-local").Strategy;
 const cors = require("cors");
 
@@ -80,7 +79,7 @@ passport.use(
         return done(null, newUser);
       }
     }
-  )
+  ) 
 );
  */
 passport.serializeUser(function (user, done) {

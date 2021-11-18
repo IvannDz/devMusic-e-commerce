@@ -1,7 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React,{useEffect, useState} from "react";
 import Card from "./Card";
-import { Grid, GridItem, Box } from "@chakra-ui/react";
-import { useParams,useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import axios from "axios";
 

@@ -35,7 +35,7 @@ export default function RegisterForm() {
 } = useForm();
 
     const valUser = /^[a-zA-Z0-9_.-]*$/;
-    const noValUser = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~*]/;
+    const noValUser = /[!"#$%&'()+,-./:;<=>?@[\]^_`{|}~]/;
     const valNum= /^[0-9]+$/
     const valEmail= /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     
@@ -84,7 +84,7 @@ export default function RegisterForm() {
               </FormControl>
 
 
-              <FormControl id="email" isInvalid={valEmail.test(email) || errors.email  } isRequired>
+              <FormControl id="email" isInvalid={errors.email  } isRequired>
                 <FormLabel htmlFor="email">Email address</FormLabel>
                 <Input
                   type="text"
@@ -117,7 +117,7 @@ export default function RegisterForm() {
                 <FormErrorMessage>{errors.password && errors.password.message}</FormErrorMessage>
               </FormControl>
 
-              <FormControl id="tel" isInvalid={valNum.test(tel) || errors.tel} isRequired >
+              <FormControl id="tel" isInvalid={valNum.test(tel) && errors.tel} isRequired >
                 <FormLabel htmlFor="name">Telephone</FormLabel>
                 <Input
                   id="tel"

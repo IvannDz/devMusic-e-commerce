@@ -63,7 +63,7 @@ export default function LoginForm() {
           <Stack spacing={4}>
             <form onSubmit={handleSubmit(onSubmit)}>
 
-            <FormControl id="email" isInvalid={valEmail.test(email) || errors.email  } isRequired>
+            <FormControl id="email" isInvalid={ errors.email  } isRequired>
                 <FormLabel htmlFor="email">Email address</FormLabel>
                 <Input
                   type="text"

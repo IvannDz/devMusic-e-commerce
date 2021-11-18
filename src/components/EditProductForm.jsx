@@ -29,34 +29,48 @@ import {
   Radio,
 } from "@chakra-ui/react";
 import { FaUser } from "react-icons/fa";
+import { useParams } from "react-router-dom";
 
-export default function AddProductForm() {
-  const [name, setname] = useState("");
+export default function EditProductForm() {
+  const { id } = useParams();
+  const [name, setName] = useState("");
   const [model, setModel] = useState("");
   const [photo, setPhoto] = useState("");
   const [stock, setStock] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState();
 
-  // const [categorias, setCategorias] = useState([]);
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm();
 
-  // useEffect(() => {
-  //   axios
-  //     .get("/api/products/category")
-  //     .then((resp) => resp.data)
-  //     .then((categorias) => setCategorias(categorias));
-  // }, []);
+  const handleChange = (e, setValue) => {
+    setValue(e.target.value);
+  };
 
-  const onSubmit = () => {
-    console.log("que onda");
+  useEffect(() => {
     axios
-      .post("/api/admin", {
+      .get(`/api/products/id/${id}`)
+      .then(({ data }) => {
+        console.log(data);
+        setName(data.product.name);
+        setModel(data.product.model);
+        setPhoto(data.product.photo);
+        setStock(data.product.stock);
+        setPrice(data.product.price);
+        setDescription(data.product.description);
+        setCategory(data.categoryName);
+      })
+      .catch(() => {});
+  }, []);
+
+  
+  const onSubmit = () => {
+    axios
+      .put(`/api/admin/product/${id}`, {
         name,
         model,
         photo,
@@ -89,7 +103,7 @@ export default function AddProductForm() {
             <GridItem colSpan={{ md: 1 }}>
               <Box px={[4, 0]}>
                 <Heading fontSize="lg" fontWeight="medium" lineHeight="6">
-                  Add a new product
+                  Edit a product
                 </Heading>
                 <Text
                   mt={1}
@@ -130,9 +144,7 @@ export default function AddProductForm() {
                       w="full"
                       rounded="md"
                       value={name}
-                      onChange={(e) => {
-                        setname(e.target.value);
-                      }}
+                      onChange={(e) => handleChange(e, setName)}
                     />
                   </FormControl>
 
@@ -157,9 +169,7 @@ export default function AddProductForm() {
                       w="full"
                       rounded="md"
                       value={model}
-                      onChange={(e) => {
-                        setModel(e.target.value);
-                      }}
+                      onChange={(e) => handleChange(e, setModel)}
                     />
                   </FormControl>
                   <FormControl as={GridItem} colSpan={[6, 3]}>
@@ -183,9 +193,7 @@ export default function AddProductForm() {
                       w="full"
                       rounded="md"
                       value={stock}
-                      onChange={(e) => {
-                        setStock(e.target.value);
-                      }}
+                      onChange={(e) => handleChange(e, setStock)}
                     />
                   </FormControl>
 
@@ -210,9 +218,7 @@ export default function AddProductForm() {
                       w="full"
                       rounded="md"
                       value={price}
-                      onChange={(e) => {
-                        setPrice(e.target.value);
-                      }}
+                      onChange={(e) => handleChange(e, setPrice)}
                     />
                   </FormControl>
 
@@ -237,9 +243,7 @@ export default function AddProductForm() {
                       w="full"
                       rounded="md"
                       value={photo}
-                      onChange={(e) => {
-                        setPhoto(e.target.value);
-                      }}
+                      onChange={(e) => handleChange(e, setPhoto)}
                     />
                   </FormControl>
 
@@ -261,13 +265,12 @@ export default function AddProductForm() {
                           focusBorderColor="brand.400"
                           fontSize={{ sm: "sm" }}
                           value={description}
-                          onChange={(e) => {
-                            setDescription(e.target.value);
-                          }}
+                          onChange={(e) => handleChange(e, setDescription)}
                         />
                       </FormControl>
                     </div>
                   </FormControl>
+
                   <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
                     <div>
                       <FormControl id="email" mt={1}>
@@ -290,9 +293,7 @@ export default function AddProductForm() {
                           w="full"
                           rounded="md"
                           value={category}
-                          onChange={(e) => {
-                            setCategory(e.target.value);
-                          }}
+                          onChange={(e) => handleChange(e, setCategory)}
                         />
                       </FormControl>
                     </div>
