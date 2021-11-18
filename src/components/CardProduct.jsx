@@ -2,18 +2,14 @@ import React, { useEffect } from "react";
 import {
   chakra,
   Box,
-  Flex,
-  useColorModeValue,
   Link,
   Image,
   Grid,
   GridItem,
 } from "@chakra-ui/react";
-import fakeProd from "../utils/fakeProd";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import { getProducts, setProducts } from "../state/productsReducer";
-import { useParams, useHistory } from "react-router-dom";
+import { useSelector} from "react-redux";
+import { useParams } from "react-router-dom";
 import CommentSection from "./CommentSection";
 
 const Ma = () => {
@@ -38,8 +34,11 @@ const Ma = () => {
   };
 
   return (
-    <Grid templateColumns="repeat(5, 1fr)" gap={6} h="full">
-      <GridItem colSpan={2} h="500px" bg="tomato" w="full" pos="fixed">
+    <Grid 
+    templateRows="repeat(2, 1fr)"
+    templateColumns="repeat(5, 1fr)"
+    gap={4} h="full">
+      <GridItem rowSpan={2} colSpan={3} bg="white" h="500px">
         <Box
           w="full"
           h="full"
@@ -117,87 +116,8 @@ const Ma = () => {
           </Box>
         </Box>
       </GridItem>
-      <GridItem colStart={4} h="10" bg="papayawhip" h="full">
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
-        <div>
-          <h3>comment</h3>
-          <p>lorem ipsum dolor sit autoComplete</p>
-        </div>
+      <GridItem colSpan={2} bg="white" h="full">
+        < CommentSection id={id}/>
       </GridItem>
     </Grid>
   );
