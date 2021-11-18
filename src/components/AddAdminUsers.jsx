@@ -6,11 +6,12 @@ import {
   Button,
   Stack,
   SimpleGrid,
+  useToast
 } from "@chakra-ui/react";
 
 export default function Component() {
   const [users, setUsers] = useState([]);
-
+  const toast= useToast();
   useEffect(() => {
     axios
       .get(`/api/admin/users`)
@@ -25,7 +26,7 @@ export default function Component() {
   return (
     <Flex
       w="full"
-      bg="gray.600"
+      bg="white"
       p={50}
       alignItems="center"
       justifyContent="center"
@@ -104,13 +105,44 @@ export default function Component() {
                           .put(`/api/admin/users/${user.id}`, {
                             isAdmin: false,
                           })
-                          .then((resp) => resp.data);
+                          .then((resp) =>  axios
+                          .get(`/api/admin/users`)
+                          .then((resp) => {
+                            toast({
+                              title: "Change Success",
+                              description: "User degraded",
+                              status: "error",
+                              duration: 2000,
+                              isClosable: true,
+                            })
+                            return resp.data;
+                          })
+                          .then((data) => {
+                            setUsers(data);
+                          }));
+                          
+
                       } else {
                         return axios
                           .put(`/api/admin/users/${user.id}`, {
                             isAdmin: true,
                           })
-                          .then((resp) => resp.data);
+                          .then((resp) =>  axios
+                          .get(`/api/admin/users`)
+                          .then((resp) => {
+                            toast({
+                              title: "Change Success",
+                              description: "User Promoted",
+                              status: "success",
+                              duration: 2000,
+                              isClosable: true,
+                            })
+                            return resp.data;
+                          })
+                          .then((data) => {
+                            setUsers(data);
+                          }));
+
                       }
                     }}
                   >

@@ -32,6 +32,9 @@ class AdminController {
         });
         res.send(productUpd);
       } else {
+        await Product.update(req.body, {
+          where: { id: req.params.id },
+        });
         const category = await Category.findOne({
           where: { name: req.body.category },
         });
@@ -44,6 +47,7 @@ class AdminController {
       res.sendStatus(500);
     }
   }
+  
   static async deleteProduct(req, res) {
     Product.destroy({ where: { id: req.params.id } });
     res.sendStatus(200);

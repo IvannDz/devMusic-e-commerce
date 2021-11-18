@@ -1,11 +1,12 @@
 import { React, useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import {
-  chakra,
+  
   Box,
-  Flex,
+
   useColorModeValue,
   SimpleGrid,
   GridItem,
@@ -15,18 +16,12 @@ import {
   FormControl,
   FormLabel,
   Input,
-  InputGroup,
-  InputLeftAddon,
-  FormHelperText,
+ 
   Textarea,
-  Avatar,
-  Icon,
+  
   Button,
-  VisuallyHidden,
-  Select,
-  Checkbox,
-  RadioGroup,
-  Radio,
+
+  useToast
 } from "@chakra-ui/react";
 import { FaUser } from "react-icons/fa";
 
@@ -38,20 +33,14 @@ export default function AddProductForm() {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
+  const toast= useToast();
+  const history = useHistory();
 
-  // const [categorias, setCategorias] = useState([]);
+
   const {
     handleSubmit,
-    register,
     formState: { errors, isSubmitting },
   } = useForm();
-
-  // useEffect(() => {
-  //   axios
-  //     .get("/api/products/category")
-  //     .then((resp) => resp.data)
-  //     .then((categorias) => setCategorias(categorias));
-  // }, []);
 
   const onSubmit = () => {
     console.log("que onda");
@@ -65,7 +54,16 @@ export default function AddProductForm() {
         description,
         category,
       })
-      .then((res) => res.data);
+      .then((res) => {
+        toast({
+          title: "Action Success",
+          description: "Product Created",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        })
+        return res.data});
+        history.push("/admin/productslist")
   };
 
   return (

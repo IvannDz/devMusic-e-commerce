@@ -7,11 +7,12 @@ import {
   Button,
   Stack,
   SimpleGrid,
+  useToast
 } from "@chakra-ui/react";
 
 export default function Component() {
   const [products, setProducts] = useState([]);
-  console.log("productos",products)
+  const toast= useToast();
 
   useEffect(() => {
     axios
@@ -35,7 +36,7 @@ export default function Component() {
     
     <Flex
       w="full"
-      bg="gray.600"
+      bg="white"
       p={50}
       alignItems="center"
       justifyContent="center"
@@ -97,23 +98,23 @@ export default function Component() {
                 </chakra.span>
               
                 <Flex justify={{ md: "end" }}>
-                  <Button 
-                  variant="solid" 
-                  colorScheme="red" 
-                  size="sm"
-               
-                >
-                    Delete
-                  </Button>
+                  
 
                   <Button 
                   variant="solid" 
                   colorScheme="green" 
                   size="sm"
+                  mr={2}
                   onClick={()=>{  
                     return axios
                     .post(`/api/cart`, {id:product.id ,price:product.price})
-                    .then((resp)=> {console.log(resp)
+                    .then((resp)=> {toast({
+                      title: "Action Success.",
+                      description: "Product Added.",
+                      status: "success",
+                      duration: 2000,
+                      isClosable: true,
+                    })
                       return resp.data})
                       .then(()=>{ 
                         axios
@@ -137,7 +138,15 @@ export default function Component() {
                   onClick={()=>{  
                     axios
                     .delete(`/api/cart`,{data:{idProduct:product.id, price:product.price}})
-                    .then((resp)=>resp.data)
+                    .then((resp)=>{
+                      toast({
+                        title: "Action Success.",
+                        description: "Product deleted.",
+                        status: "error",
+                        duration: 2000,
+                        isClosable: true,
+                      })
+                      return resp.data})
                     .then(()=>{ 
                       axios
                       .get(`/api/cart`)
@@ -177,7 +186,15 @@ export default function Component() {
                   onClick={()=>{  
                     axios
                     .put(`/api/cart/buy`)
-                    .then((resp)=>resp.data)
+                    .then((resp)=>{
+                      toast({
+                        title: "Purchase Success.",
+                        description: "Check your mail for confirmation.",
+                        status: "success",
+                        duration: 2000,
+                        isClosable: true,
+                      })
+                      return resp.data})
                     
                   }
                     
@@ -194,182 +211,6 @@ export default function Component() {
     </Flex>
   );
 }
-
-
-
-
-
-
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-// import {
-//   chakra,
-//   Flex,
-//   useColorModeValue,
-//   Button,
-//   useBreakpointValue,
-//   Stack,
-//   SimpleGrid,
-// } from "@chakra-ui/react";
-
-// export default function Component() {
-//   const [products, setProducts] = useState([]);
-//   console.log("productos",products)
-
-//   useEffect(() => {
-//     axios
-//       .get(`/api/cart`)
-//       .then((resp) => {
-//         console.log("resp carrito completo", resp)
-//         console.log("TOTAL",resp.data.total)
-//         return resp.data;
-//       })
-//       .then((data) => setProducts(data.products));
-//   }, []);
-
-//   const data = products;
-//   const total= products
-  
-//   // const total= products.reduce((acum,products)=>{acum=products.price+1},0)
-//   // console.log("precio",products[0].price)
-
-
-//   return (
-    
-//     <Flex
-//       w="full"
-//       bg="gray.600"
-//       p={50}
-//       alignItems="center"
-//       justifyContent="center"
-//     >
-//       <Stack direction={{ base: "column" }} w="full" bg="gray.800" shadow="lg">
-//         <SimpleGrid
-//           spacingY={3}
-//           columns={{ base: 1, md: 3 }}
-//           w={{ base: 120, md: "full" }}
-//           textTransform="uppercase"
-//           bg="gray.100"
-//           color="gray.500"
-//           py={{ base: 1, md: 4 }}
-//           px={{ base: 2, md: 10 }}
-//           fontSize="md"
-//           fontWeight="hairline"
-//           display="table-header-group"
-//         >
-//           <chakra.span textAlign={{ md: "right" }}>Product Name</chakra.span>
-          
-//         </SimpleGrid>
-
-//         {data.map((product, pid) => {
-//           return (
-//             <Flex
-//               direction={{ base: "row", md: "column" }}
-//               bg="white"
-//               key={pid}
-//             >
-//               <SimpleGrid
-//                 spacingY={3}
-//                 columns={{ base: 1, md: 4 }}
-//                 w="full"
-//                 py={2}
-//                 px={10}
-//                 fontWeight="hairline"
-//               >
-
-//                 <span>{product.name}</span>
-//                 <span>{product.cantidad}</span>
-                
-//                 <chakra.span
-//                   textOverflow="ellipsis"
-//                   overflow="hidden"
-//                   whiteSpace="nowrap"
-//                 >
-//                   {product.price * product.cantidad}
-//                 </chakra.span>
-              
-//                 <Flex justify={{ md: "end" }}>
-//                   <Button 
-//                   variant="solid" 
-//                   colorScheme="red" 
-//                   size="sm"
-               
-//                 >
-//                     Delete
-//                   </Button>
-
-//                   <Button 
-//                   variant="solid" 
-//                   colorScheme="green" 
-//                   size="sm"
-//                   onClick={()=>{  
-//                     return axios
-//                     .post(`/api/cart`, {id:product.id ,price:product.price})
-//                     .then((resp)=> {console.log(resp)
-//                       return resp.data})
-//                       .then(()=>{ 
-//                         axios
-//                         .get(`/api/cart`)
-//                         .then((resp) => resp.data)
-//                         .then((data) => setProducts(data.products));
-//                       })
-                      
-                    
-//                   }
-                    
-//                     }
-//                   >
-//                     +
-//                   </Button>
-
-//                   <Button 
-//                   variant="solid" 
-//                   colorScheme="red" 
-//                   size="sm"
-//                   onClick={()=>{  
-//                     axios
-//                     .delete(`/api/cart`,{data:{idProduct:product.id, price:product.price}})
-//                     .then((resp)=>resp.data)
-//                     .then(()=>{ 
-//                       axios
-//                       .get(`/api/cart`)
-//                       .then((resp) => resp.data)
-//                       .then((data) => setProducts(data.products));
-//                     })
-//                   }
-                    
-//                     }>
-//                     -
-//                   </Button>
-//                 </Flex>
-//               </SimpleGrid>
-//             </Flex>
-//           );
-//         })}
-      
-//       <Stack direction={{ base: "column" }} w="full" bg="gray.800" shadow="lg">
-//         <SimpleGrid
-//           spacingY={3}
-//           columns={{ base: 1, md: 3 }}
-//           w={{ base: 120, md: "full" }}
-//           textTransform="uppercase"
-//           bg="gray.100"
-//           color="gray.500"
-//           py={{ base: 1, md: 4 }}
-//           px={{ base: 2, md: 10 }}
-//           fontSize="md"
-//           fontWeight="hairline"
-//           display="table-header-group"
-//         >
-//           <chakra.span textAlign={{ md: "right" }}>hola</chakra.span>
-          
-//         </SimpleGrid>
-//         </Stack>
-//       </Stack>
-//     </Flex>
-//   );
-// }
-
 
 
 

@@ -5,24 +5,23 @@ import { chakra, Box, Image, Flex, Icon } from "@chakra-ui/react";
 const SingleComment = ({ comment }) => {
   return (
     <Flex
-      bg={("#F9FAFB", "gray.600")}
       p={1}
       alignItems="center" //chequear
       justifyContent="center"
       rounded="lg"
     >
       <Box
-        w="md"
+        w="sm"
         mx="auto"
         py={2}
         px={6}
-        bg="gray.800"
+        bg="#E4EBF1"
         shadow="lg"
         rounded="lg"
       >
-        <Icon as={ChatIcon} color="gray.200" />
+        <Icon as={ChatIcon} color="black" />
 
-        <chakra.p color="gray.200">{comment.content}</chakra.p>
+        <chakra.p     color="black">{comment.content}</chakra.p>
         <Box d="flex" mt="2" alignItems="center">
           {Array(5)
             .fill("")
@@ -34,7 +33,7 @@ const SingleComment = ({ comment }) => {
             ))}
         </Box>
 
-        <Flex justifyContent="end" fontSize="md" mr="1" color="gray.300">
+        <Flex justifyContent="end" fontSize="md" mr="1" color="black">
           <Box mr="5">User</Box>
           <Flex justifyContent={{ base: "center", md: "end" }}>
             <Image

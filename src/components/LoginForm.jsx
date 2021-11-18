@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import { loginRequest } from "../state/userReducer";
 import { useForm } from "react-hook-form";
 
-
 import {
   Flex,
   Box,
@@ -21,6 +20,7 @@ import {
   Heading,
   Text,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 
 export default function LoginForm() {
@@ -28,18 +28,26 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
-  const valEmail= /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  const valEmail =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
-} = useForm();
-
-
+    formState: { errors },
+  } = useForm();
+  const toast= useToast();
   const onSubmit = () => {
     dispatch(loginRequest({ email, password })).then((res) => {
-      history.push("/");
+      toast({
+        title: "Login Success",
+        description: "Welcome to devMusic",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      })
+      history.push("/")
       return res;
+     
     });
   };
 
@@ -62,38 +70,46 @@ export default function LoginForm() {
         >
           <Stack spacing={4}>
             <form onSubmit={handleSubmit(onSubmit)}>
-
-            <FormControl id="email" isInvalid={ errors.email  } isRequired>
+              <FormControl id="email" isInvalid={errors.email} isRequired>
                 <FormLabel htmlFor="email">Email address</FormLabel>
                 <Input
                   type="text"
-                  
-                  {...register('email', {
-                    required: 'Email is Required',
+                  {...register("email", {
+                    required: "Email is Required",
                     pattern: {
-                        value: valEmail ,
-                        message: 'Invalid email address',
+                      value: valEmail,
+                      message: "Invalid email address",
                     },
-                })}
+                  })}
                   value={email}
-                  onChange={(e) => {setEmail(e.target.value)}}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                 />
-                <FormErrorMessage>{errors.email && errors.email.message}</FormErrorMessage>
+                <FormErrorMessage>
+                  {errors.email && errors.email.message}
+                </FormErrorMessage>
               </FormControl>
 
-              <FormControl id="password" isInvalid={ errors.password} isRequired>
+              <FormControl id="password" isInvalid={errors.password} isRequired>
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <Input
                   type="password"
-                  {...register('password', {
-
-                    required: 'Password is Required',
-                    minLength: { value: 5, message: 'Minimum length should be 5' },
+                  {...register("password", {
+                    required: "Password is Required",
+                    minLength: {
+                      value: 5,
+                      message: "Minimum length should be 5",
+                    },
                   })}
                   value={password}
-                  onChange={(e) => {setPassword(e.target.value)}}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
                 />
-                <FormErrorMessage>{errors.password && errors.password.message}</FormErrorMessage>
+                <FormErrorMessage>
+                  {errors.password && errors.password.message}
+                </FormErrorMessage>
               </FormControl>
               <Stack spacing={10}>
                 <Stack
@@ -118,7 +134,6 @@ export default function LoginForm() {
               </Stack>
             </form>
           </Stack>
-
         </Box>
       </Stack>
     </Flex>

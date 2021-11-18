@@ -1,7 +1,8 @@
 import { React, useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { useForm } from "react-hook-form";
+import { useParams, Link } from "react-router-dom";
+import { useHistory } from "react-router";
+
 import {
   chakra,
   Box,
@@ -27,11 +28,13 @@ import {
   Checkbox,
   RadioGroup,
   Radio,
+  useToast
 } from "@chakra-ui/react";
 import { FaUser } from "react-icons/fa";
-import { useParams } from "react-router-dom";
 
 export default function EditProductForm() {
+  const toast= useToast();
+  const history = useHistory();
   const { id } = useParams();
   const [name, setName] = useState("");
   const [model, setModel] = useState("");
@@ -39,51 +42,50 @@ export default function EditProductForm() {
   const [stock, setStock] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState("");
 
-  const {
-    handleSubmit,
-    register,
-    formState: { errors, isSubmitting },
-  } = useForm();
-
+  useEffect(() => {
+    axios.get(`/api/products/id/${id}`).then(({ data }) => {
+      console.log(data);
+      setName(data.product.name);
+      setModel(data.product.model);
+      setPhoto(data.product.photo);
+      setStock(data.product.stock);
+      setPrice(data.product.price);
+      setDescription(data.product.description);
+      setCategory(data.categoryName.name);
+    });
+  }, []);
+  
   const handleChange = (e, setValue) => {
     setValue(e.target.value);
   };
-
-  useEffect(() => {
-    axios
-      .get(`/api/products/id/${id}`)
-      .then(({ data }) => {
-        console.log(data);
-        setName(data.product.name);
-        setModel(data.product.model);
-        setPhoto(data.product.photo);
-        setStock(data.product.stock);
-        setPrice(data.product.price);
-        setDescription(data.product.description);
-        setCategory(data.categoryName);
-      })
-      .catch(() => {});
-  }, []);
-
-  
-  const onSubmit = () => {
+  const handleSubmit = () => {
     axios
       .put(`/api/admin/product/${id}`, {
-        name,
-        model,
-        photo,
-        stock,
-        price,
-        description,
-        category,
+        name: name,
+        model: model,
+        photo: photo,
+        stock: stock,
+        price: price,
+        description: description,
+        category: category,
       })
-      .then((res) => res.data);
+      .then((resp) => {
+        toast({
+          title: "Edit Success",
+          description: "Product edited",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        })
+        return resp.data})
+        history.push("/admin/productslist")
+
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit}>
       <Box bg={useColorModeValue("gray.50", "inherit")} p={10}>
         <Box visibility={{ base: "hidden", sm: "visible" }} aria-hidden="true">
           <Box py={5}>
@@ -134,9 +136,6 @@ export default function EditProductForm() {
                     </FormLabel>
                     <Input
                       type="text"
-                      name="first_name"
-                      id="first_name"
-                      autoComplete="given-name"
                       mt={1}
                       focusBorderColor="brand.400"
                       shadow="sm"
@@ -159,9 +158,6 @@ export default function EditProductForm() {
                     </FormLabel>
                     <Input
                       type="text"
-                      name="last_name"
-                      id="last_name"
-                      autoComplete="family-name"
                       mt={1}
                       focusBorderColor="brand.400"
                       shadow="sm"
@@ -174,7 +170,6 @@ export default function EditProductForm() {
                   </FormControl>
                   <FormControl as={GridItem} colSpan={[6, 3]}>
                     <FormLabel
-                      htmlFor="first_name"
                       fontSize="sm"
                       fontWeight="md"
                       color={useColorModeValue("gray.700", "gray.50")}
@@ -182,10 +177,7 @@ export default function EditProductForm() {
                       Stock
                     </FormLabel>
                     <Input
-                      type="text"
-                      name="first_name"
-                      id="first_name"
-                      autoComplete="given-name"
+                      type="number"
                       mt={1}
                       focusBorderColor="brand.400"
                       shadow="sm"
@@ -199,7 +191,6 @@ export default function EditProductForm() {
 
                   <FormControl as={GridItem} colSpan={[6, 3]}>
                     <FormLabel
-                      htmlFor="last_name"
                       fontSize="sm"
                       fontWeight="md"
                       color={useColorModeValue("gray.700", "gray.50")}
@@ -207,10 +198,7 @@ export default function EditProductForm() {
                       Price
                     </FormLabel>
                     <Input
-                      type="text"
-                      name="last_name"
-                      id="last_name"
-                      autoComplete="family-name"
+                      type="number"
                       mt={1}
                       focusBorderColor="brand.400"
                       shadow="sm"
@@ -224,7 +212,6 @@ export default function EditProductForm() {
 
                   <FormControl as={GridItem} colSpan={6}>
                     <FormLabel
-                      htmlFor="street_address"
                       fontSize="sm"
                       fontWeight="md"
                       color={useColorModeValue("gray.700", "gray.50")}
@@ -233,9 +220,6 @@ export default function EditProductForm() {
                     </FormLabel>
                     <Input
                       type="text"
-                      name="street_address"
-                      id="street_address"
-                      autoComplete="street-address"
                       mt={1}
                       focusBorderColor="brand.400"
                       shadow="sm"
@@ -273,7 +257,7 @@ export default function EditProductForm() {
 
                   <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
                     <div>
-                      <FormControl id="email" mt={1}>
+                      <FormControl mt={1}>
                         <FormLabel
                           fontSize="sm"
                           fontWeight="md"
@@ -283,9 +267,6 @@ export default function EditProductForm() {
                         </FormLabel>
                         <Input
                           type="text"
-                          name="street_address"
-                          id="street_address"
-                          autoComplete="street-address"
                           mt={1}
                           focusBorderColor="brand.400"
                           shadow="sm"
@@ -306,6 +287,7 @@ export default function EditProductForm() {
                 bg={useColorModeValue("gray.50", "gray.900")}
                 textAlign="right"
               >
+                {/* <Link to={"/admin/productslist"}> */}
                 <Button
                   type="submit"
                   colorScheme="blue"
@@ -314,6 +296,7 @@ export default function EditProductForm() {
                 >
                   Save
                 </Button>
+                {/* </Link> */}
               </Box>
             </GridItem>
           </SimpleGrid>

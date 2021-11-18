@@ -5,6 +5,7 @@ import "./App.css";
 import AddAdminUsers from "./components/AddAdminUsers"
 import ListCategories from "./components/ListCategories"
 import EditCategory from "./components/EditCategory.jsx"
+import AddCategory from "./components/AddCategory.jsx"
 import ProductsList from "./components/ProductsList.jsx"
 import EditProductForm from "./components/EditProductForm";
 import Navbar from "./components/Navbar";
@@ -17,8 +18,8 @@ import CategoryGrid from "./components/CategoryGrid";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import AddProductForm from "./components/AddProductForm";
-import AddAdminUser from "./components/AddAdminUser"
 import Cart from "./components/Cart";
+import DevsPage from "./components/DevsPage";
 import CardProduct from "./components/CardProduct";
 import { setUser } from "./state/userReducer";
 import { useEffect } from "react";
@@ -74,9 +75,6 @@ function App() {
         <Route path="/checkout">
           <Checkout/>
         </Route>
-        <Route path="/admin/user">
-          <AddAdminUser/>
-        </Route>
         <Route path="/search/:name">
           <Search/>
         </Route>
@@ -86,11 +84,17 @@ function App() {
         <Route path="/admin/categories">
           <ListCategories/>
         </Route>
-        <Route path="/admin/category/:id">
+        <Route exact path="/admin/category/:id">
           <EditCategory/>
+        </Route>
+        <Route path="/admin/add/category">
+          <AddCategory/>
         </Route>
         <Route path="/admin/productslist">
           <ProductsList/>
+        </Route>
+        <Route path="/devs-page">
+          <DevsPage/>
         </Route>
         <Route path="/admin/edit/:id">
           <EditProductForm/>

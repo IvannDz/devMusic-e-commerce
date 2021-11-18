@@ -8,22 +8,27 @@ import {
   WrapItem,
   Heading,
   Textarea,
+  Button,
+  InputGroup,
+  Input,
   Text,
   Stack,
   Flex,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 import SingleComment from "./SingleComment";
 
 const CommentSection = ({ id }) => {
+  const toast = useToast();
   const [getcomments, setGetComments] = useState([]);
   const [puntuacion, setPuntuacion] = useState(0);
   const [content, setContent] = useState("");
   const [userId, setUserId] = useState("");
   const [buyConditions, setBuyConditions] = useState(false);
+  const [actualize, setActualize] = useState("");
 
-  //setea array con los comentarios.
   useEffect(() => {
     axios
       .get(`/api/products/id/${id}`)
@@ -32,7 +37,7 @@ const CommentSection = ({ id }) => {
         setGetComments(data.comments);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [actualize]);
 
   let comento = false;
   //Busca id de usuario no sabia como hacerlo jelp.
@@ -43,14 +48,11 @@ const CommentSection = ({ id }) => {
     });
   }, []);
   //postea el comentario
-  const handleClick = (e) => setPuntuacion(e);
-  const handleReview = (e) => setContent(e.target.value);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     axios
-      .post(`/api/comments/${id}`, { content, puntuacion })
-      .then((res) => res.data);
+      .post(`/api/comments/${id}`, { content: content, puntuacion: puntuacion })
+      .then((res) => setActualize(res.data));
   };
 
   //busca los usuarios  order.products
@@ -59,32 +61,30 @@ const CommentSection = ({ id }) => {
       setBuyConditions(res.data);
     });
   }, [userId]);
-
   getcomments.forEach((comment) => {
     if (comment.userId === userId) {
       comento = true;
     }
   });
 
-  console.log(getcomments);
   return (
-    <>
+    <Box
+      w="md"
+      mx="auto"
+      py={2}
+      px={6}
+      mr="20px"
+      bg="white"
+      /*       shadow="dark-lg"
+       */ rounded="lg"
+      border="5px"
+      Color="gray.400"
+    >
       <Heading>Comment section:</Heading>
-
       {buyConditions === true && (
-        <Box
-          w="md"
-          mx="auto"
-          py={2}
-          px={6}
-          bg="gray.800"
-          shadow="lg"
-          rounded="lg"
-          border="1px"
-          borderColor="gray.400"
-        >
+        <Box>
           <>
-            <Text mb="8px" color="gray.500">
+            <Text mb="8px" color="black">
               Rate this product:
             </Text>
             <Stack direction="row" spacing={5}>
@@ -94,20 +94,20 @@ const CommentSection = ({ id }) => {
                   .map((_, i) => (
                     <StarIcon
                       key={i}
-                      onClick={() => handleClick(i)}
+                      onClick={() => setPuntuacion(i)}
                       color={i <= puntuacion ? "teal.500" : "gray.300"}
                     />
                   ))}
               </Box>
             </Stack>
 
-            <Text mb="8px" color="gray.500">
+            <Text mb="8px" color="black">
               {comento === true ? "Edit your coment" : "Leave a comment:"}
             </Text>
             <Textarea
-              color="gray.500"
+              color="black"
               value={content}
-              onChange={handleReview}
+              onChange={(e) => setContent(e.target.value)}
               placeholder="Here is a sample placeholder"
               size="sm"
             />
@@ -115,24 +115,26 @@ const CommentSection = ({ id }) => {
           <Flex
             justifyContent={{ base: "center", md: "end" }}
             m={3}
-            onClick={handleSubmit}
+            
           >
-            <Link to={`/products/${id}`}>
-              <AddIcon color="gray.200" />
-            </Link>
+            <Button bg="black"
+            onClick={() => {
+              handleSubmit();
+              toast({
+                title: "Comment! 👍",
+                description: "Successful operation",
+                status: "info",
+                duration: 2000,
+                isClosable: true,
+              });
+            }}>
+              <AddIcon color="white" />
+            </Button>
           </Flex>
         </Box>
       )}
 
-      <Box
-        d="flex"
-        alignItems="flex-start"
-        justifyContent=""
-        w="auto"
-        p={4}
-        ml={3}
-        mr={3}
-      >
+      <Box d="flex" alignItems="flex-start" justifyContent="" w="auto">
         {getcomments.length > 0 ? (
           <Wrap>
             {getcomments.map((comment, i) => {
@@ -167,7 +169,7 @@ const CommentSection = ({ id }) => {
           </Wrap>
         )}
       </Box>
-    </>
+    </Box>
   );
 };
 

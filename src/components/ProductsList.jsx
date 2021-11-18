@@ -4,18 +4,19 @@ import axios from "axios";
 import {
   chakra,
   Flex,
-  useColorModeValue,
   Button,
-  useBreakpointValue,
   Stack,
   SimpleGrid,
+  useToast
 } from "@chakra-ui/react";
+import {GrEdit, GrAdd} from 'react-icons/gr'
+import {AiFillDelete} from 'react-icons/ai'
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts, setProducts } from "../state/productsReducer";
 
 export default function ProductsList() {
   const products = useSelector((state) => state.products);
-
+  const toast= useToast();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -56,6 +57,10 @@ export default function ProductsList() {
             >
               Price
             </chakra.span>
+            <Link to="/admin">
+            <Button
+            ml={20}>Add New Product</Button>
+            </Link>
           </SimpleGrid>
         </Flex>
         {products.map((product, pid) => {
@@ -89,19 +94,32 @@ export default function ProductsList() {
                     variant="solid"
                     colorScheme="red"
                     size="sm"
+                    mr={2}
                     onClick={() => {
                       return axios
                         .delete(`/api/admin/product/${product.id}`)
-                        .then((resp) => resp.data)
+                        .then((resp) => {
+                          toast({
+                            title: "Delete Success",
+                            description: "Product Deleted",
+                            status: "error",
+                            duration: 2000,
+                            isClosable: true,
+                          })
+                          return resp.data})
                         .then(() => dispatch(getProducts()));
                     }}
                   >
-                    Delete
+                     <AiFillDelete/>
                   </Button>
-
-                  <Button variant="solid" colorScheme="red" size="sm">
-                    Edit
+                  <Link to={`/admin/edit/${product.id}`}>
+                  <Button  variant="outline"
+                        bg="gray.400"
+                        size="sm"
+                        mr={10}>
+                  <GrEdit/>
                   </Button>
+                  </Link>
                 </Flex>
               </SimpleGrid>
             </Flex>

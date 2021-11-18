@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import PhoneInput from 'react-phone-number-input'
+import PhoneInput from "react-phone-number-input";
 
 import {
   Flex,
@@ -18,11 +18,12 @@ import {
   Button,
   Heading,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 
 export default function RegisterForm() {
   const history = useHistory();
-
+  const toast = useToast();
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,14 +33,15 @@ export default function RegisterForm() {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-} = useForm();
+  } = useForm();
 
-    const valUser = /^[a-zA-Z0-9_.-]*$/;
-    const noValUser = /[!"#$%&'()+,-./:;<=>?@[\]^_`{|}~]/;
-    const valNum= /^[0-9]+$/
-    const valEmail= /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    
-  const onSubmit = ({userName,email,password,tel}) => {
+  const valUser = /^[a-zA-Z0-9_.-]*$/;
+  const noValUser = /[!"#$%&'()+,-./:;<=>?@[\]^_`{|}~]/;
+  const valNum = /^[0-9]+$/;
+  const valEmail =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  const onSubmit = ({ userName, email, password, tel }) => {
     axios
       .post("/api/auth/register", {
         userName,
@@ -49,95 +51,125 @@ export default function RegisterForm() {
       })
       .then((res) => res.data);
     history.push("/login");
+    toast({
+      title: "Account created.",
+      description: "We've created your account for you.",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    })
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-    <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"gray.50"}>
-      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-        <Stack align={"center"}>
-          <Heading fontSize={"4xl"}>Register</Heading>
-        </Stack>
-        <Box rounded={"lg"} bg={"white"} boxShadow={"lg"} p={8}>
-          <Stack spacing={4}>
-
-              <FormControl id="userName" isInvalid={noValUser.test(userName)|| errors.userName} isRequired >
+      <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"gray.50"}>
+        <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+          <Stack align={"center"}>
+            <Heading fontSize={"4xl"}>Register</Heading>
+          </Stack>
+          <Box rounded={"lg"} bg={"white"} boxShadow={"lg"} p={8}>
+            <Stack spacing={4}>
+              <FormControl
+                id="userName"
+                isInvalid={noValUser.test(userName) || errors.userName}
+                isRequired
+              >
                 <FormLabel htmlFor="name">User</FormLabel>
                 <Input
                   id="userName"
                   type="text"
-                  {...register('userName', {
-                    required: 'Allow only numbers and characters',
+                  {...register("userName", {
+                    required: "Allow only numbers and characters",
                     pattern: {
                       value: valUser,
-                      message: 'Allow Only numbers and characters',
+                      message: "Allow Only numbers and characters",
                     },
-                    minLength: { value: 4, message: 'Minimum length should be 4' },
-                })}
+                    minLength: {
+                      value: 4,
+                      message: "Minimum length should be 4",
+                    },
+                  })}
                   value={userName}
                   onChange={(e) => {
                     setUserName(e.target.value);
                   }}
-                  
                 />
-                <FormErrorMessage>{errors.userName && errors.userName.message}</FormErrorMessage>
+                <FormErrorMessage>
+                  {errors.userName && errors.userName.message}
+                </FormErrorMessage>
               </FormControl>
 
-
-              <FormControl id="email" isInvalid={errors.email  } isRequired>
+              <FormControl id="email" isInvalid={errors.email} isRequired>
                 <FormLabel htmlFor="email">Email address</FormLabel>
                 <Input
                   type="text"
-                  
-                  {...register('email', {
-                    required: 'Email is Required',
+                  {...register("email", {
+                    required: "Email is Required",
                     pattern: {
-                        value: valEmail ,
-                        message: 'Invalid email address',
+                      value: valEmail,
+                      message: "Invalid email address",
                     },
-                })}
+                  })}
                   value={email}
-                  onChange={(e) => {setEmail(e.target.value)}}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                 />
-                <FormErrorMessage>{errors.email && errors.email.message}</FormErrorMessage>
+                <FormErrorMessage>
+                  {errors.email && errors.email.message}
+                </FormErrorMessage>
               </FormControl>
 
-              <FormControl id="password" isInvalid={ errors.password} isRequired>
+              <FormControl id="password" isInvalid={errors.password} isRequired>
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <Input
                   type="password"
-                  {...register('password', {
-
-                    required: 'Password is Required',
-                    minLength: { value: 5, message: 'Minimum length should be 5' },
+                  {...register("password", {
+                    required: "Password is Required",
+                    minLength: {
+                      value: 5,
+                      message: "Minimum length should be 5",
+                    },
                   })}
                   value={password}
-                  onChange={(e) => {setPassword(e.target.value)}}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
                 />
-                <FormErrorMessage>{errors.password && errors.password.message}</FormErrorMessage>
+                <FormErrorMessage>
+                  {errors.password && errors.password.message}
+                </FormErrorMessage>
               </FormControl>
 
-              <FormControl id="tel" isInvalid={valNum.test(tel) && errors.tel} isRequired >
+              <FormControl
+                id="tel"
+                isInvalid={valNum.test(tel) && errors.tel}
+                isRequired
+              >
                 <FormLabel htmlFor="name">Telephone</FormLabel>
                 <Input
                   id="tel"
                   type="number"
-                  {...register('tel', {
-                    required: 'Allow only numbers',
-                    minLength: { value: 8, message: 'Minimum length should be 8' },
+                  {...register("tel", {
+                    required: "Allow only numbers",
+                    minLength: {
+                      value: 8,
+                      message: "Minimum length should be 8",
+                    },
                     pattern: {
                       value: valNum,
-                      message: 'Allow Only numbers',
+                      message: "Allow Only numbers",
                     },
-                })}
+                  })}
                   value={tel}
                   onChange={(e) => {
                     setTel(e.target.value);
                   }}
-                  
                 />
-                <FormErrorMessage>{errors.tel && errors.tel.message}</FormErrorMessage>
-                </FormControl>
+                <FormErrorMessage>
+                  {errors.tel && errors.tel.message}
+                </FormErrorMessage>
+              </FormControl>
 
               <Stack spacing={10}>
                 <Stack
@@ -159,10 +191,10 @@ export default function RegisterForm() {
                   Sign in
                 </Button>
               </Stack>
-          </Stack>
-        </Box>
-      </Stack>
-    </Flex>
-  </form>
+            </Stack>
+          </Box>
+        </Stack>
+      </Flex>
+    </form>
   );
 }

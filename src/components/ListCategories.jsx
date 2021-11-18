@@ -1,32 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import {GrEdit, GrAdd} from 'react-icons/gr'
+import {AiFillDelete} from 'react-icons/ai'
 import {
   chakra,
   Flex,
-  useColorModeValue,
+
   Button,
-  useBreakpointValue,
+
   Stack,
   SimpleGrid,
-  useRangeSlider,
-  InputGroup,
-  Input,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-  Text,
+
+  useToast
 } from "@chakra-ui/react";
-import { isRejected } from "@reduxjs/toolkit";
+
 
 export default function Component() {
   const [categories, setCategories] = useState([]);
-  const [edit, setEdit] = useState("");
+  const toast= useToast();
 
   useEffect(() => {
     axios
@@ -67,6 +59,7 @@ export default function Component() {
             >
               Category
             </chakra.span>
+         
           </SimpleGrid>
         </Flex>
 
@@ -95,19 +88,31 @@ export default function Component() {
                 >
                   {category.name}
                 </chakra.span>
-                <>
+                
                   <Flex justify={{ md: "end" }}>
                     <Link to={`/admin/category/${category.id}`}>
                       <Button
-                        variant="solid"
-                        colorScheme="green"
+                        variant="outline"
+                        bg="gray.400"
                         size="sm"
-                        type="submit"
-                        onClick={() => {}}
-                      >
-                        Set Category
+                        
+                      ><GrEdit/>
                       </Button>
                     </Link>
+                    <Link to={`/admin/add/category`}>
+                      <Button
+                        variant="outline"
+                        bg="gray.400"
+                        size="sm"
+                        mr={2}
+                        ml={2}
+                      >
+                       <GrAdd/>
+                      </Button>
+                    </Link>
+
+                  </Flex>
+                  <Flex>
                     <Button
                       variant="solid"
                       colorScheme="red"
@@ -120,7 +125,13 @@ export default function Component() {
                             axios
                               .get(`/api/products/category`)
                               .then((resp) => {
-                                console.log("CATEGORIAS", resp.data);
+                                toast({
+                                  title: "Action Success",
+                                  description: "Category Deleted",
+                                  status: "error",
+                                  duration: 2000,
+                                  isClosable: true,
+                                })
                                 return resp.data;
                               })
                               .then((data) => {
@@ -129,10 +140,10 @@ export default function Component() {
                           });
                       }}
                     >
-                      Delete
+                      <AiFillDelete/>
                     </Button>
-                  </Flex>
-                </>
+                    </Flex>
+                
               </SimpleGrid>
             </Flex>
           );

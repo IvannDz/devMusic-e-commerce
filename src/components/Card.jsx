@@ -53,7 +53,7 @@ function Card({ name, price, photo, id }) {
             rounded={"lg"}
             height={230}
             width={282}
-            objectFit={"cover"}
+            objectFit={"contain"}
             src={photo}
           />
         </Box>

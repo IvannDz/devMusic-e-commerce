@@ -7,6 +7,7 @@ import {
     Button,
     Heading,
     useColorModeValue,
+    useToast
   } from "@chakra-ui/react";
   
   import { useParams } from "react-router-dom";
@@ -15,6 +16,7 @@ import {
   import { useHistory } from "react-router";
   
   export default function SimpleCard() {
+    const toast= useToast();
     const { id } = useParams();
     const [edit, setEdit] = useState("");
     const [category, setCategory] = useState({});
@@ -30,7 +32,16 @@ import {
       e.preventDefault();
       axios
         .put(`/api/admin/category/${id}`, { name: edit })
-        .then((resp) => history.push("/admin/categories"));
+        .then((resp) => {
+          toast({
+            title: "Action Success",
+            description: "Category edited",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+          })
+          return resp.data})
+        history.push("/admin/categories")
     };
   
     return (

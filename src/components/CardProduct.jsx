@@ -1,71 +1,78 @@
 import React, { useEffect } from "react";
-import {
-  chakra,
-  Box,
-  Link,
-  Image,
-  Grid,
-  GridItem,
-} from "@chakra-ui/react";
+import { chakra, Box, Link, Image, Grid, GridItem, useToast } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 import axios from "axios";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import CommentSection from "./CommentSection";
 
 const Ma = () => {
   const { id } = useParams();
   const [product, setProduct] = React.useState({});
-  const [valoration, setValoration] = React.useState({})
+  const [valoration, setValoration] = React.useState({});
   const user = useSelector((state) => state.user);
-
+  const toast= useToast();
   useEffect(() => {
     axios
       .get(`/api/products/id/${id}`)
       .then((resp) => resp.data)
-      .then((data) => {setProduct(data.product); setValoration(data.valoration)})
+      .then((data) => {
+        setProduct(data.product);
+        setValoration(data.valoration);
+      });
   }, [id]);
 
   const addToCart = () => {
     return axios
       .post(`/api/cart`, { id: product.id, price: product.price })
       .then((resp) => {
+        toast({
+          title: "Product added ",
+          description: "Your product has been added",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        })
         return resp.data;
       });
   };
 
   return (
-    <Grid 
-    templateRows="repeat(2, 1fr)"
-    templateColumns="repeat(5, 1fr)"
-    gap={4} h="full">
+    <Grid
+      templateRows="repeat(2, 1fr)"
+      templateColumns="repeat(5, 1fr)"
+      gap={4}
+      h="full"
+    >
       <GridItem rowSpan={2} colSpan={3} bg="white" h="500px">
         <Box
           w="full"
           h="full"
-          bg="white"
+          bg="#E4EBF1"
           mx={{ lg: 8 }}
           display={{ lg: "flex" }}
           maxW={{ lg: "5xl" }}
-          shadow={{ lg: "lg" }}
+          /*      shadow="dark-lg" */
           rounded={{ lg: "lg" }}
         >
-          <Box w={{ lg: "50%" }}>
+          <Box w={{ lg: "50%" }} alignItems="center">
             <Image
+            ml="25px"
               rounded={"lg"}
               height="full"
               width="full"
-              objectFit={"cover"}
+              objectFit={"contain"}
               src={product.photo}
             />
           </Box>
 
           <Box
+           ml="25px"
             py={12}
             px={6}
             maxW={{ base: "xl", lg: "5xl" }}
             w={{ lg: "50%" }}
-            >
+          >
             <chakra.h2
               fontSize={{ base: "2xl", md: "3xl" }}
               color="gray.800"
@@ -77,21 +84,21 @@ const Ma = () => {
               {product.description}
             </chakra.p>
             <chakra.h1 color="black" fontWeight="bold" fontSize="lg">
-              {product.price}
+              USD {product.price}
             </chakra.h1>
             <chakra.h1 color="black" fontWeight="bold" fontSize="lg">
               Stock: {product.stock}
             </chakra.h1>
             <Box d="flex" mt="2" alignItems="center">
-            {Array(5)
-              .fill("")
-              .map((_, i) => (
-                <StarIcon
-                  key={i}
-                  color={i < valoration ? "teal.500" : "gray.300"}
-                />
-              ))}
-          </Box>
+              {Array(5)
+                .fill("")
+                .map((_, i) => (
+                  <StarIcon
+                    key={i}
+                    color={i < valoration ? "teal.500" : "gray.300"}
+                  />
+                ))}
+            </Box>
 
             {user?.id ? (
               <Box mt={8}>
@@ -128,7 +135,7 @@ const Ma = () => {
         </Box>
       </GridItem>
       <GridItem colSpan={2} bg="white" h="full">
-        < CommentSection id={id}/>
+        <CommentSection id={id} />
       </GridItem>
     </Grid>
   );

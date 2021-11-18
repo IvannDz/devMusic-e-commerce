@@ -36,7 +36,9 @@ export default function Navbar() {
     axios
       .get("/api/products/category")
       .then((resp) => resp.data)
-      .then((categorias) => setCategorias(categorias));
+      .then((categorias) => {
+        setCategorias(categorias);
+      });
   }, []);
 
   const user = useSelector((state) => state.user);
@@ -104,18 +106,42 @@ export default function Navbar() {
               {user?.id ? (
                 user.isAdmin ? (
                   <HStack>
-                    <Link to="/admin/users">
-                      <Button variant="solid" colorScheme="pink">
-                        {user.userName}
-                      </Button>
-                    </Link>
-                    <Link to="/admin">
-                      <IconButton
-                        colorScheme="pink"
-                        variant="outline"
-                        icon={<FaUserCog />}
-                      />
-                    </Link>
+                    <Box zIndex="9999">
+                      {user.isSuperAdmin ? (
+                        <Menu>
+                          <MenuButton as={Button} icon={<FaUserCog />}>
+                            SuperAdmin
+                          </MenuButton>
+                          <MenuList>
+                            <Link to="/admin/users">
+                              <MenuItem>Set Users</MenuItem>
+                            </Link>
+
+                            <Link to="/admin/categories">
+                              <MenuItem>Set Categories</MenuItem>
+                            </Link>
+                            <Link to="/admin/productslist">
+                              <MenuItem>Set Products</MenuItem>
+                            </Link>
+                          </MenuList>
+                        </Menu>
+                      ) : (
+                        <Menu>
+                          <MenuButton as={Button} icon={<FaUserCog />}>
+                            Admin
+                          </MenuButton>
+                          <MenuList>
+                            <Link to="/admin/categories">
+                              <MenuItem>Set Categories</MenuItem>
+                            </Link>
+                            <Link to="/admin/productslist">
+                              <MenuItem>Set Products</MenuItem>
+                            </Link>
+                          </MenuList>
+                        </Menu>
+                      )}
+                      
+                    </Box>
                     <Link to="/">
                       <Button
                         variant="solid"
