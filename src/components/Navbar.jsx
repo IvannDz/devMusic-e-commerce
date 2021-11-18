@@ -10,17 +10,9 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuIcon,
-  MenuCommand,
-  MenuDivider,
   chakra,
   Box,
   Flex,
-  useColorModeValue,
-  VisuallyHidden,
   HStack,
   Button,
   useDisclosure,
@@ -28,14 +20,11 @@ import {
   IconButton,
   CloseButton,
   InputGroup,
-  InputLeftElement,
   Input,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { AiOutlineMenu, AiOutlineShoppingCart } from "react-icons/ai";
 import { FaUserCog } from "react-icons/fa";
-import { callExpression } from "@babel/types";
-import { searchRequest } from "../state/searchReducer";
 
 export default function Navbar() {
   const mobileNav = useDisclosure();
@@ -94,8 +83,8 @@ export default function Navbar() {
                     Categories
                   </MenuButton>
                   <MenuList>
-                    {categorias.map((categoria) => (
-                      <Link to={`/category/${categoria.name}`}>
+                    {categorias.map((categoria, i) => (
+                      <Link key={i} to={`/category/${categoria.name}`}>
                         <MenuItem>{categoria.name}</MenuItem>
                       </Link>
                     ))}
@@ -115,7 +104,6 @@ export default function Navbar() {
               {user?.id ? (
                 user.isAdmin ? (
                   <HStack>
-                    
                     <Link to="/admin/users">
                       <Button variant="solid" colorScheme="pink">
                         {user.userName}

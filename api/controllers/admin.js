@@ -16,6 +16,13 @@ class AdminController {
       return res.send(err);
     }
   }
+
+  static async getCategory(req, res) {
+
+    res.send(await Category.findOne({where: { id: req.params.id}}))
+
+  }
+
   static async putProduct(req, res) {
     try {
       if (!req.body.category) {

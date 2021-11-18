@@ -14,6 +14,7 @@ router.post("/register", AuthController.register);
 router.put("/me",isLoggedIn, AuthController.updateMe);
 router.delete("/me",isLoggedIn, AuthController.deleteMe);
 router.get("/me/buyOrder",isLoggedIn, AuthController.getBuyOrder);
+router.get("/me/buyOrder/:idProduct",isLoggedIn, AuthController.getProduct);
 router.post("/logout",AuthController.logout);
 
 
