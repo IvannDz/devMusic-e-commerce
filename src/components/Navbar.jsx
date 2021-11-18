@@ -107,12 +107,10 @@ export default function Navbar() {
                 <InputGroup>
                   <Input
                     type="text"
+                    placeholder="Search..."
                     value={search}
-                    value2="saluditos"
                     onChange={(e) => setSearch(e.target.value)}
-                    
                   />
-
                 </InputGroup>
               </form>
               {user?.id ? (

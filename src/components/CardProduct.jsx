@@ -7,6 +7,7 @@ import {
   Grid,
   GridItem,
 } from "@chakra-ui/react";
+import { StarIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import { useSelector} from "react-redux";
 import { useParams } from "react-router-dom";
@@ -15,20 +16,20 @@ import CommentSection from "./CommentSection";
 const Ma = () => {
   const { id } = useParams();
   const [product, setProduct] = React.useState({});
+  const [valoration, setValoration] = React.useState({})
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
     axios
       .get(`/api/products/id/${id}`)
       .then((resp) => resp.data)
-      .then((data) => setProduct(data.product));
-  }, []);
+      .then((data) => {setProduct(data.product); setValoration(data.valoration)})
+  }, [id]);
 
   const addToCart = () => {
     return axios
       .post(`/api/cart`, { id: product.id, price: product.price })
       .then((resp) => {
-        console.log(resp);
         return resp.data;
       });
   };
@@ -64,7 +65,7 @@ const Ma = () => {
             px={6}
             maxW={{ base: "xl", lg: "5xl" }}
             w={{ lg: "50%" }}
-          >
+            >
             <chakra.h2
               fontSize={{ base: "2xl", md: "3xl" }}
               color="gray.800"
@@ -81,6 +82,16 @@ const Ma = () => {
             <chakra.h1 color="black" fontWeight="bold" fontSize="lg">
               Stock: {product.stock}
             </chakra.h1>
+            <Box d="flex" mt="2" alignItems="center">
+            {Array(5)
+              .fill("")
+              .map((_, i) => (
+                <StarIcon
+                  key={i}
+                  color={i < valoration ? "teal.500" : "gray.300"}
+                />
+              ))}
+          </Box>
 
             {user?.id ? (
               <Box mt={8}>
