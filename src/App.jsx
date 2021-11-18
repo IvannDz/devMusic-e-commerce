@@ -5,7 +5,6 @@ import "./App.css";
 import AddAdminUsers from "./components/AddAdminUsers"
 import ListCategories from "./components/ListCategories"
 import EditCategory from "./components/EditCategory.jsx"
-import AddCategory from "./components/AddCategory.jsx"
 import ProductsList from "./components/ProductsList.jsx"
 import EditProductForm from "./components/EditProductForm";
 import Navbar from "./components/Navbar";
@@ -95,6 +94,24 @@ function App() {
         </Route>
         <Route path="/devs-page">
           <DevsPage/>
+        </Route>
+        <Route path="/admin/edit/:id">
+          <EditProductForm/>
+        </Route>
+        <Route path="/search/:name">
+          <Search/>
+        </Route>
+        <Route path="/admin/users">
+          <AddAdminUsers/>
+        </Route>
+        <Route path="/admin/categories">
+          <ListCategories/>
+        </Route>
+        <Route path="/admin/category/:id">
+          <EditCategory/>
+        </Route>
+        <Route path="/admin/productslist">
+          <ProductsList/>
         </Route>
         <Route path="/admin/edit/:id">
           <EditProductForm/>
