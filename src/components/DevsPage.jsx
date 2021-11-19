@@ -9,7 +9,7 @@ const DevsPage = () => {
       "https://cdn.discordapp.com/attachments/897571153550389278/910976210685816912/0s.jpg",
     name: "Osvaldo Ojeda",
     description:
-      "Full Stack maker & UI / UX Designer , le gusta decir pipu y titan 💕es amante de php💕",
+      "Full Stack maker & UI / UX Designer , le gusta decir pipu y titan, amante de la chocolatada 💕es amante de php y laravel💕",
     job: "Vicepresidente Jr",
     country: "Buenos Aires, Argentina",
     email: "osvaldoojedadeveloper@gmail.com",
@@ -21,8 +21,8 @@ const DevsPage = () => {
       "https://cdn.discordapp.com/attachments/888449049852805190/910979862620168192/yo.jpg",
     name: "Maxi Linari",
     description:
-      "Full Stack maker & UI / UX Designer , le gusta decir palabras raras y le duele la espalda",
-    job: "Manager UX Desing",
+      "Full Stack maker & UI / UX Designer , le gusta decir palabras raras y le duele la espalda, sueña con ser coach de p5",
+    job: " Senior UX Consultant y coach",
     country: "Buenos Aires, Argentina",
     email: "mjlinari@gmail.com",
   };
@@ -62,6 +62,7 @@ const DevsPage = () => {
 
   const dataMati = {
     title: "Don Chakra",
+    name:"Mati Di Fiore",
     photo:
       "https://cdn.discordapp.com/attachments/888120738597462086/910993017077391360/Screenshot_20211118-174011.png",
     description:

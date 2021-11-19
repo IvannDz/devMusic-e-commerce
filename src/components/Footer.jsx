@@ -15,6 +15,9 @@ export default function Gslr() {
 
   return (
     <Box
+    className="footer"
+    bottom={"0"}
+    w="100%"
     borderTopWidth={1}
     borderStyle={'solid'}
     borderColor={useColorModeValue('gray.200', 'gray.700')}
@@ -24,7 +27,6 @@ export default function Gslr() {
       maxW={'6xl'}
       py={4}
       direction={{ base: 'column', md: 'row' }}
-      spacing={4}
       justify={{ md: 'space-between' }}
       align={{ md: 'center' }}>
       <Text color="white">© 2021 devMusic. All rights reserved</Text>

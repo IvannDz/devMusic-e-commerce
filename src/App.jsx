@@ -57,7 +57,7 @@ function App() {
         <Route exact path="/products/:id">
           <CardProduct />
         </Route>
-        <Route path="/category/:category">
+        <Route path="/category/:category/:page">
           <CategoryGrid />
         </Route>
         <Route path="/register">
@@ -75,7 +75,7 @@ function App() {
         <Route path="/checkout">
           <Checkout/>
         </Route>
-        <Route path="/search/:name">
+        <Route path="/search/:name/:page">
           <Search/>
         </Route>
         <Route path="/admin/users">
@@ -98,9 +98,6 @@ function App() {
         </Route>
         <Route path="/admin/edit/:id">
           <EditProductForm/>
-        </Route>
-        <Route path="/search/:name">
-          <Search/>
         </Route>
         <Route path="/admin/users">
           <AddAdminUsers/>

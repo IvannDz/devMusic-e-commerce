@@ -2,12 +2,10 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import Card from "./Card";
 
- import Carousel from "react-elastic-carousel";
-import { Flex, Heading } from "@chakra-ui/react";
-
+import Carousel from "react-elastic-carousel";
+import { Flex, Heading, Box, Skeleton } from "@chakra-ui/react";
 
 const ProductsGrid = () => {
-  
   const [cuerda, setCuerda] = React.useState([]);
   const [viento, setViento] = React.useState([]);
   const [percusion, setPercusion] = React.useState([]);
@@ -44,21 +42,22 @@ const ProductsGrid = () => {
       });
   }, []);
 
-  // ------------------
-
-  // console.log("cuerda", cuerda);
   return (
-    <>
+    <Box bg="#e6e6e6">
       <div>
-        <Heading textAlign="center" marginTop="20px" marginBottom="20px">
-          CUERDA
-        </Heading>
+        <span></span>
+        <Heading
+          textAlign="center"
+          fontFamily="Helvetica"
+          marginTop="20px"
+          marginBottom="px"
+        ></Heading>
         <Carousel enableAutoPlay autoPlaySpeed={1500}>
           {cuerda.map((products, i) => {
             return products.map((product, i) => {
               return (
-                <Flex direction="column" >
-                  <Flex direction="row"  >
+                <Flex direction="column">
+                  <Flex direction="row">
                     <Card key={i} {...product[0]} />
                     <Card key={i} {...product[1]} />
                     <Card key={i} {...product[2]} />
@@ -68,10 +67,14 @@ const ProductsGrid = () => {
             });
           })}
         </Carousel>
-        
       </div>
       <>
-        <Heading textAlign="center" marginTop="20px" marginBottom="20px">
+        <Heading
+          textAlign="center"
+          marginTop="20px"
+          marginBottom="20px"
+          fontFamily={"body"}
+        >
           PERCUSION
         </Heading>
         <Carousel>
@@ -110,27 +113,8 @@ const ProductsGrid = () => {
           })}
         </Carousel>
       </>
-      
-    </>
+    </Box>
   );
 };
 
 export default ProductsGrid;
-
-/*
-<Flex direction="column">
-          CUERDA
-          <Flex direction="row">
-            <Card key={i} {...products[0]} />
-          </Flex>
-          <Flex direction="row">
-            <Card key={i} {...products[0]} />
-          </Flex>
-          <Flex direction="row">
-            <Card key={i} {...products[0]} />
-          </Flex>
-        </Flex>;*/
-
-// -------------------------------------------magia
-
-

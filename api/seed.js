@@ -19,6 +19,12 @@ db.sync()
       .then(() => {
         return Product.bulkCreate(arrayProducts);
       })
+      .then(() => {
+        return Product.bulkCreate(arrayProducts);
+      })
+      .then(() => {
+        return Product.bulkCreate(arrayProducts);
+      })
 
   })
   .then(() => {

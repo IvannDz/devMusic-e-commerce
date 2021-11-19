@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginRequest } from "../state/userReducer";
 import { useForm } from "react-hook-form";
-
+import { AiFillFacebook } from "react-icons/ai";
 import {
   Flex,
   Box,
@@ -35,7 +35,7 @@ export default function LoginForm() {
     register,
     formState: { errors },
   } = useForm();
-  const toast= useToast();
+  const toast = useToast();
   const onSubmit = () => {
     dispatch(loginRequest({ email, password })).then((res) => {
       toast({
@@ -44,23 +44,22 @@ export default function LoginForm() {
         status: "success",
         duration: 2000,
         isClosable: true,
-      })
-      history.push("/")
+      });
+      history.push("/");
       return res;
-     
     });
   };
 
   return (
+    <div className="fondo">
     <Flex
       minH={"100vh"}
       align={"center"}
       justify={"center"}
-      bg={useColorModeValue("gray.50", "gray.800")}
     >
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
-          <Heading fontSize={"4xl"}>Login to your account</Heading>
+          <Heading fontSize={"4xl"} color="white">Login to your account</Heading>
         </Stack>
         <Box
           rounded={"lg"}
@@ -111,7 +110,7 @@ export default function LoginForm() {
                   {errors.password && errors.password.message}
                 </FormErrorMessage>
               </FormControl>
-              <Stack spacing={10}>
+              <Stack spacing={5}>
                 <Stack
                   direction={{ base: "column", sm: "row" }}
                   align={"start"}
@@ -122,20 +121,34 @@ export default function LoginForm() {
                 </Stack>
                 <Button
                   type="submit"
+                  bg={"#ffcd1f"}
+                  color={"black"}
+                  _hover={{
+                    bg: "#ffcd1f.400",
+                    border: "1px solid grey",
+                  }}
+                >
+                  Login
+                </Button>
+                <Button
+                  type="submit"
                   bg={"blue.400"}
                   color={"white"}
                   _hover={{
                     bg: "blue.500",
+                    border: "1px solid grey",
                   }}
+                  leftIcon={<AiFillFacebook />}
                 >
-                  Sign in
+                  Login with Facebook
                 </Button>
-                <a href="/api/auth/facebook">Login with Facebook</a>
               </Stack>
             </form>
           </Stack>
         </Box>
       </Stack>
     </Flex>
+    </div>
+
   );
 }

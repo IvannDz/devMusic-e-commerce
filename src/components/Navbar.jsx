@@ -118,11 +118,11 @@ export default function Navbar() {
                   <HStack>
                     <Box zIndex="9999">
                       {user.isSuperAdmin ? (
-                        <Menu>
+                        <Menu >
                           <MenuButton variant="solid" bg="black"  as={Button} icon={<FaUserCog />}>
                             SuperAdmin
                           </MenuButton>
-                          <MenuList>
+                          <MenuList bg="black">
                             <Link to="/admin/users">
                               <MenuItem>Set Users</MenuItem>
                             </Link>
@@ -154,6 +154,8 @@ export default function Navbar() {
                     </Box>
                     <Link to="/">
                       <Button
+                      ml={5}
+                      mr={3}
                         variant="link"
                         colorScheme="yellow"
                         onClick={handleLogout}

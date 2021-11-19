@@ -42,6 +42,7 @@ const Ma = () => {
       templateRows="repeat(2, 1fr)"
       templateColumns="repeat(5, 1fr)"
       gap={4}
+      mb="150"
       h="full"
     >
       <GridItem rowSpan={2} colSpan={3} bg="white" h="500px">
@@ -104,7 +105,7 @@ const Ma = () => {
                 .map((_, i) => (
                   <StarIcon
                     key={i}
-                    color={i < valoration ? "teal.500" : "gray.300"}
+                    color={i <= valoration ? "teal.500" : "gray.300"}
                   />
                 ))}
             </Box>

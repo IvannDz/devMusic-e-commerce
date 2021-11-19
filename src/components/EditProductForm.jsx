@@ -112,7 +112,7 @@ export default function EditProductForm() {
                 spacing={6}
               >
                 <SimpleGrid columns={6} spacing={6}>
-                  <FormControl as={GridItem} colSpan={[6, 3]}>
+                  <FormControl as={GridItem} colSpan={[6, 3]}  >
                     <FormLabel
                       htmlFor="first_name"
                       fontSize="sm"
@@ -134,7 +134,7 @@ export default function EditProductForm() {
                     />
                   </FormControl>
 
-                  <FormControl as={GridItem} colSpan={[6, 3]}>
+                  <FormControl as={GridItem} colSpan={[6, 3]}  >
                     <FormLabel
                       htmlFor="last_name"
                       fontSize="sm"
@@ -155,7 +155,7 @@ export default function EditProductForm() {
                       onChange={(e) => handleChange(e, setModel)}
                     />
                   </FormControl>
-                  <FormControl as={GridItem} colSpan={[6, 3]}>
+                  <FormControl as={GridItem} colSpan={[6, 3]}  >
                     <FormLabel
                       fontSize="sm"
                       fontWeight="md"
@@ -176,7 +176,7 @@ export default function EditProductForm() {
                     />
                   </FormControl>
 
-                  <FormControl as={GridItem} colSpan={[6, 3]}>
+                  <FormControl as={GridItem} colSpan={[6, 3]}  >
                     <FormLabel
                       fontSize="sm"
                       fontWeight="md"
@@ -197,7 +197,7 @@ export default function EditProductForm() {
                     />
                   </FormControl>
 
-                  <FormControl as={GridItem} colSpan={6}>
+                  <FormControl as={GridItem} colSpan={6}  >
                     <FormLabel
                       fontSize="sm"
                       fontWeight="md"
@@ -220,7 +220,7 @@ export default function EditProductForm() {
 
                   <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
                     <div>
-                      <FormControl id="email" mt={1}>
+                      <FormControl id="email" mt={1}  >
                         <FormLabel
                           fontSize="sm"
                           fontWeight="md"
@@ -244,7 +244,7 @@ export default function EditProductForm() {
 
                   <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
                     <div>
-                      <FormControl mt={1}>
+                      <FormControl mt={1}  >
                         <FormLabel
                           fontSize="sm"
                           fontWeight="md"
