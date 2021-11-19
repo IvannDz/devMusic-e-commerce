@@ -29,20 +29,22 @@ class ProductsController {
     res.send({ product: product , comments: comments, valoration: valoration, categoryName: category });
   }
 
-  //a testear
+
   static async getByCategory(req, res) {
-    const { category } = req.params; //nombre de la categoria
+    const {page = 1} = req.query
+    const { category } = req.params; 
     const categoria = await Category.findOne({
       where: { name: category },
     });
     const products = await Product.findAll({
       where: { CategoryId: categoria.id },
     });
-    res.send(products);
+    res.send(products.slice(9*(page-1), 9 * page));
   }
 
   static async getByName(req, res) {
     const { name } = req.params;
+    const {page = 1} = req.query
     const products = await Product.findAll({
       where: {
         name: {
@@ -51,9 +53,7 @@ class ProductsController {
       }
     });
 
-
-
-    res.send(products);
+    res.send(products.slice(9*(page-1), 9 * page));
   }
 
   static async getAllCategory(req, res) {

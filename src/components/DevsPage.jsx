@@ -2,9 +2,6 @@ import React from "react";
 import DevCard from "./DevCard";
 import { Flex, WrapItem, Wrap } from "@chakra-ui/react";
 
-import { MdHeadset, MdEmail, MdLocationOn } from "react-icons/md";
-import { BsFillBriefcaseFill } from "react-icons/bs";
-
 const DevsPage = () => {
   const dataOva = {
     title: "EL TITAN",
@@ -13,7 +10,7 @@ const DevsPage = () => {
     name: "Osvaldo Ojeda",
     description:
       "Full Stack maker & UI / UX Designer , le gusta decir pipu y titan 💕es amante de php💕",
-    job: "Developer",
+    job: "Vicepresidente Jr",
     country: "Buenos Aires, Argentina",
     email: "osvaldoojedadeveloper@gmail.com",
   };
@@ -25,19 +22,19 @@ const DevsPage = () => {
     name: "Maxi Linari",
     description:
       "Full Stack maker & UI / UX Designer , le gusta decir palabras raras y le duele la espalda",
-    job: "Developer y Psicologo",
+    job: "Manager UX Desing",
     country: "Buenos Aires, Argentina",
     email: "mjlinari@gmail.com",
   };
 
   const dataIvo = {
-    title: "Yo",
+    title: "Mr insomnia",
     photo:
       "https://cdn.discordapp.com/attachments/906277443361472608/910990051381493860/Screenshot_20211118-172736.png",
-    name: "Iván Dominguez",
-    description: "Full Stack maker & UI / UX Designer , ola",
-    job: "Developer y Psicologo",
-    country: "Buenos Aires, Argentina",
+    name: "Iván Dominguez💕",
+    description: "Full Stack maker & UI / UX Designer , no tiene mas fotos, da mala suerte en el lol pero parece ser un agradable sujeto",
+    job: "CEO devMusic",
+    country: "Cerca de todo",
     email: "ivanleodomin00@gmail.com",
   };
   const dataTomi = {
@@ -47,7 +44,7 @@ const DevsPage = () => {
     name: "Tomi Gil Amoedo",
     description:
       "Full Stack maker & UI / UX Designer, le gusta el matcha, tiene una foto perfecta para Linkedin y queria usar Material UI",
-    job: "Developer",
+    job: "Leader UX Design Sector",
     country: "Buenos Aires, Argentina",
     email: "tomasgilamoedo@gmail.com",
   };
@@ -58,7 +55,7 @@ const DevsPage = () => {
     name: "Maru Guerrero",
     description:
       "Full Stack maker & UI / UX Designer , se mutea mucho y no le gusta el diseño. Estudio medicina pero con la programacion se lucra mas",
-    job: "Developer",
+    job: "Developer facherita",
     country: "Desconocido",
     email: "maruguerrero7@gmail.com",
   };
@@ -69,7 +66,7 @@ const DevsPage = () => {
       "https://cdn.discordapp.com/attachments/888120738597462086/910993017077391360/Screenshot_20211118-174011.png",
     description:
       "Full Stack maker & UI / UX Designer , lloro la primer semana por Chakra pero ahora es un senior casi semi, tiene una foto con un canguro",
-    job: "Developer",
+    job: "President devMusic",
     country: "Buenos Aires, Argentina",
     email: "difioremati@gmail.com",
   };

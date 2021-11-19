@@ -46,7 +46,7 @@ const ProductsGrid = () => {
     <>
       <div>
         <Heading textAlign="center" marginTop="20px" marginBottom="20px">
-          Cuerda
+          CUERDA
         </Heading>
         <Carousel>
           {cuerda.map((products, i) => {

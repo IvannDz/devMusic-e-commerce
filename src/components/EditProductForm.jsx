@@ -4,9 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import { useHistory } from "react-router";
 
 import {
-  chakra,
   Box,
-  Flex,
   useColorModeValue,
   SimpleGrid,
   GridItem,
@@ -16,21 +14,10 @@ import {
   FormControl,
   FormLabel,
   Input,
-  InputGroup,
-  InputLeftAddon,
-  FormHelperText,
   Textarea,
-  Avatar,
-  Icon,
   Button,
-  VisuallyHidden,
-  Select,
-  Checkbox,
-  RadioGroup,
-  Radio,
   useToast
 } from "@chakra-ui/react";
-import { FaUser } from "react-icons/fa";
 
 export default function EditProductForm() {
   const toast= useToast();
@@ -53,7 +40,7 @@ export default function EditProductForm() {
       setStock(data.product.stock);
       setPrice(data.product.price);
       setDescription(data.product.description);
-      setCategory(data.categoryName.name);
+      setCategory(data.categoryName?.name);
     });
   }, []);
   

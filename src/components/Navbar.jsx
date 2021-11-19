@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutRequest } from "../state/userReducer";
 import { useHistory } from "react-router-dom";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import { faRecordVinyl } from "@fortawesome/free-solid-svg-icons"
 import axios from "axios";
 
 import {
@@ -52,14 +50,13 @@ export default function Navbar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(search);
-    history.push(`/search/${search}`);
+    history.push(`/search/${search}/1`);
   };
 
   return (
     <React.Fragment>
       <chakra.header
-        bg={"#0c0f0a"}
+        bg={"black"}
         w="full"
         px={{ base: 2, sm: 4 }}
         py={4}
@@ -98,9 +95,9 @@ export default function Navbar() {
                   
                   >
                     {categorias.map((categoria, i) => (
-                      <Link key={i} to={`/category/${categoria.name}`}>
-                        <MenuItem>{categoria.name}</MenuItem>
-                      </Link>
+                       <Link key={i} to={`/category/${categoria.name}/1`}>
+                       <MenuItem>{categoria.name}</MenuItem>
+                     </Link>
                     ))}
                   </MenuList>
                 </Menu>
