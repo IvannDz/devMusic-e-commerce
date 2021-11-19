@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { Box } from "@chakra-ui/layout";
 import { StarIcon, AddIcon } from "@chakra-ui/icons";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { faComments } from "@fortawesome/free-solid-svg-icons"
 import {
   Wrap,
   chakra,
@@ -73,14 +75,16 @@ const CommentSection = ({ id }) => {
       mx="auto"
       py={2}
       px={6}
-      mr="20px"
+      mr={250}
       bg="white"
       /*       shadow="dark-lg"
        */ rounded="lg"
       border="5px"
-      Color="gray.400"
+      Color="#FFCD1F"
     >
-      <Heading>Comment section:</Heading>
+      <Heading color="black" >
+    
+        Comment section:</Heading>
       {buyConditions === true && (
         <Box>
           <>
@@ -148,7 +152,7 @@ const CommentSection = ({ id }) => {
         ) : (
           <Wrap>
             <Flex
-              bg={("#F9FAFB", "gray.600")}
+              bg={("#F9FAFB", "#0c0f0a")}
               p={1}
               alignItems="center" //chequear
               justifyContent="center"
@@ -159,11 +163,11 @@ const CommentSection = ({ id }) => {
                 mx="auto"
                 py={2}
                 px={6}
-                bg="gray.800"
+                bg="#0c0f0a"
                 shadow="lg"
                 rounded="lg"
               >
-                <chakra.p color="gray.200">Sin comentarios</chakra.p>
+                <chakra.p bg="#0c0f0a" color="gray.200">Sin comentarios</chakra.p>
               </Box>
             </Flex>
           </Wrap>

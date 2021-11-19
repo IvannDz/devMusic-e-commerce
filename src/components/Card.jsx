@@ -31,6 +31,7 @@ function Card({ name, price, photo, id }) {
           mt={-12}
           pos={"relative"}
           height={"230px"}
+          borderRightWidth={2}
           _after={{
             transition: "all .3s ease",
             content: '""',
@@ -58,12 +59,12 @@ function Card({ name, price, photo, id }) {
           />
         </Box>
         <Stack pt={10} align={"center"}>
-          <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
+          <Heading fontSize={"md"} fontFamily={"body"} fontWeight={500}>
             {name}
           </Heading>
           <Stack direction={"row"} align={"center"}>
             <Text fontWeight={800} fontSize={"xl"}>
-              {price}
+             $ {price}
             </Text>
           </Stack>
         </Stack>

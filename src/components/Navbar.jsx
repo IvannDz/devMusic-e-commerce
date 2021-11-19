@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutRequest } from "../state/userReducer";
 import { useHistory } from "react-router-dom";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { faRecordVinyl } from "@fortawesome/free-solid-svg-icons"
 import axios from "axios";
 
 import {
@@ -57,34 +59,40 @@ export default function Navbar() {
   return (
     <React.Fragment>
       <chakra.header
-        bg={"white"}
+        bg={"#0c0f0a"}
         w="full"
         px={{ base: 2, sm: 4 }}
         py={4}
         shadow="md"
       >
-        <Flex alignItems="center" justifyContent="space-between" mx="auto">
+        <Flex alignItems="center" justifyContent="space-between" mx="auto" color="#ffcd1f">
           <Flex>
             <Link to="/">
               <chakra.h1 fontSize="xl" fontWeight="semi-bold" ml="2">
-                devMusic
+              <FontAwesomeIcon icon={faRecordVinyl} size='2x'/> devMusic
               </chakra.h1>
             </Link>
           </Flex>
 
-          <HStack display="flex" alignItems="center" spacing={1}>
+          <HStack display="flex" alignItems="center" justify="stretch" >
             <HStack
-              spacing={1}
+              spacing={2}
               mr={1}
               color="brand.500"
               display={{ base: "none", md: "inline-flex" }}
             >
-              <Box zIndex="9999">
+              <Box zIndex="9999" 
+              
+              >
                 <Menu>
-                  <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                  <MenuButton variant="solid" bg="#ffcd1f" color="black" as={Button} rightIcon={<ChevronDownIcon />}> {/* 1erBoton */}
                     Categories
                   </MenuButton>
-                  <MenuList>
+                  <MenuList
+                  color="#ffcd1f"
+                  bg="#0c0f0a"
+                  
+                  >
                     {categorias.map((categoria, i) => (
                       <Link key={i} to={`/category/${categoria.name}`}>
                         <MenuItem>{categoria.name}</MenuItem>
@@ -94,11 +102,12 @@ export default function Navbar() {
                 </Menu>
               </Box>
               <form onSubmit={handleSubmit}>
-                <InputGroup>
+                <InputGroup   >
                   <Input
                     type="text"
                     placeholder="Search..."
                     value={search}
+                    mr={250}
                     onChange={(e) => setSearch(e.target.value)}
                   />
                 </InputGroup>
@@ -109,7 +118,7 @@ export default function Navbar() {
                     <Box zIndex="9999">
                       {user.isSuperAdmin ? (
                         <Menu>
-                          <MenuButton as={Button} icon={<FaUserCog />}>
+                          <MenuButton variant="solid" bg="black"  as={Button} icon={<FaUserCog />}>
                             SuperAdmin
                           </MenuButton>
                           <MenuList>
@@ -144,8 +153,8 @@ export default function Navbar() {
                     </Box>
                     <Link to="/">
                       <Button
-                        variant="solid"
-                        colorScheme="gray"
+                        variant="link"
+                        colorScheme="yellow"
                         onClick={handleLogout}
                       >
                         Logout
@@ -155,21 +164,24 @@ export default function Navbar() {
                 ) : (
                   <HStack>
                     <Link to="/orders">
-                      <Button variant="solid" colorScheme="pink">
+                      <Button variant="link" colorScheme="yellow" p={3}           > 
                         {user.userName}
                       </Button>
                     </Link>
                     <Link to="/cart">
                       <IconButton
-                        colorScheme="pink"
-                        variant="outline"
+                      color="#0c0f0a"
+                        bg="#ffcd1f"
+                        variant="solid"
                         icon={<AiOutlineShoppingCart />}
                       />
                     </Link>
                     <Link to="/">
                       <Button
                         variant="solid"
-                        colorScheme="gray"
+                        bg="#ffcd1f"
+                        color="#0c0f0a"
+                       // colorScheme="#ffcd1f"
                         onClick={handleLogout}
                       >
                         Logout
@@ -180,19 +192,22 @@ export default function Navbar() {
               ) : (
                 <>
                   <Link to="/login">
-                    <Button variant="solid" colorScheme="gray">
+                    <Button variant="solid"   color="#0c0f0a"
+                        bg="#ffcd1f">
                       Login
                     </Button>
                   </Link>
                   <Link to="/register">
-                    <Button variant="solid" colorScheme="gray">
+                    <Button variant="solid"   color="#0c0f0a"
+                        bg="#ffcd1f">
                       Sign Up
                     </Button>
                   </Link>
                   <Link to="/login">
                     <IconButton
-                      colorScheme="gray"
-                      variant="outline"
+                        color="#0c0f0a"
+                        bg="#ffcd1f"
+                      variant="solid"
                       icon={<AiOutlineShoppingCart />}
                     />
                   </Link>

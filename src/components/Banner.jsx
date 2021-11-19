@@ -7,7 +7,7 @@ const Component = () => {
   const slides = [
     {
       img:
-        "https://images.pexels.com/photos/290660/pexels-photo-290660.jpeg?cs=srgb&dl=pexels-pixabay-290660.jpg&fm=jpg",
+        "https://images.unsplash.com/photo-1626126525134-fbbc07afb32c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80",
     },
     {
       img:
@@ -15,7 +15,7 @@ const Component = () => {
     },
     {
       img:
-        "https://images.unsplash.com/photo-1525898181636-29b30c26f6e1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1162&q=80",
+        "https://images.unsplash.com/photo-1585666176485-dfba5b1944f0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80",
     }
   ];
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -47,10 +47,14 @@ const Component = () => {
     
     <Flex
       w="full"
-      bg={useColorModeValue("gray.200", "gray.600")}
+      bg={useColorModeValue("#e6e6e6", "gray.600")}
       p={10}
       alignItems="center"
       justifyContent="center"
+      objectFit="contain"
+      borderRadius="md"
+      m={2}
+      boxShadow="md"
     >
     
       <Flex w="full" overflow="hidden">
@@ -67,7 +71,7 @@ const Component = () => {
               >
                 {sid + 1} / {slidesCount}
               </Text>
-              <Image src={slide.img} boxSize="full" backgroundSize="cover" />
+              <Image src={slide.img} boxSize="full" backgroundSize="cover" objectFit="cover"/>
             </Box>
           ))}
         </Flex>

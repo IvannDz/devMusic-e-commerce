@@ -3,6 +3,7 @@ import React from "react";
 import { Route, Switch} from "react-router-dom";
 import "./App.css";
 import AddAdminUsers from "./components/AddAdminUsers"
+import Addcategory from "./components/AddCategory"
 import ListCategories from "./components/ListCategories"
 import EditCategory from "./components/EditCategory.jsx"
 import ProductsList from "./components/ProductsList.jsx"
@@ -87,7 +88,7 @@ function App() {
           <EditCategory/>
         </Route>
         <Route path="/admin/add/category">
-          <AddCategory/>
+          <Addcategory/>
         </Route>
         <Route path="/admin/productslist">
           <ProductsList/>
