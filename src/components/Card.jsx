@@ -32,6 +32,8 @@ function Card({ name, price, photo, id }) {
           pos={"relative"}
           height={"230px"}
           borderRightWidth={2}
+          // borderBottomWidth={2}
+          boxShadow={"lg"}
           _after={{
             transition: "all .3s ease",
             content: '""',
@@ -40,7 +42,7 @@ function Card({ name, price, photo, id }) {
             pos: "absolute",
             top: 5,
             left: 0,
-            backgroundImage: `url(${photo})`,
+            // backgroundImage: `url(${photo})`,
             filter: "blur(15px)",
             zIndex: -1,
           }}
@@ -52,7 +54,7 @@ function Card({ name, price, photo, id }) {
         >
           <Image
             rounded={"lg"}
-            height={230}
+            height={229}
             width={282}
             objectFit={"contain"}
             src={photo}
