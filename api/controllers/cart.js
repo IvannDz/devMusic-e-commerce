@@ -29,7 +29,7 @@ class CartController {
   static async postProduct(req, res) {
     //id y precio del producto
     console.log(req.user);
-    const { id, price } = req.body;
+    const { id, price } = req.body
 
     let cart = await Cart.findOne({
       where: { userId: req.user.id, done: false },
@@ -53,7 +53,7 @@ class CartController {
     }
   }
   static async comprar(req, res) {
-    const upCart = await Cart.update(
+    await Cart.update(
       {
         done: true,
       },

@@ -7,7 +7,7 @@ db.sync()
   .then(() => {
     return User.create({
       userName: "SuperAdmin",
-      email: "admin@gmail.com",
+      email: process.env.SUPER_ADMIN_GMAIL,
       tel: 1154656108,
       password: "password",
       isAdmin: true,

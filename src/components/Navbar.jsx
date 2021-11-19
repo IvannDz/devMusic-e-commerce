@@ -51,12 +51,13 @@ export default function Navbar() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(search);
-    history.push(`/search/${search}`);
+    history.push(`/search/${search}/1`);
   };
 
   return (
     <React.Fragment>
       <chakra.header
+      id="1"
         bg={"white"}
         w="full"
         px={{ base: 2, sm: 4 }}
@@ -86,7 +87,7 @@ export default function Navbar() {
                   </MenuButton>
                   <MenuList>
                     {categorias.map((categoria, i) => (
-                      <Link key={i} to={`/category/${categoria.name}`}>
+                      <Link key={i} to={`/category/${categoria.name}/1`}>
                         <MenuItem>{categoria.name}</MenuItem>
                       </Link>
                     ))}
