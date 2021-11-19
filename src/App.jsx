@@ -2,6 +2,7 @@
 import React from "react";
 import { Route, Switch} from "react-router-dom";
 import "./App.css";
+import AddCategory from "./components/AddCategory"
 import AddAdminUsers from "./components/AddAdminUsers"
 import ListCategories from "./components/ListCategories"
 import EditCategory from "./components/EditCategory.jsx"
