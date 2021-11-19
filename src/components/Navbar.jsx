@@ -69,7 +69,11 @@ export default function Navbar() {
           <Flex>
             <Link to="/">
               <chakra.h1 fontSize="xl" fontWeight="semi-bold" ml="2">
-              <FontAwesomeIcon icon={faRecordVinyl} size='2x'/> devMusic
+                <Box overflow="auto" float="left" w="175px" h="auto">
+                <img 
+                src="https://cdn.discordapp.com/attachments/911052852607193099/911053682928406588/devMusic_1.jpg" alt="logo" />
+                </Box>
+              {/* <FontAwesomeIcon icon={faRecordVinyl} size='2x'/> */} {/* devMusic */}
               </chakra.h1>
             </Link>
           </Flex>
