@@ -42,23 +42,32 @@ const Ma = () => {
       templateRows="repeat(2, 1fr)"
       templateColumns="repeat(5, 1fr)"
       gap={4}
+      mb="150"
       h="full"
     >
       <GridItem rowSpan={2} colSpan={3} bg="white" h="500px">
         <Box
-          w="full"
+          w="3xl"
           h="full"
-          bg="#E4EBF1"
+          bg="#0c0f0a"
           mx={{ lg: 8 }}
           display={{ lg: "flex" }}
           maxW={{ lg: "5xl" }}
           /*      shadow="dark-lg" */
           rounded={{ lg: "lg" }}
+         // ml={2}
+          mt={2}
+         
+          border="solid black 2px"
+          
+         
         >
           <Box w={{ lg: "50%" }} alignItems="center">
             <Image
             ml="25px"
               rounded={"lg"}
+            //  border="solid 3px"
+          //    borderColor="#e6e6e6"
               height="full"
               width="full"
               objectFit={"contain"}
@@ -72,21 +81,22 @@ const Ma = () => {
             px={6}
             maxW={{ base: "xl", lg: "5xl" }}
             w={{ lg: "50%" }}
+           // border="solid black 1px"
           >
             <chakra.h2
               fontSize={{ base: "2xl", md: "3xl" }}
-              color="gray.800"
+              color="#ffcd1f"
               fontWeight="bold"
             >
               {product.name}
             </chakra.h2>
-            <chakra.p mt={4} color="gray.600">
+            <chakra.p mt={4} color="#ffcd1f">
               {product.description}
             </chakra.p>
-            <chakra.h1 color="black" fontWeight="bold" fontSize="lg">
+            <chakra.h1 color="#ffcd1f" fontWeight="bold" fontSize="lg">
               USD {product.price}
             </chakra.h1>
-            <chakra.h1 color="black" fontWeight="bold" fontSize="lg">
+            <chakra.h1 color="#ffcd1f" fontWeight="bold" fontSize="lg">
               Stock: {product.stock}
             </chakra.h1>
             <Box d="flex" mt="2" alignItems="center">
@@ -95,7 +105,7 @@ const Ma = () => {
                 .map((_, i) => (
                   <StarIcon
                     key={i}
-                    color={i < valoration ? "teal.500" : "gray.300"}
+                    color={i <= valoration ? "teal.500" : "gray.300"}
                   />
                 ))}
             </Box>
@@ -104,8 +114,8 @@ const Ma = () => {
               <Box mt={8}>
                 <Link
                   onClick={addToCart}
-                  bg="gray.900"
-                  color="gray.100"
+                  bg="#FFCD1F"
+                  color="black"
                   px={5}
                   py={3}
                   fontWeight="semibold"

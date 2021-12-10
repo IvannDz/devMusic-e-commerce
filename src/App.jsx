@@ -4,6 +4,7 @@ import { Route, Switch} from "react-router-dom";
 import "./App.css";
 import AddCategory from "./components/AddCategory"
 import AddAdminUsers from "./components/AddAdminUsers"
+import Addcategory from "./components/AddCategory"
 import ListCategories from "./components/ListCategories"
 import EditCategory from "./components/EditCategory.jsx"
 import ProductsList from "./components/ProductsList.jsx"
@@ -57,7 +58,7 @@ function App() {
         <Route exact path="/products/:id">
           <CardProduct />
         </Route>
-        <Route path="/category/:category">
+        <Route path="/category/:category/:page">
           <CategoryGrid />
         </Route>
         <Route path="/register">
@@ -75,7 +76,7 @@ function App() {
         <Route path="/checkout">
           <Checkout/>
         </Route>
-        <Route path="/search/:name">
+        <Route path="/search/:name/:page">
           <Search/>
         </Route>
         <Route path="/admin/users">
@@ -88,7 +89,7 @@ function App() {
           <EditCategory/>
         </Route>
         <Route path="/admin/add/category">
-          <AddCategory/>
+          <Addcategory/>
         </Route>
         <Route path="/admin/productslist">
           <ProductsList/>
@@ -98,9 +99,6 @@ function App() {
         </Route>
         <Route path="/admin/edit/:id">
           <EditProductForm/>
-        </Route>
-        <Route path="/search/:name">
-          <Search/>
         </Route>
         <Route path="/admin/users">
           <AddAdminUsers/>
@@ -118,7 +116,7 @@ function App() {
           <EditProductForm/>
         </Route>
       </Switch>
-      <div>
+      <div className="footer">
         <Footer />
       </div>
     </div>

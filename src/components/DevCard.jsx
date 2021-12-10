@@ -15,7 +15,7 @@ const DevsPage = ({data}) => {
   return (
     <Flex
       bg={useColorModeValue("#F9FAFB", "gray.600")}
-      p={50}
+      p={25}
       w="full"
       alignItems="center"
       justifyContent="center"

@@ -33,7 +33,7 @@ export default function ProductsList() {
       justifyContent="center"
     >
       <Stack direction={{ base: "column" }} w="full" bg="white" shadow="lg">
-        <Flex direction={{ base: "row", md: "column" }} bg="grey">
+        <Flex direction={{ base: "row", md: "column" }} bg="#e6e6e6">
           <SimpleGrid
             spacingY={3}
             columns={{ base: 1, md: 4 }}
@@ -59,6 +59,8 @@ export default function ProductsList() {
             </chakra.span>
             <Link to="/admin">
             <Button
+            bg="black"
+            color="#ffcd1f"
             ml={20}>Add New Product</Button>
             </Link>
           </SimpleGrid>
@@ -69,6 +71,7 @@ export default function ProductsList() {
               direction={{ base: "row", md: "column" }}
               bg="white"
               key={pid}
+              borderBottom="1px solid grey"
             >
               <SimpleGrid
                 spacingY={3}

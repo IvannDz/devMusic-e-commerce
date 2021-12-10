@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import {GrEdit, GrAdd} from 'react-icons/gr'
-import {AiFillDelete} from 'react-icons/ai'
+import { GrEdit, GrAdd } from "react-icons/gr";
+import { AiFillDelete } from "react-icons/ai";
 import {
   chakra,
   Flex,
-
   Button,
-
   Stack,
   SimpleGrid,
-
-  useToast
+  useToast,
 } from "@chakra-ui/react";
-
 
 export default function Component() {
   const [categories, setCategories] = useState([]);
-  const toast= useToast();
+  const toast = useToast();
 
   useEffect(() => {
     axios
@@ -59,7 +55,12 @@ export default function Component() {
             >
               Category
             </chakra.span>
-         
+            <span></span>
+            <Link to="/admin/add/category">
+              <Button bg="black" color="#ffcd1f" mr={15}>
+                Add New Category
+              </Button>
+            </Link>
           </SimpleGrid>
         </Flex>
 
@@ -88,62 +89,46 @@ export default function Component() {
                 >
                   {category.name}
                 </chakra.span>
-                
-                  <Flex justify={{ md: "end" }}>
-                    <Link to={`/admin/category/${category.id}`}>
-                      <Button
-                        variant="outline"
-                        bg="gray.400"
-                        size="sm"
-                        
-                      ><GrEdit/>
-                      </Button>
-                    </Link>
-                    <Link to={`/admin/add/category`}>
-                      <Button
-                        variant="outline"
-                        bg="gray.400"
-                        size="sm"
-                        mr={2}
-                        ml={2}
-                      >
-                       <GrAdd/>
-                      </Button>
-                    </Link>
 
-                  </Flex>
-                  <Flex>
-                    <Button
-                      variant="solid"
-                      colorScheme="red"
-                      size="sm"
-                      onClick={() => {
-                        return axios
-                          .delete(`/api/admin/category/${category.id}`)
-                          .then((resp) => resp.data)
-                          .then(() => {
-                            axios
-                              .get(`/api/products/category`)
-                              .then((resp) => {
-                                toast({
-                                  title: "Action Success",
-                                  description: "Category Deleted",
-                                  status: "error",
-                                  duration: 2000,
-                                  isClosable: true,
-                                })
-                                return resp.data;
-                              })
-                              .then((data) => {
-                                setCategories(data);
-                              });
-                          });
-                      }}
-                    >
-                      <AiFillDelete/>
+                <Flex justify={{ md: "end" }}>
+                  <Link to={`/admin/category/${category.id}`}>
+                    <Button variant="outline" bg="gray.400" size="sm">
+                      <GrEdit />
                     </Button>
-                    </Flex>
+                  </Link>
+                </Flex>
+                <Flex>
+                  <Button
+                    variant="solid"
+                    colorScheme="red"
+                    size="sm"
+                    onClick={() => {
+                      return axios
+                        .delete(`/api/admin/category/${category.id}`)
+                        .then((resp) => resp.data)
+                        .then(() => {
+                          axios
+                            .get(`/api/products/category`)
+                            .then((resp) => {
+                              toast({
+                                title: "Action Success",
+                                description: "Category Deleted",
+                                status: "error",
+                                duration: 2000,
+                                isClosable: true,
+                              });
+                              return resp.data;
+                            })
+                            .then((data) => {
+                              setCategories(data);
+                            });
+                        });
+                    }}
+                  >
+                    <AiFillDelete />
+                  </Button>
                 
+                </Flex>
               </SimpleGrid>
             </Flex>
           );

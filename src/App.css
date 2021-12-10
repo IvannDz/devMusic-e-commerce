@@ -1,3 +1,5 @@
+
+
 .App {
   text-align: center;
 }
@@ -24,6 +26,17 @@
   color: white;
 }
 
+.fondo {
+  background-image: url("./utils/foteishon.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+.footer {
+  width: 100%;
+  height: 100%;
+}
+
 .App-link {
   color: #61dafb;
 }
@@ -37,7 +50,16 @@
   }
 }
 
-.container{
+.container {
   display: flex;
   flex-direction: row;
+}
+
+.footer {
+}
+
+
+body {
+  display: flex;
+  min-height: 100vh;
 }

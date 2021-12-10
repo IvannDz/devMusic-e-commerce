@@ -4,9 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import { useHistory } from "react-router";
 
 import {
-  chakra,
   Box,
-  Flex,
   useColorModeValue,
   SimpleGrid,
   GridItem,
@@ -16,21 +14,10 @@ import {
   FormControl,
   FormLabel,
   Input,
-  InputGroup,
-  InputLeftAddon,
-  FormHelperText,
   Textarea,
-  Avatar,
-  Icon,
   Button,
-  VisuallyHidden,
-  Select,
-  Checkbox,
-  RadioGroup,
-  Radio,
   useToast
 } from "@chakra-ui/react";
-import { FaUser } from "react-icons/fa";
 
 export default function EditProductForm() {
   const toast= useToast();
@@ -53,7 +40,7 @@ export default function EditProductForm() {
       setStock(data.product.stock);
       setPrice(data.product.price);
       setDescription(data.product.description);
-      setCategory(data.categoryName.name);
+      setCategory(data.categoryName?.name);
     });
   }, []);
   
@@ -125,7 +112,7 @@ export default function EditProductForm() {
                 spacing={6}
               >
                 <SimpleGrid columns={6} spacing={6}>
-                  <FormControl as={GridItem} colSpan={[6, 3]}>
+                  <FormControl as={GridItem} colSpan={[6, 3]}  >
                     <FormLabel
                       htmlFor="first_name"
                       fontSize="sm"
@@ -147,7 +134,7 @@ export default function EditProductForm() {
                     />
                   </FormControl>
 
-                  <FormControl as={GridItem} colSpan={[6, 3]}>
+                  <FormControl as={GridItem} colSpan={[6, 3]}  >
                     <FormLabel
                       htmlFor="last_name"
                       fontSize="sm"
@@ -168,7 +155,7 @@ export default function EditProductForm() {
                       onChange={(e) => handleChange(e, setModel)}
                     />
                   </FormControl>
-                  <FormControl as={GridItem} colSpan={[6, 3]}>
+                  <FormControl as={GridItem} colSpan={[6, 3]}  >
                     <FormLabel
                       fontSize="sm"
                       fontWeight="md"
@@ -189,7 +176,7 @@ export default function EditProductForm() {
                     />
                   </FormControl>
 
-                  <FormControl as={GridItem} colSpan={[6, 3]}>
+                  <FormControl as={GridItem} colSpan={[6, 3]}  >
                     <FormLabel
                       fontSize="sm"
                       fontWeight="md"
@@ -210,7 +197,7 @@ export default function EditProductForm() {
                     />
                   </FormControl>
 
-                  <FormControl as={GridItem} colSpan={6}>
+                  <FormControl as={GridItem} colSpan={6}  >
                     <FormLabel
                       fontSize="sm"
                       fontWeight="md"
@@ -233,7 +220,7 @@ export default function EditProductForm() {
 
                   <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
                     <div>
-                      <FormControl id="email" mt={1}>
+                      <FormControl id="email" mt={1}  >
                         <FormLabel
                           fontSize="sm"
                           fontWeight="md"
@@ -257,7 +244,7 @@ export default function EditProductForm() {
 
                   <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
                     <div>
-                      <FormControl mt={1}>
+                      <FormControl mt={1}  >
                         <FormLabel
                           fontSize="sm"
                           fontWeight="md"

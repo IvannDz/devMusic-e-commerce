@@ -3,6 +3,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import PhoneInput from "react-phone-number-input";
+import { AiFillFacebook } from "react-icons/ai";
 
 import {
   Flex,
@@ -57,15 +58,16 @@ export default function RegisterForm() {
       status: "success",
       duration: 2000,
       isClosable: true,
-    })
+    });
   };
 
   return (
+    <div className="fondo">
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"gray.50"}>
+      <Flex minH={"100vh"} align={"center"} justify={"center"} >
         <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
           <Stack align={"center"}>
-            <Heading fontSize={"4xl"}>Register</Heading>
+            <Heading fontSize={"4xl"} color="white">Register</Heading>
           </Stack>
           <Box rounded={"lg"} bg={"white"} boxShadow={"lg"} p={8}>
             <Stack spacing={4}>
@@ -182,13 +184,26 @@ export default function RegisterForm() {
                 </Stack>
                 <Button
                   type="submit"
+                  bg={"#ffcd1f"}
+                  color={"black"}
+                  _hover={{
+                    bg: "#ffcd1f.400",
+                    border: "1px solid grey",
+                  }}
+                >
+                  Sign up
+                </Button>
+                <Button
+                  type="submit"
                   bg={"blue.400"}
                   color={"white"}
                   _hover={{
                     bg: "blue.500",
+                    border: "1px solid grey",
                   }}
+                  leftIcon={<AiFillFacebook />}
                 >
-                  Sign in
+                  Sign up with Facebook
                 </Button>
               </Stack>
             </Stack>
@@ -196,5 +211,6 @@ export default function RegisterForm() {
         </Stack>
       </Flex>
     </form>
+    </div>
   );
 }

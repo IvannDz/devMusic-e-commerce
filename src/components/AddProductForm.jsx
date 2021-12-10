@@ -89,13 +89,7 @@ export default function AddProductForm() {
                 <Heading fontSize="lg" fontWeight="medium" lineHeight="6">
                   Add a new product
                 </Heading>
-                <Text
-                  mt={1}
-                  fontSize="sm"
-                  color={useColorModeValue("gray.600", "gray.400")}
-                >
-                  Use a permanent address where you can receive mail.
-                </Text>
+                
               </Box>
             </GridItem>
             <GridItem mt={[5, null, 0]} colSpan={{ md: 2 }}>
@@ -107,7 +101,7 @@ export default function AddProductForm() {
                 spacing={6}
               >
                 <SimpleGrid columns={6} spacing={6}>
-                  <FormControl as={GridItem} colSpan={[6, 3]}>
+                  <FormControl as={GridItem} colSpan={[6, 3]}   >
                     <FormLabel
                       htmlFor="first_name"
                       fontSize="sm"
@@ -134,7 +128,7 @@ export default function AddProductForm() {
                     />
                   </FormControl>
 
-                  <FormControl as={GridItem} colSpan={[6, 3]}>
+                  <FormControl as={GridItem} colSpan={[6, 3]}   >
                     <FormLabel
                       htmlFor="last_name"
                       fontSize="sm"
@@ -160,7 +154,7 @@ export default function AddProductForm() {
                       }}
                     />
                   </FormControl>
-                  <FormControl as={GridItem} colSpan={[6, 3]}>
+                  <FormControl as={GridItem} colSpan={[6, 3]}   >
                     <FormLabel
                       htmlFor="first_name"
                       fontSize="sm"
@@ -187,7 +181,7 @@ export default function AddProductForm() {
                     />
                   </FormControl>
 
-                  <FormControl as={GridItem} colSpan={[6, 3]}>
+                  <FormControl as={GridItem} colSpan={[6, 3]}   >
                     <FormLabel
                       htmlFor="last_name"
                       fontSize="sm"
@@ -214,7 +208,7 @@ export default function AddProductForm() {
                     />
                   </FormControl>
 
-                  <FormControl as={GridItem} colSpan={6}>
+                  <FormControl as={GridItem} colSpan={6}   >
                     <FormLabel
                       htmlFor="street_address"
                       fontSize="sm"
@@ -241,9 +235,9 @@ export default function AddProductForm() {
                     />
                   </FormControl>
 
-                  <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
+                  <FormControl as={GridItem} colSpan={[6, 6, null, 2]}   >
                     <div>
-                      <FormControl id="email" mt={1}>
+                      <FormControl id="email" mt={1}   >
                         <FormLabel
                           fontSize="sm"
                           fontWeight="md"
@@ -266,9 +260,9 @@ export default function AddProductForm() {
                       </FormControl>
                     </div>
                   </FormControl>
-                  <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
+                  <FormControl as={GridItem} colSpan={[6, 6, null, 2]}   >
                     <div>
-                      <FormControl id="email" mt={1}>
+                      <FormControl id="email" mt={1}   >
                         <FormLabel
                           fontSize="sm"
                           fontWeight="md"

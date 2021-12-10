@@ -1,5 +1,5 @@
 const { Product, Category, Comment } = require("../models");
-const { Op } = require('sequelize');
+const { Op } = require("sequelize");
 
 class ProductsController {
   static async getAll(req, res) {
@@ -17,55 +17,66 @@ class ProductsController {
         ProductId: req.params.id,
       },
     });
-
-    const puntuation = [0];
-    comments.forEach((com) => puntuation.push(com.dataValues.puntuacion));
-    const valoration = (
-      puntuation.reduce((a, b) => (b += a)) / puntuation.length
-    ).toFixed(1);
-
-    const category = await Category.findOne({where: {id:product.CategoryId}})
-
-    res.send({ product: product , comments: comments, valoration: valoration, categoryName: category });
+    let puntuation = [];
+    let valoration;
+    if (comments.length > 1) {
+      comments.forEach((com) => puntuation.push(com.dataValues.puntuacion));
+       valoration = (
+        puntuation.reduce((a, b) => (b += a)) / puntuation.length
+        ).toFixed(1);
+      }else{
+        console.log(comments)
+        valoration = comments[0]?.puntuacion
+      }
+        console.log(valoration )
+        const category = await Category.findOne({
+          where: { id: product.CategoryId },
+        });
+        
+        res.send({
+          product: product,
+          comments: comments,
+          valoration: valoration,
+          categoryName: category,
+        });
+      
+      
   }
 
-  //a testear
   static async getByCategory(req, res) {
-    const { category } = req.params; //nombre de la categoria
+    const { page = 1 } = req.query;
+    const { category } = req.params;
     const categoria = await Category.findOne({
       where: { name: category },
     });
     const products = await Product.findAll({
       where: { CategoryId: categoria.id },
     });
-    res.send(products);
+    res.send(products.slice(9 * (page - 1), 9 * page));
   }
 
   static async getByName(req, res) {
     const { name } = req.params;
+    const { page = 1 } = req.query;
     const products = await Product.findAll({
       where: {
         name: {
-          [Op.iLike]: `${name}%`
-        }
-      }
+          [Op.iLike]: `${name}%`,
+        },
+      },
     });
 
-
-
-    res.send(products);
+    res.send(products.slice(9 * (page - 1), 9 * page));
   }
 
   static async getAllCategory(req, res) {
     try {
-      const category = await Category.findAll()
+      const category = await Category.findAll();
       res.send(category);
-    }
-    catch {
+    } catch {
       res.sendStatus(500);
     }
   }
-
 }
 
 module.exports = ProductsController;

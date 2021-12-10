@@ -50,55 +50,65 @@ export default function Navbar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(search);
-    history.push(`/search/${search}`);
+    history.push(`/search/${search}/1`);
   };
 
   return (
     <React.Fragment>
       <chakra.header
-        bg={"white"}
+        bg={"black"}
         w="full"
         px={{ base: 2, sm: 4 }}
         py={4}
         shadow="md"
       >
-        <Flex alignItems="center" justifyContent="space-between" mx="auto">
+        <Flex alignItems="center" justifyContent="space-between" mx="auto" color="#ffcd1f">
           <Flex>
             <Link to="/">
               <chakra.h1 fontSize="xl" fontWeight="semi-bold" ml="2">
-                devMusic
+                <Box overflow="auto" float="left" w="175px" h="auto">
+                <img 
+                src="https://cdn.discordapp.com/attachments/911052852607193099/911053682928406588/devMusic_1.jpg" alt="logo" />
+                </Box>
+              {/* <FontAwesomeIcon icon={faRecordVinyl} size='2x'/> */} {/* devMusic */}
               </chakra.h1>
             </Link>
           </Flex>
 
-          <HStack display="flex" alignItems="center" spacing={1}>
+          <HStack display="flex" alignItems="center" justify="stretch" >
             <HStack
-              spacing={1}
+              spacing={2}
               mr={1}
               color="brand.500"
               display={{ base: "none", md: "inline-flex" }}
             >
-              <Box zIndex="9999">
+              <Box zIndex="9999" 
+              
+              >
                 <Menu>
-                  <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                  <MenuButton variant="solid" bg="#ffcd1f" color="black" as={Button} rightIcon={<ChevronDownIcon />}> {/* 1erBoton */}
                     Categories
                   </MenuButton>
-                  <MenuList>
+                  <MenuList
+                  color="#ffcd1f"
+                  bg="#0c0f0a"
+                  
+                  >
                     {categorias.map((categoria, i) => (
-                      <Link key={i} to={`/category/${categoria.name}`}>
-                        <MenuItem>{categoria.name}</MenuItem>
-                      </Link>
+                       <Link key={i} to={`/category/${categoria.name}/1`}>
+                       <MenuItem>{categoria.name}</MenuItem>
+                     </Link>
                     ))}
                   </MenuList>
                 </Menu>
               </Box>
               <form onSubmit={handleSubmit}>
-                <InputGroup>
+                <InputGroup   >
                   <Input
                     type="text"
                     placeholder="Search..."
                     value={search}
+                    mr={250}
                     onChange={(e) => setSearch(e.target.value)}
                   />
                 </InputGroup>
@@ -108,11 +118,11 @@ export default function Navbar() {
                   <HStack>
                     <Box zIndex="9999">
                       {user.isSuperAdmin ? (
-                        <Menu>
-                          <MenuButton as={Button} icon={<FaUserCog />}>
+                        <Menu >
+                          <MenuButton variant="solid" bg="black"  as={Button} icon={<FaUserCog />}>
                             SuperAdmin
                           </MenuButton>
-                          <MenuList>
+                          <MenuList bg="black">
                             <Link to="/admin/users">
                               <MenuItem>Set Users</MenuItem>
                             </Link>
@@ -144,8 +154,10 @@ export default function Navbar() {
                     </Box>
                     <Link to="/">
                       <Button
-                        variant="solid"
-                        colorScheme="gray"
+                      ml={5}
+                      mr={3}
+                        variant="link"
+                        colorScheme="yellow"
                         onClick={handleLogout}
                       >
                         Logout
@@ -155,21 +167,24 @@ export default function Navbar() {
                 ) : (
                   <HStack>
                     <Link to="/orders">
-                      <Button variant="solid" colorScheme="pink">
+                      <Button variant="link" colorScheme="yellow" p={3}           > 
                         {user.userName}
                       </Button>
                     </Link>
                     <Link to="/cart">
                       <IconButton
-                        colorScheme="pink"
-                        variant="outline"
+                      color="#0c0f0a"
+                        bg="#ffcd1f"
+                        variant="solid"
                         icon={<AiOutlineShoppingCart />}
                       />
                     </Link>
                     <Link to="/">
                       <Button
                         variant="solid"
-                        colorScheme="gray"
+                        bg="#ffcd1f"
+                        color="#0c0f0a"
+                       // colorScheme="#ffcd1f"
                         onClick={handleLogout}
                       >
                         Logout
@@ -180,19 +195,22 @@ export default function Navbar() {
               ) : (
                 <>
                   <Link to="/login">
-                    <Button variant="solid" colorScheme="gray">
+                    <Button variant="solid"   color="#0c0f0a"
+                        bg="#ffcd1f">
                       Login
                     </Button>
                   </Link>
                   <Link to="/register">
-                    <Button variant="solid" colorScheme="gray">
+                    <Button variant="solid"   color="#0c0f0a"
+                        bg="#ffcd1f">
                       Sign Up
                     </Button>
                   </Link>
                   <Link to="/login">
                     <IconButton
-                      colorScheme="gray"
-                      variant="outline"
+                        color="#0c0f0a"
+                        bg="#ffcd1f"
+                      variant="solid"
                       icon={<AiOutlineShoppingCart />}
                     />
                   </Link>

@@ -13,13 +13,19 @@ db.sync()
       isAdmin: true,
       isSuperAdmin: true,
     })
-      .then((user) => {
-        console.log("SuperAdmin:", user);
+      .then(() => {
+        return Category.bulkCreate(arrayCategory);
+      })
+      .then(() => {
         return Product.bulkCreate(arrayProducts);
       })
       .then(() => {
-        return Category.bulkCreate(arrayCategory);
-      });
+        return Product.bulkCreate(arrayProducts);
+      })
+      .then(() => {
+        return Product.bulkCreate(arrayProducts);
+      })
+
   })
   .then(() => {
     process.exit(0);
