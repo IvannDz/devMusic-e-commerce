@@ -31,7 +31,7 @@ const DevsPage = () => {
     title: "Mr insomnia",
     photo:
       "https://cdn.discordapp.com/attachments/906277443361472608/910990051381493860/Screenshot_20211118-172736.png",
-    name: "Iván Dominguez💕",
+    name: "Iván Dominguez",
     description: "Full Stack maker & UI / UX Designer , no tiene mas fotos, da mala suerte en el lol pero parece ser un agradable sujeto",
     job: "CEO devMusic",
     country: "Cerca de todo",
